@@ -1,0 +1,33 @@
+<section class="home container" id="home">
+    <img src="./assets/img/background.png" alt="" class="home-img">
+    <div class="home-text">
+        <h1 class="home-title">Bienvenidos a <br> Onlyne <img src="./assets/img/iconwhite.png" alt=""></h1>
+        <h2>Millones de películas y series por descubrir <i class='bx bx-play-circle'></i></h2>
+    </div>
+</section>
+<section class="popular container" id="popular">
+    <div class="heading">
+        <h2 class="heading-title">Películas Populares</h2>
+        <div class="swiper-btn">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+    <div class="popular-content swiper">
+        <div class="swiper-wrapper">
+            <!-- Movies Box 1 -->
+            <div class="swiper-slide" *ngFor="let movie of moviesWithGenre">
+                <div class="popular-box">
+                    <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{movie.path}}" alt="" class="popular-box-img">
+                    <div class="box-text">
+                        <h2 class="popular-title">{{ movie.title }}</h2>
+                        <span class="popular-genre">{{ movie.genre }}</span>
+                        <a href="#" class="watch-btn play-btn">
+                            <i class="bx bx-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

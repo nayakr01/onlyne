@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onlyne - Iniciar sesión</title>
+    <!-- Link To CSS -->
+    <link rel="stylesheet" href="./login.component.css">
+    <!-- Fav Icon -->
+    <link rel="shortcut icon" href="../../assets/img/icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="formContent">
+            <div class="fadeIn first">
+                <img src="../../assets/img/logo.png" alt="logo">
+                <h2>Iniciar sesión</h2>
+                <br>
+            </div>
+            <form action="" name="login" (ngSubmit)="login()" #loginForm="ngForm">
+                <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-mail" email [(ngModel)]="email">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña"  [(ngModel)]="password">
+                <br>
+                <input type="submit" class="fadeIn fourth" value="Iniciar sesión" (click)="isOn = true">
+            </form>
+            <div id="formFooter">
+                <a class="underlineHover" routerLink="/register">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
