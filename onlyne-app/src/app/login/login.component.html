@@ -20,11 +20,15 @@
                 <h2>Iniciar sesión</h2>
                 <br>
             </div>
-            <form action="" name="login" (ngSubmit)="login()" #loginForm="ngForm">
-                <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-mail" email [(ngModel)]="email">
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña"  [(ngModel)]="password">
+            <form (ngSubmit)="login()" #loginForm="ngForm">
+                <input type="email" id="email" class="fadeIn second" name="email" placeholder="E-mail" [(ngModel)]="email" #emailInput="ngModel" required email>
+                <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+                    <div style="color: red;" *ngIf="emailInput.errors?.['required']">Email es requerido.</div>
+                    <div *ngIf="emailInput.errors?.['email']">">Email no es válido.</div>
+                </div>
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña"  [(ngModel)]="password" required>
                 <br>
-                <input type="submit" class="fadeIn fourth" value="Iniciar sesión" (click)="isOn = true">
+                <input type="submit" class="fadeIn fourth" [disabled]="!loginForm.valid" value="Iniciar sesión" (click)="isOn = true">
             </form>
             <div id="formFooter">
                 <a class="underlineHover" routerLink="/register">Registrarse</a>

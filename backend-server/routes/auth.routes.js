@@ -92,14 +92,14 @@ router.post('/login', async (req, res) => {
     const user = await userSchema.findOne({ email: req.body.email })
     if (!user) {
       return res.status(401).json({
-        message: 'Authentication failed',
+        message: 'El email no existe',
       })
     }
 
     const response = await bcrypt.compare(req.body.password, user.password)
     if (!response) {
       return res.status(401).json({
-        message: 'Authentication failed',
+        message: 'La contraseña es incorrecta',
       })
     }
 

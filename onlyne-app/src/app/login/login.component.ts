@@ -27,7 +27,6 @@ export class LoginComponent {
         next:(data: any) => {
           // guardar token en local storage
           localStorage.setItem('token', data.token);
-          // redirigir a la página de inicio
           Swal.fire({
             title: 'Sesion inciada',
             text: `Bienvenido ${this.email}`,
@@ -41,7 +40,15 @@ export class LoginComponent {
         },
         error:(error: any) => {
           console.log(error);
-          // mostrar mensaje de error
+          Swal.fire({
+            title: 'Error al iniciar sesion',
+            text: error.error.message,
+            icon: 'error',
+            buttonsStyling: false,
+            customClass: {
+              confirmButton: '#039be5'
+            },
+          })
         }
     });
   }
