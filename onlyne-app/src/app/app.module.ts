@@ -11,6 +11,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { TrendsComponent } from './trends/trends.component';
+import { ExplorerComponent } from './explorer/explorer.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    TrendsComponent,
+    ExplorerComponent
   ],
   imports: [
     BrowserModule,

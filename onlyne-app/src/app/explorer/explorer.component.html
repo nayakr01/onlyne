@@ -1,0 +1,27 @@
+<section class="explorer container" id="explorer">
+    <div class="heading" id="headingExplorer">
+        <h2 class="heading-title">Películas y Series</h2>
+    </div>
+    <div class="movies-content">
+        <div class="movie-box" *ngFor="let movie of moviesWithGenre">
+            <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{movie.path}}" alt="" class="movie-box-img">
+            <div class="box-text">
+                <h2 class="movie-title">{{ movie.title }}</h2>
+                <span class="movie-gender">{{ movie.genre }}</span>
+                <a href="#" class="watch-btn play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+        <div class="movie-box" *ngFor="let serie of seriesWithGenre">
+            <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{serie.path}}" alt="" class="movie-box-img">
+            <div class="box-text">
+                <h2 class="movie-title">{{ serie.title }}</h2>
+                <span class="movie-gender">{{ serie.genre }}</span>
+                <a href="#" class="watch-btn play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

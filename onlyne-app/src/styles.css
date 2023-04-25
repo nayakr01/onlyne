@@ -257,6 +257,10 @@ button:hover {
     object-fit: cover;
 }
 
+.popular-div {
+    height: 100px;
+}
+
 .popular-box .box-text,
 .movie-box .box-text {
     position: absolute;
@@ -275,9 +279,11 @@ button:hover {
 }
 
 .top {
-    font-size: 12rem;
-    font-weight: 600;
-    border-radius: 600px;
+    font-size: 10rem;
+    text-align: left;
+    text-shadow: #000000;
+    font-weight: 700;
+    border-radius: 700px;
     text-shadow: black 0.1em 0.1em 0.2em;
 }
 
@@ -302,14 +308,26 @@ button:hover {
     display: flex;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
+.swiper-button-next1,
+.swiper-button-prev1,
+.swiper-button-next2,
+.swiper-button-prev2,
+.swiper-button-next3,
+.swiper-button-prev3,
+.swiper-button-next4,
+.swiper-button-prev4 {
     position: static !important;
     margin: 0 0 0 10px !important;
 }
 
-.swiper-button-next::after,
-.swiper-button-prev::after {
+.swiper-button-next1::after,
+.swiper-button-prev1::after,
+.swiper-button-next2::after,
+.swiper-button-prev2::after, 
+.swiper-button-next3::after,
+.swiper-button-prev3::after, 
+.swiper-button-next4::after,
+.swiper-button-prev4::after  {
     color: var(--text-color);
     font-size: 18px !important;
     font-weight: 700;

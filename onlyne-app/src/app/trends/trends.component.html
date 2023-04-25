@@ -1,13 +1,13 @@
 <section class="home container" id="home">
-    <img src="./assets/img/background.png" alt="" class="home-img">
+    <img src="./assets/img/background-trends.png" alt="" class="home-img">
     <div class="home-text">
-        <h1 class="home-title">Bienvenidos a <br> Onlyne <img src="./assets/img/iconwhite.png" alt=""></h1>
-        <h2>Millones de películas y series por descubrir <i class='bx bx-play-circle'></i></h2>
+        <h1 class="home-title">Tendencias de <br> Onlyne <img src="./assets/img/iconwhite.png" alt=""></h1>
+        <h2>Las mejores películas y series <i class='bx bxs-star'></i></h2>
     </div>
 </section>
 <section class="popular container" id="popular">
     <div class="heading">
-        <h2 class="heading-title">Las películas mejores valoradas</h2>
+        <h2 class="heading-title">Películas Populares</h2>
         <div class="swiper-btn">
             <div class="swiper-button-prev swiper-button-prev3"></div>
             <div class="swiper-button-next swiper-button-next3"></div>
@@ -15,15 +15,12 @@
     </div>
     <div class="popular-content swiper swiper3">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" *ngFor="let movie of moviesWithGenre; let i=index">
+            <div class="swiper-slide" *ngFor="let movie of moviesWithGenre">
                 <div class="popular-box">
                     <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{movie.path}}" alt="" class="popular-box-img">
                     <div class="box-text">
-                        <h1 class="top">{{ i + 1 }}</h1>
-                        <div class="popular-div">
-                            <h2 class="popular-title">{{ movie.title }}</h2>
-                            <span class="popular-genre">{{ movie.genre }}</span>
-                        </div>
+                        <h2 class="popular-title">{{ movie.title }}</h2>
+                        <span class="popular-genre">{{ movie.genre }}</span>
                         <a href="#" class="watch-btn play-btn">
                             <i class="bx bx-right-arrow"></i>
                         </a>
@@ -31,11 +28,10 @@
                 </div>
             </div>
         </div>
-       
     </div>
     <br>
     <div class="heading">
-        <h2 class="heading-title">Las series mejores valoradas</h2>
+        <h2 class="heading-title">Series Populares</h2>
         <div class="swiper-btn">
             <div class="swiper-button-prev swiper-button-prev4"></div>
             <div class="swiper-button-next swiper-button-next4"></div>
@@ -43,15 +39,12 @@
     </div>
     <div class="popular-content swiper swiper4">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" *ngFor="let serie of seriesWithGenre; let i=index">
+            <div class="swiper-slide" *ngFor="let serie of seriesWithGenre">
                 <div class="popular-box">
                     <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{serie.path}}" alt="" class="popular-box-img">
                     <div class="box-text">
-                        <h1 class="top">{{ i + 1 }}</h1>
-                        <div class="popular-div">
-                            <h2 class="popular-title">{{ serie.title }}</h2>
-                            <span class="popular-genre">{{ serie.genre }}</span>
-                        </div>
+                        <h2 class="popular-title">{{ serie.title }}</h2>
+                        <span class="popular-genre">{{ serie.genre }}</span>
                         <a href="#" class="watch-btn play-btn">
                             <i class="bx bx-right-arrow"></i>
                         </a>
@@ -59,6 +52,5 @@
                 </div>
             </div>
         </div>
-       
     </div>
 </section>

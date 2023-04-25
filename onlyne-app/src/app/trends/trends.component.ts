@@ -18,12 +18,11 @@ interface SeriesWithGenre {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-trends',
+  templateUrl: './trends.component.html',
+  styleUrls: ['./trends.component.css']
 })
-export class HomeComponent {
-
+export class TrendsComponent {
   movies: Movie[] = [];
 
   series: Serie[] = [];
@@ -37,23 +36,25 @@ export class HomeComponent {
   constructor(private moviesService: MoviesService, private seriesService: SeriesService) { }
 
   ngOnInit() {
-    let home = document.getElementById('home');
+    let trend = document.getElementById('trends');
     document.querySelectorAll('.nav-link').forEach(function (elem){
         elem.classList.remove('nav-active');
     });
-    home?.classList.add('nav-active');
-    this.getRatingMovies(1);
-    this.getRatingSeries(1);
+    trend?.classList.add('nav-active');
+    for (let index = 1; index <= 5; index++) {
+      this.getPopularMovies(index);
+      this.getPopularSeries(index);
+    }
   }
 
-  getRatingMovies(page:number) {
-    this.moviesService.getRatingMovies(page).subscribe({
+  getPopularMovies(page: number) {
+    this.moviesService.getPopularMovies(page).subscribe({
       next: (data: any) => {
         console.log(data);
         this.movies = data;
         this.moviesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
-  
+
           for (let movie of this.movies) {
             const genreId = movie.genre_ids[0];
             const genre = generos.find(g => g.id === genreId);
@@ -76,14 +77,14 @@ export class HomeComponent {
     });
   }
 
-  getRatingSeries(page:number) {
-    this.seriesService.getRatingSeries(page).subscribe({
+  getPopularSeries(page: number) {
+    this.seriesService.getPopularSeries(page).subscribe({
       next: (data: any) => {
         console.log(data);
         this.series = data;
         this.seriesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
-  
+
           for (let serie of this.series) {
             const genreId = serie.genre_ids[0];
             const genre = generos.find(g => g.id === genreId);
