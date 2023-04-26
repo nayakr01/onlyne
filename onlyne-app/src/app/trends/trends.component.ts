@@ -51,11 +51,11 @@ export class TrendsComponent {
     this.moviesService.getPopularMovies(page).subscribe({
       next: (data: any) => {
         console.log(data);
-        this.movies = data;
+        const movies: Movie[] = data;
         this.moviesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
 
-          for (let movie of this.movies) {
+          for (let movie of movies) {
             const genreId = movie.genre_ids[0];
             const genre = generos.find(g => g.id === genreId);
             if (genre) {
@@ -81,11 +81,11 @@ export class TrendsComponent {
     this.seriesService.getPopularSeries(page).subscribe({
       next: (data: any) => {
         console.log(data);
-        this.series = data;
+        const series: Serie[] = data;
         this.seriesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
 
-          for (let serie of this.series) {
+          for (let serie of series) {
             const genreId = serie.genre_ids[0];
             const genre = generos.find(g => g.id === genreId);
             if (genre) {

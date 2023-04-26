@@ -1,0 +1,26 @@
+<section class="home container" id="home">
+    <img src="../assets/img/background-movies.png" alt="" class="home-img">
+    <div class="home-text">
+        <h1 class="home-title">Películas de <br> Onlyne <img src="./assets/img/iconwhite.png" alt=""></h1>
+        <h2>Encuentra tu película favorita <i class='bx bx-movie-play'></i></h2>
+    </div>
+</section>
+<section class="movies container" id="movies">
+    <div class="heading">
+        <h2 class="heading-title">Películas</h2>
+    </div>
+    <div class="movies-content">
+        <div class="movie-box" *ngFor="let movie of moviesWithGenre">
+            <div>
+                <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{movie.path}}" alt="" class="movie-box-img">
+                <div class="box-text">
+                    <h2 class="movie-title">{{ movie.title }}</h2>
+                    <span class="movie-gender">{{ movie.genre }}</span>
+                    <a href="#" class="watch-btn play-btn">
+                        <i class="bx bx-right-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

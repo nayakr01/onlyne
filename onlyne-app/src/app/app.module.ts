@@ -13,6 +13,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { TrendsComponent } from './trends/trends.component';
 import { ExplorerComponent } from './explorer/explorer.component';
+import { MoviesComponent } from './movies/movies.component';
+import { SeriesComponent } from './series/series.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ExplorerComponent } from './explorer/explorer.component';
     NavbarComponent,
     HomeComponent,
     TrendsComponent,
-    ExplorerComponent
+    ExplorerComponent,
+    MoviesComponent,
+    SeriesComponent
   ],
   imports: [
     BrowserModule,

@@ -21,10 +21,10 @@ export class SeriesService {
     }
   }
 
-  getSeries(page:number): Observable<any> {
+  getSeries(page:number): Observable<Serie[]> {
     this.pageSeries = page;
-    return this.http.get(`${this.serverURL}/tv/upcoming?`,{params: this.params}).pipe(
-      map((res) => res)
+    return this.http.get<SeriesResponse>(`${this.serverURL}/tv/airing_today?`,{params: this.params}).pipe(
+      map((res) => res.results)
     );
   }
 
