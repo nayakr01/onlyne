@@ -305,3 +305,43 @@ border-radius: 34px;
 .slider.round:before {
 border-radius: 50%;
 }
+
+/* Alerta de error en algun input del formulario */
+.alert-danger {
+  position: relative;
+  margin: auto;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  width: 75%;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+/* Cambia el color de fondo y el cursor cuando el botón está deshabilitado */
+input[type=button]:disabled,
+input[type=submit]:disabled,
+input[type=reset]:disabled {
+  background-color: #d5d5d5;
+  cursor: default;
+}
+
+/* Cambia el color del texto cuando el botón está deshabilitado */
+input[type=button]:disabled,
+input[type=submit]:disabled,
+input[type=reset]:disabled,
+input[type=button]:disabled:hover,
+input[type=submit]:disabled:hover,
+input[type=reset]:disabled:hover,
+input[type=button]:disabled:active,
+input[type=submit]:disabled:active,
+input[type=reset]:disabled:active {
+  color: #a6a6a6;
+}

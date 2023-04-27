@@ -21,20 +21,30 @@
                 <br>
             </div>
             <form (ngSubmit)="login()" #loginForm="ngForm">
-                <input type="email" id="email" class="fadeIn second" name="email" placeholder="E-mail" [(ngModel)]="email" #emailInput="ngModel" required email>
-                <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
-                    <div style="color: red;" *ngIf="emailInput.errors?.['required']">Email es requerido.</div>
-                    <div *ngIf="emailInput.errors?.['email']">">Email no es válido.</div>
+                <input type="text" class="fadeIn second" name="email" placeholder="E-mail" [(ngModel)]="email" #emailInput="ngModel" required email>
+                <div class="alert-danger" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+                    <div *ngIf="emailInput.errors?.['required']">
+                        El email es requerido!
+                    </div>
+                    <div *ngIf="emailInput.errors?.['email']">
+                        El email debe tener un formato válido.
+                    </div>
                 </div>
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña"  [(ngModel)]="password" required>
+                <input type="password" class="fadeIn third" name="password" placeholder="Contraseña"  [(ngModel)]="password" #passwordInput="ngModel" required>
+                <div class="alert-danger" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+                    <div *ngIf="passwordInput.errors?.['required']">
+                        La contraseña no puede estar vacía!
+                    </div>
+                </div>
                 <br>
-                <input type="submit" class="fadeIn fourth" [disabled]="!loginForm.valid" value="Iniciar sesión" (click)="isOn = true">
+                <input type="submit" class="fadeIn fourth" [disabled]="!loginForm.form.valid" value="Iniciar sesión" (click)="isOn = true">
             </form>
+
             <div id="formFooter">
                 <a class="underlineHover" routerLink="/register">Registrarse</a>
             </div>
+
         </div>
     </div>
 </body>
-
 </html>

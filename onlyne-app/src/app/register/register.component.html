@@ -20,19 +20,48 @@
                 <h2>Registrarse</h2>
                 <br>
             </div>
-            <form action="" name="login">
-                <input type="text" id="name" class="fadeIn second" name="name" placeholder="Usuario">
-                <input type="email" id="name" class="fadeIn second" name="email" placeholder="E-mail">
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña">
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña">
+            <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+                <input type="text" class="fadeIn second" name="name" placeholder="Usuario" [(ngModel)]="client.name" #nameInput="ngModel" required>
+                <div class="alert-danger" *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+                    <div *ngIf="nameInput.errors?.['required']">
+                        El nombre es requerido!
+                    </div>
+                </div>
+
+                <input type="text" class="fadeIn second" name="email" placeholder="E-mail" [(ngModel)]="client.email" #emailInput="ngModel" required email>
+                <div class="alert-danger" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+                    <div *ngIf="emailInput.errors?.['required']">
+                        El email es requerido!
+                    </div>
+                    <div *ngIf="emailInput.errors?.['email']">
+                        El email debe tener un formato válido.
+                    </div>
+                </div>
+
+                <input type="password" class="fadeIn third" name="password" placeholder="Contraseña" [(ngModel)]="client.password" #passwordInput="ngModel" required>
+                <div class="alert-danger" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+                    <div *ngIf="passwordInput.errors?.['required']">
+                        El contraseña es requerido!
+                    </div>
+                </div>
+
+                <input type="password" class="fadeIn third" name="password" placeholder="Contraseña" [(ngModel)]="password2" #password2Input="ngModel" required>
+                <div class="alert-danger" *ngIf="password2Input.invalid && (password2Input.dirty || password2Input.touched)">
+                    <div *ngIf="password2Input.errors?.['required']">
+                        El contraseña es requerido!
+                    </div>
+                </div>
+
                 <br>
-                <input type="submit" class="fadeIn fourth" value="Registrarse">
+                <input type="submit" class="fadeIn fourth" value="Registrarse" [disabled]="!registerForm.form.valid">
             </form>
+
             <div id="formFooter">
                 <a class="underlineHover" routerLink="/login">Iniciar sesión</a>
             </div>
+
         </div>
     </div>
 </body>
-
 </html>

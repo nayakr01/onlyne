@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
 
   isOn!: boolean;
-  email!: string;
-  password!: string;
+  email = "";
+  password = "";
 
   constructor(private authService: AuthService,
     private router: Router) {}

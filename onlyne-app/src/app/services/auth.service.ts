@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   register(name: string, email: string, password: string): Observable<any> {
-    return this.http.post('/api/register', { name, email, password });
+    return this.http.post(this.urlServer + '/api/register', { name, email, password });
   }
 
   getToken(): string {
