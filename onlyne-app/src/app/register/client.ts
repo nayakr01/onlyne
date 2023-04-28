@@ -6,4 +6,5 @@ export class Client {
   lists_created!: [];
   lists_favourite!: [];
   ratings!: [];
+  profilePhoto!: string;
 }

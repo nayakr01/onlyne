@@ -15,6 +15,7 @@ import { TrendsComponent } from './trends/trends.component';
 import { ExplorerComponent } from './explorer/explorer.component';
 import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SeriesComponent } from './series/series.component';
     TrendsComponent,
     ExplorerComponent,
     MoviesComponent,
-    SeriesComponent
+    SeriesComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,

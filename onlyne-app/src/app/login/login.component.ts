@@ -32,11 +32,13 @@ export class LoginComponent {
             text: `Bienvenido ${this.email}`,
             icon: 'success',
             buttonsStyling: false,
+            background: '#1e1e2a',
+            color: 'white',
             customClass: {
               confirmButton: '#039be5'
             },
           })
-          this.router.navigate(['']);
+          this.router.navigate(['/home']);
         },
         error:(error: any) => {
           console.log(error);
@@ -45,6 +47,8 @@ export class LoginComponent {
             text: error.error.message,
             icon: 'error',
             buttonsStyling: false,
+            background: '#1e1e2a',
+            color: 'white',
             customClass: {
               confirmButton: '#039be5'
             },
