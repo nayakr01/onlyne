@@ -12,7 +12,7 @@
             <button><i class='bx bx-user'></i> Iniciar sesión </button>
         </a>
 
-        <div *ngIf="user" class="dropdown">
+        <div class="dropdown" *ngIf="user">
             <img src="../../assets/2.jpg" alt="profilePhoto" style="
                 width: 60px;
                 height: 60px;
@@ -20,15 +20,16 @@
                 object-fit: cover;
                 object-position: center;
                 margin-left: 10px;"><i class='bx bx-chevron-down'></i>
-            <div class="dropdown-content">
+            <div class="content">
                 <a class="user" routerLink="/profile">
                     <p class="dropdown-button"> Perfil </p>
                 </a>
-                <a (click)="logout()" class="user">
+                <a class="user" (click)="logout()" routerLink="">
                     <p class="dropdown-button"><i class='bx bx-user'></i> Cerrar sesión </p>
                 </a>
             </div>
-          </div>
+        </div>
+          
 
         <div class="navbar">
             <a href="home" id="home" class="nav-link nav-active">
