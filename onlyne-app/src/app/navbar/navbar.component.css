@@ -6,7 +6,7 @@
 .dropdown:hover img {
   cursor: pointer;
   transform: scale(1.2);
-  border: 3px solid #b527cf ;
+  border: 3px solid #039be5 ;
   transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
@@ -69,6 +69,7 @@
   color: white;
   padding: 12px 24px;
   text-decoration: none;
+  text-align: center;
   border-radius: 8px;
   transition: 0.3s;
   white-space: nowrap;
@@ -81,4 +82,10 @@
 .dropdown:hover .content {
   opacity: 1;
   z-index: 1;
+}
+
+#arrow {
+  font-size: 35px;
+  position: relative;
+  bottom: 10px;
 }
