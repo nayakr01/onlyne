@@ -15,16 +15,16 @@ export class LoginComponent {
   password = "";
 
   constructor(private authService: AuthService,
-    private router: Router) {}
+    private router: Router) { }
 
   ngOnInit() {
-    
+
   }
 
   login() {
     this.authService.login(this.email, this.password)
       .subscribe({
-        next:(data: any) => {
+        next: (data: any) => {
           // guardar token en local storage
           localStorage.setItem('token', data.token);
           Swal.fire({
@@ -38,9 +38,14 @@ export class LoginComponent {
               confirmButton: '#039be5'
             },
           })
-          this.router.navigate(['/home']);
+          setTimeout(() => {
+            this.router.navigate(['/home'])
+              .then(() => {
+                window.location.reload();
+              });
+          }, 1000);
         },
-        error:(error: any) => {
+        error: (error: any) => {
           console.log(error);
           Swal.fire({
             title: 'Error al iniciar sesion',
@@ -54,7 +59,7 @@ export class LoginComponent {
             },
           })
         }
-    });
+      });
   }
 
 }
