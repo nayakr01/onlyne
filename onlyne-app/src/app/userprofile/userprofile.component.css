@@ -1,4 +1,221 @@
 .profile {
+    position: relative;
+    min-height: 370px;
+    display: flex;
+    align-items: center;
+    margin-top: 5rem !important;
+    border-radius: 0.5rem;
+}
+
+.list {
+    position: relative;
+    min-height: 110px;
+    align-items: center;
+    margin-top: 5rem !important;
+    border-radius: 0.5rem;
+}
+
+.user-profile .shadow {
+    position: absolute;
+    display: block;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .5));
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.user-profile .banner-profile,
+.user-profile .shadow {
+    border-radius: 0 0 40px 40px;
+    background-color: #039be5;
+}
+
+.user-profile img {
+    width: 100%;
+}
+
+.profile-content {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user-profile .profile-content {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.user-profile .banner-profile {
+    display: block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 20rem;
+    margin-bottom: .5rem;
+}
+
+.user-profile .avatar {
+    display: block;
+    width: 230px;
+    height: 230px;
+    background-color: #D9DCF1;
+    position: absolute;
+    bottom: -65px;
+    left: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 8px solid #FFFFFF;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, .2);
+}
+
+.user-profile .change-photo {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, .5);
+    height: 57%;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: all ease-in 200ms;
+}
+
+.user-profile .change-photo i {
+    margin-bottom: .5rem;
+    font-size: 2rem;
+}
+
+.user-profile .avatar:hover .change-photo {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.user-profile .data-profile {
+    position: absolute;
+    display: block;
+    width: calc(100% - 230px - 8rem);
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+}
+
+.user-profile .user-title {
+    font-size: 2.3rem;
+    white-space: nowrap;
+    margin-bottom: .5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-profile .user-bio {
+    font-size: 1em;
+    margin-bottom: .75rem;
+}
+
+.user-profile .profile-list li {
+    display: inline-block;
+    font-size: 1em;
+    margin-right: 1rem;
+}
+
+.my-list {
+    margin-top: 60px;
+    padding: 10px;
+}
+
+.my-list .item ul li {
+    margin-top: 5px;
+}
+
+.my-list .item ul li img {
+    margin-top: -100px;
+}
+
+.my-list .item ul li {
+    display: inline-block;
+    width: 17%;
+}
+
+.my-list .item ul li:first-child {
+    width: 110px;
+}
+
+.my-list .item ul li:last-child {
+    width: 15%;
+    text-align: right;
+}
+
+.my-list .item ul li h4 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.my-list .item ul li span {
+    color: #666;
+    font-size: 14px;
+}
+
+.my-list .main-button {
+    text-align: center;
+    margin-bottom: -53px;
+}
+
+.templatemo-item {
+    max-width: 80px;
+    border-radius: 23px;
+}
+
+.main-button a,
+input[type="submit"] {
+    font-size: 14px;
+    color: #fff;
+    background-color: #039be5;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 25px;
+    font-weight: 400;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-button a:hover,
+input[type="submit"]:hover {
+    background-color: #fff;
+    color: #039be5;
+}
+
+.main-border-button a {
+    font-size: 14px;
+    color: #039be5;
+    background-color: transparent;
+    border: 1px solid #039be5;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 25px;
+    font-weight: 400;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+}
+.profile {
   position: relative;
   min-height: 370px;
   display: flex;
@@ -214,4 +431,10 @@ input[type="submit"]:hover {
   transition: all .3s;
   position: relative;
   overflow: hidden;
+}
+
+.main-border-button a:hover {
+  border-color: #fff;
+  background-color: #fff;
+  color: #039be5;
 }
