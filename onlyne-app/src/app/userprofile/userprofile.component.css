@@ -215,9 +215,3 @@ input[type="submit"]:hover {
   position: relative;
   overflow: hidden;
 }
-
-.main-border-button a:hover {
-  border-color: #fff;
-  background-color: #fff;
-  color: #039be5;
-}
