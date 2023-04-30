@@ -1,0 +1,7 @@
+<div class="modal" *ngIf="modalService.modal">
+  <div class="overlay"></div>
+  <div class="modal-content">
+    <h2 style="color: black">{{ title }}</h2>
+    <button (click)="modalService.closeModal()" class="modal-close">Cerrar</button>
+  </div>
+</div>

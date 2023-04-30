@@ -115,7 +115,9 @@ router.route('/userprofile/:id').get(authorize, async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
-    res.status(200).json({ msg: user });
+    // Devolver el objeto "user" sin la propiedad "password"
+    const { password, ...userWithoutPassword } = user.toObject();
+    res.status(200).json({ msg: userWithoutPassword });
   } catch (error) {
     next(error);
   }
@@ -123,11 +125,7 @@ router.route('/userprofile/:id').get(authorize, async (req, res, next) => {
 
 // Update User
 router.route('/updateuser/:id').put((req, res, next) => {
-  userSchema.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
+  userSchema.findByIdAndUpdate(req.params.id,{$set: req.body,},
     (error, data) => {
       if (error) {
         return next(error)

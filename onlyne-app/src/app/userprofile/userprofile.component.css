@@ -438,3 +438,10 @@ input[type="submit"]:hover {
   background-color: #fff;
   color: #039be5;
 }
+
+.data-profile button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}

@@ -16,6 +16,7 @@ import { ExplorerComponent } from './explorer/explorer.component';
 import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { UserdetailComponent } from './userprofile/userdetail/userdetail.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
     ExplorerComponent,
     MoviesComponent,
     SeriesComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    UserdetailComponent
   ],
   imports: [
     BrowserModule,
