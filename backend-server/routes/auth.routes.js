@@ -11,13 +11,21 @@ router.post('/register', [
   check('name')
     .not()
     .isEmpty()
+    .withMessage('Name is required')
     .isLength({ min: 3 })
     .withMessage('Name must be atleast 3 characters long'),
-  check('email').not().isEmpty(),
+  check('email')
+    .not()
+    .isEmpty()
+    .withMessage('Email is required')
+    .isEmail()
+    .withMessage('Invalid email address'),
   check('password','Password should be between 5 to 20 characters long')
     .not()
     .isEmpty()
+    .withMessage('Password is required')
     .isLength({ min: 5, max: 20 })
+    .withMessage('Password should be between 5 to 20 characters long'),
 ], (req, res, next) => {
   const errors = validationResult(req);
   console.log(req.body);
@@ -50,14 +58,14 @@ router.post('/login', async (req, res) => {
     const user = await userSchema.findOne({ email: req.body.email })
     if (!user) {
       return res.status(401).json({
-        message: 'El email no existe',
+        message: 'El email o la contraseña son incorrectos',
       })
     }
 
     const response = await bcrypt.compare(req.body.password, user.password)
     if (!response) {
       return res.status(401).json({
-        message: 'La contraseña es incorrecta',
+        message: 'El email o la contraseña son incorrectos',
       })
     }
 

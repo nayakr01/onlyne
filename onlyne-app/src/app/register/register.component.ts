@@ -22,22 +22,65 @@ export class RegisterComponent {
       this.authService.register(this.client.name, this.client.email, this.client.password)
       .subscribe({
         next: (data) => {
-          console.log(data);
-          Swal.fire({
-            title: 'Sesion inciada',
-            text: `Bienvenido ${data}`,
-            icon: 'success',
-            buttonsStyling: false,
-            customClass: {
-              confirmButton: '#039be5'
+          this.authService.login(this.client.email, this.client.password)
+          .subscribe({
+            next: (data: any) => {
+              // guardar token en local storage
+              localStorage.setItem('token', data.token);
+              Swal.fire({
+                title: 'Sesion inciada',
+                text: `Bienvenido ${this.client.email}`,
+                icon: 'success',
+                buttonsStyling: false,
+                background: '#1e1e2a',
+                color: 'white',
+                customClass: {
+                  confirmButton: '#039be5'
+                },
+              })
+              setTimeout(() => {
+                this.router.navigate(['/home'])
+                  .then(() => {
+                    window.location.reload();
+                  });
+              }, 1000);
             },
-          })
+            error: (error: any) => {
+              console.log(error);
+              Swal.fire({
+                title: 'Error al iniciar sesion',
+                text: error.error.message,
+                icon: 'error',
+                buttonsStyling: false,
+                background: '#1e1e2a',
+                color: 'white',
+                customClass: {
+                  confirmButton: '#039be5'
+                },
+              })
+            }
+          });
         },
         error:(error: any) => {
-          console.log(error);
+          let errorMessage:any;
+          if(error.status == 422) {
+            let errorMessages = "";
+            error.error.forEach((error:any) => {
+              console.log(error)
+              errorMessages += `${error.msg}. \n`;
+            });
+            errorMessage = document.createElement('p');
+            errorMessage.textContent = errorMessages;
+          }
+          if(error.status == 500) {
+            console.log(error.error);
+            const nameError = error.error.error.errors.name ? error.error.error.errors.name.message + '<br>' : '';
+            const emailError = error.error.error.errors.email ? error.error.error.errors.email.message : '';
+            errorMessage = `${nameError}${emailError}`;
+          }
           Swal.fire({
             title: 'Error al registrarse',
-            text: error.error,
+            html: errorMessage,
             icon: 'error',
             buttonsStyling: false,
             customClass: {
