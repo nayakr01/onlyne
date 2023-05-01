@@ -35,6 +35,12 @@ export class TrendsComponent {
 
   constructor(private moviesService: MoviesService, private seriesService: SeriesService) { }
 
+  loadScript() {
+    const script = document.createElement('script');
+    script.src = '../assets/js/main.js';
+    document.body.appendChild(script);
+  }
+
   ngOnInit() {
     let trend = document.getElementById('trends');
     document.querySelectorAll('.nav-link').forEach(function (elem){
@@ -44,6 +50,7 @@ export class TrendsComponent {
     for (let index = 1; index <= 5; index++) {
       this.getPopularMovies(index);
       this.getPopularSeries(index);
+      this.loadScript();
     }
   }
 

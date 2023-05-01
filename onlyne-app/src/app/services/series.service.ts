@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Serie, SeriesResponse } from '../interfaces/series.interfaces';
+import { SerieDetails } from '../interfaces/details.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class SeriesService {
   get params() {
     return {
       api_key : '727678ffa6c82ebcb8ebec5f547d0db9',
-      languague: 'es-ES',
+      language: 'es-ES',
       page: this.pageSeries.toString(),
     }
   }
@@ -45,6 +46,11 @@ export class SeriesService {
   getGenres(): Observable<any> {
     return this.http.get(`${this.serverURL}/genre/tv/list?`,{params: this.params}).pipe(
       map((res) => res)
+    );
+  }
+
+  getDetails(id: string) {
+    return this.http.get<SerieDetails>(`${this.serverURL}/tv/${id}`, { params: this.params }).pipe(
     );
   }
 }

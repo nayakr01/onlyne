@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="play-container container" *ngIf="movie">
+    <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{movie.backdrop_path}}" alt="" class="play-img">
+    <div class="play-text">
+        <h2>{{ movie.title }}</h2>
+        <div class="rating" *ngIf="movie.vote_average">
+            <h1>{{ movie.vote_average }}</h1>
+            <i *ngFor="let star of getStarRating(movie.vote_average)" class="{{ star }}"></i>
+          </div>
+        <div class="tags">
+            <span *ngFor="let genres of movie.genres">{{ genres.name }}</span>
+        </div>
+        <a href="#" class="watch-btn">
+            <i class="bx bx-right-arrow"></i>
+            <span>Mirar Trailer</span>
+            <i class='bx bx-plus'></i>
+            <span>Añadir a Lista</span>
+        </a>
+    </div>
+    <i class="bx bx-right-arrow play-movie"></i>
+</div>
+<div class="about-movie container" *ngIf="movie">
+    <h2>{{ movie.title }}</h2>
+    <p> {{ movie.overview }}</p>
+    <h2 class="cast-heading">Actores</h2>
+    <div class="cast">
+        <div class="cast-box">
+            <img src="img/cast1.jpg" alt="" class="cast-img">
+            <span class="cast-title">Dwayne Johnson</span>
+        </div>
+        <div class="cast-box">
+            <img src="img/cast1.jpg" alt="" class="cast-img">
+            <span class="cast-title">Dwayne Johnson</span>
+        </div>
+        <div class="cast-box">
+            <img src="img/cast1.jpg" alt="" class="cast-img">
+            <span class="cast-title">Dwayne Johnson</span>
+        </div>
+        <div class="cast-box">
+            <img src="img/cast1.jpg" alt="" class="cast-img">
+            <span class="cast-title">Dwayne Johnson</span>
+        </div>
+    </div>
+    <div class="heading" id="headingExplorer">
+        <h3 class="heading-title">Comentarios</h3>
+    </div>
+</div>

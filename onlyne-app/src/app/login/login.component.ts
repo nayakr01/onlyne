@@ -38,12 +38,7 @@ export class LoginComponent {
               confirmButton: '#039be5'
             },
           })
-          setTimeout(() => {
-            this.router.navigate(['/home'])
-              .then(() => {
-                window.location.reload();
-              });
-          }, 1000);
+            this.router.navigate(['/home']);
         },
         error: (error: any) => {
           console.log(error);

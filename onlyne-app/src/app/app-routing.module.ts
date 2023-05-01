@@ -7,6 +7,7 @@ import { TrendsComponent } from './trends/trends.component';
 import { ExplorerComponent } from './explorer/explorer.component';
 import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
+import { DetailsComponent } from './details/details.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'explorer', component: ExplorerComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'series', component: SeriesComponent },
+  { path: 'details/:id', component: DetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: UserprofileComponent },

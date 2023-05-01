@@ -17,6 +17,7 @@ import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { UserdetailComponent } from './userprofile/userdetail/userdetail.component';
+import { DetailsComponent } from './details/details.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UserdetailComponent } from './userprofile/userdetail/userdetail.compone
     MoviesComponent,
     SeriesComponent,
     UserprofileComponent,
-    UserdetailComponent
+    UserdetailComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
