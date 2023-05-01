@@ -11,21 +11,21 @@ router.post('/register', [
   check('name')
     .not()
     .isEmpty()
-    .withMessage('Name is required')
+    .withMessage('El nombre es obligatorio')
     .isLength({ min: 3 })
-    .withMessage('Name must be atleast 3 characters long'),
+    .withMessage('El nombre debe tener al menos 3 caracteres de longitud.'),
   check('email')
     .not()
     .isEmpty()
-    .withMessage('Email is required')
+    .withMessage('El email es obligatorio')
     .isEmail()
-    .withMessage('Invalid email address'),
-  check('password','Password should be between 5 to 20 characters long')
+    .withMessage('Email no válido'),
+  check('password','La contraseña debe tener entre 5 y 50 caracteres de longitud.')
     .not()
     .isEmpty()
-    .withMessage('Password is required')
-    .isLength({ min: 5, max: 20 })
-    .withMessage('Password should be between 5 to 20 characters long'),
+    .withMessage('La contraseña es obligatoria')
+    .isLength({ min: 5, max: 50 })
+    .withMessage('La contraseña debe tener entre 5 y 50 caracteres de longitud.'),
 ], (req, res, next) => {
   const errors = validationResult(req);
   console.log(req.body);
@@ -40,7 +40,7 @@ router.post('/register', [
       })
     user.save().then((response) => {
         res.status(201).json({
-          message: 'User successfully created!',
+          message: '¡Usuario creado con éxito!',
           result: response,
         })
       }).catch((error) => {
@@ -90,7 +90,7 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(401).json({
-      message: 'Authentication failed',
+      message: 'Autenticación fallida',
     })
   }
 })
@@ -113,7 +113,7 @@ router.route('/userprofile/:id').get(authorize, async (req, res, next) => {
   try {
     const user = await userSchema.findById(req.params.id);
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: 'Usuario no encontrado' });
     }
     // Devolver el objeto "user" sin la propiedad "password"
     const { password, ...userWithoutPassword } = user.toObject();
@@ -131,7 +131,7 @@ router.route('/updateuser/:id').put((req, res, next) => {
         return next(error)
       } else {
         res.json(data)
-        console.log('User successfully updated!')
+        console.log('¡Usuario modificado con éxito!')
       }
     },
   )

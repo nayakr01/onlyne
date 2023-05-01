@@ -39,17 +39,23 @@
                     </div>
                 </div>
 
-                <input type="password" class="fadeIn third" name="password" placeholder="Contraseña" [(ngModel)]="client.password" #passwordInput="ngModel" required>
+                <input type="password" class="fadeIn third" name="password" placeholder="Contraseña" [(ngModel)]="client.password" #passwordInput="ngModel" required minlength="6">
                 <div class="alert-danger" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
                     <div *ngIf="passwordInput.errors?.['required']">
                         El contraseña es requerido!
                     </div>
+                    <div *ngIf="passwordInput.errors?.['minlength']">
+                        La contraseña debe tener al menos 6 caracteres!
+                    </div>
                 </div>
 
-                <input type="password" class="fadeIn third" name="password" placeholder="Contraseña" [(ngModel)]="password2" #password2Input="ngModel" required>
+                <input type="password" class="fadeIn third" name="password2" placeholder="Contraseña" [(ngModel)]="password2" #password2Input="ngModel" required minlength="6">
                 <div class="alert-danger" *ngIf="password2Input.invalid && (password2Input.dirty || password2Input.touched)">
                     <div *ngIf="password2Input.errors?.['required']">
                         El contraseña es requerido!
+                    </div>
+                    <div *ngIf="passwordInput.errors?.['minlength']">
+                        La contraseña debe tener al menos 6 caracteres!
                     </div>
                 </div>
 

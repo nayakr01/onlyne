@@ -41,12 +41,6 @@ export class HomeComponent {
 
   constructor(private moviesService: MoviesService, private seriesService: SeriesService, private router: Router) { }
   
-  loadScript() {
-    const script = document.createElement('script');
-    script.src = '../assets/js/main.js';
-    document.body.appendChild(script);
-  }
-
   ngOnInit() {
     let home = document.getElementById('home');
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -58,6 +52,12 @@ export class HomeComponent {
     this.loadScript();
   }
 
+  loadScript() {
+    const script = document.createElement('script');
+    script.src = '../assets/js/main.js';
+    document.body.appendChild(script);
+  }
+  
   getRatingMovies(page: number) {
     this.moviesService.getRatingMovies(page).subscribe({
       next: (data: any) => {

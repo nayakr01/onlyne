@@ -29,7 +29,7 @@ const userSchema = new Schema({
 }, {collection: 'Users'});
 
 userSchema.plugin(uniqueValidator, { 
-  message: 'Error, {PATH} already in use.',
+  message: 'Error: {PATH} ya está en uso.',
   type: 'mongoose-unique-validator', 
 });
 module.exports = mongoose.model('user', userSchema);

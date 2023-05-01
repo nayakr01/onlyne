@@ -67,7 +67,7 @@ export class RegisterComponent {
             let errorMessages = "";
             error.error.forEach((error:any) => {
               console.log(error)
-              errorMessages += `${error.msg}. \n`;
+              errorMessages += `${error.msg} \n`;
             });
             errorMessage = document.createElement('p');
             errorMessage.textContent = errorMessages;
