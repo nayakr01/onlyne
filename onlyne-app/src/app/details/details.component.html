@@ -13,6 +13,8 @@
         <a href="{{ trailer }}" target="_blank" class="watch-btn" *ngIf="trailer">
             <i class="bx bx-right-arrow"></i>
             <span>Mirar Trailer</span>
+        </a>
+        <a href="#" target="_blank" class="watch-btn">
             <i class='bx bx-plus'></i>
             <span>Añadir a Lista</span>
         </a>
@@ -25,7 +27,7 @@
     <h2 class="cast-heading">Actores Principales</h2>
     <div class="cast">
         <div class="cast-box" *ngFor="let actor of cast | slice:0:5">
-            <img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" alt="" class="cast-img">
+            <img [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w500' + actor.profile_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' " alt="" class="cast-img">
             <span class="cast-title">{{ actor.name }}</span>
         </div>
     </div>

@@ -12,8 +12,7 @@
     </div>
     <div class="movies-content">
         <div class="movie-box" *ngFor="let movie of moviesWithGenre">
-            <div>
-                <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{movie.path}}" alt="" class="movie-box-img">
+            <img [src]="movie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + movie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="movie-box-img">
                 <div class="box-text">
                     <h2 class="movie-title">{{ movie.title }}</h2>
                     <span class="movie-gender">{{ movie.genre }}</span>
@@ -21,7 +20,6 @@
                         <i class="bx bx-right-arrow"></i>
                     </span>
                 </div>
-            </div>
         </div>
     </div>
 </section>
