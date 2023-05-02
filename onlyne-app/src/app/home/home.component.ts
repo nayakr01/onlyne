@@ -123,11 +123,11 @@ export class HomeComponent {
   }
 
   getDetailsMovie(movie: MoviesWithGenre) {
-    this.router.navigate(['/details', movie.id], {queryParams: movie});
+    this.router.navigate(['/details', movie.id]);
   }
 
   getDetailsSerie(serie: SeriesWithGenre) {
     console.log(serie);
-    this.router.navigate(['/details', serie.id], {queryParams: serie});
+    this.router.navigate(['/details', serie.id]);
   }
 }
