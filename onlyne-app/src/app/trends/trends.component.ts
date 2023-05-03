@@ -4,8 +4,10 @@ import { SeriesService } from '../services/series.service';
 import { Movie } from '../interfaces/movies.interfaces';
 import { Serie } from '../interfaces/series.interfaces';
 import { Genre } from '../interfaces/genres.interfaces';
+import { Router } from '@angular/router';
 
 interface MoviesWithGenre {
+  id: number;
   title: string;
   genre: string;
   path: string;
@@ -33,7 +35,7 @@ export class TrendsComponent {
 
   seriesWithGenre: SeriesWithGenre[] = [];
 
-  constructor(private moviesService: MoviesService, private seriesService: SeriesService) { }
+  constructor(private moviesService: MoviesService, private seriesService: SeriesService, private router: Router) { }
 
   loadScript() {
     const script = document.createElement('script');
@@ -67,6 +69,7 @@ export class TrendsComponent {
             const genre = generos.find(g => g.id === genreId);
             if (genre) {
               const moviesWithGenres: MoviesWithGenre = {
+                id: movie.id,
                 title: movie.title,
                 genre: genre.name,
                 path: movie.poster_path
@@ -112,5 +115,9 @@ export class TrendsComponent {
         console.log('Error al obtener las series:', error);
       }
     });
+  }
+
+  getDetailsMovie(movie: MoviesWithGenre) {
+    this.router.navigate(['/details', movie.id]);
   }
 }

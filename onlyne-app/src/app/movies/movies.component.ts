@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 import { Movie } from '../interfaces/movies.interfaces';
 import { Genre } from '../interfaces/genres.interfaces';
+import { Router } from '@angular/router';
 
 interface MoviesWithGenre {
+  id: number,
   title: string;
   genre: string;
   path: string;
@@ -23,7 +25,7 @@ export class MoviesComponent {
   moviesWithGenre: MoviesWithGenre[] = [];
 
 
-  constructor(private moviesService: MoviesService) { }
+  constructor(private moviesService: MoviesService, private router: Router) { }
 
   ngOnInit() {
     let movies = document.getElementById('movies');
@@ -50,6 +52,7 @@ export class MoviesComponent {
             const genre = generos.find(g => g.id === genreId);
             if (genre) {
               const moviesWithGenres: MoviesWithGenre = {
+                id: movie.id,
                 title: movie.title,
                 genre: genre.name,
                 path: movie.poster_path
@@ -65,5 +68,9 @@ export class MoviesComponent {
         console.log('Error al obtener las películas:', error);
       }
     });
+  }
+
+  getDetailsMovie(movie: MoviesWithGenre) {
+    this.router.navigate(['/details', movie.id]);
   }
 }
