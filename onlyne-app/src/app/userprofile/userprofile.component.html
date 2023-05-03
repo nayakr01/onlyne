@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<app-userdetail></app-userdetail>
+<app-userdetail [client]="client"></app-userdetail>
 <section class="profile container">
     <div class="user-profile">
         <div class="profile-content">
@@ -12,19 +12,19 @@
                 </a>
             </div>
             <div class="data-profile">
-                <h4 class="user-title">&commat;{{this.user.name}}</h4>
+                <h4 class="user-title">&commat;{{this.client.name}}</h4>
                 <p class="user-bio">Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
                 <ul class="profile-list">
-                    <li *ngIf="this.user.lists_created; else emptyList">{{this.user.lists_created.length}} Mis listas</li>
+                    <li *ngIf="this.client.lists_created; else emptyList">{{this.client.lists_created.length}} Mis listas</li>
                     <ng-template #emptyList>
                       <li>0 Mis listas</li>
                     </ng-template>
-                    <li *ngIf="this.user.lists_favourite; else emptyList2">{{this.user.lists_favourite.length}} Mis listas favoritas</li>
+                    <li *ngIf="this.client.lists_favourite; else emptyList2">{{this.client.lists_favourite.length}} Mis listas favoritas</li>
                     <ng-template #emptyList2>
                       <li>0 Mis listas favoritas</li>
                     </ng-template>
                 </ul>
-                <button (click)="openModal(user)">Editar Datos</button>
+                <button (click)="openModal(client)">Editar Datos</button>
             </div>
         </div>
     </div>

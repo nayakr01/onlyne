@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ModalService {
 
   modal: Boolean = false;
+  isEditingPassword: boolean = false;
 
   constructor() { }
 

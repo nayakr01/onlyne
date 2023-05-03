@@ -8,11 +8,11 @@
             <i class="bx bx-search"></i>
         </div>
 
-        <a *ngIf="!user" routerLink="/login" class="user">
+        <a *ngIf="!client" routerLink="/login" class="user">
             <button><i class='bx bx-user'></i> Iniciar sesión </button>
         </a>
 
-        <div class="dropdown" *ngIf="user">
+        <div class="dropdown" *ngIf="client">
             <img src="../../assets/2.jpg" alt="profilePhoto" style="
                 width: 60px;
                 height: 60px;

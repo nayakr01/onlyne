@@ -1,30 +1,94 @@
 .modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 999;
+  overflow-x: hidden;
+  background-color: #00000070;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+.modal-wrap {
+  position: fixed;
+  display: block;
   width: 100%;
+  max-width: 2000px;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 45px;
+  border: 3px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+  color: white;
+  padding-bottom: 20px;
+  background-color: black;
+  align-self: center;
+  box-shadow: 0 0 15px rgb(0, 195, 255);
+  transform: scale(.6);
 }
 
 .modal-content {
-  background: #fff;
+  display: flex;
+  flex-direction: row;
+}
+
+#title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px;
+}
+
+.modal-left {
+  float: left;
+  width: 30%;
+}
+
+.modal-left img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  background-position: center;
+  background-size: cover;
+  padding: 50px;
+}
+
+.modal-right {
+  float: right;
+  width: 70%;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  z-index: 1;
+}
+.modal-right form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.modal-right label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.modal-right input {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .modal-close {
@@ -37,3 +101,18 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.animation {
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-fill-mode: both;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+}
+
+@keyframes fadeIn {0% {opacity: 0;}to{opacity:1;}}
+@-webkit-keyframes fadeIn {0% {opacity: 0;}to{opacity:1;}}

@@ -18,6 +18,7 @@ import { SeriesComponent } from './series/series.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { UserdetailComponent } from './userprofile/userdetail/userdetail.component';
 import { DetailsComponent } from './details/details.component';
+import { AuthGuard } from './guard/auth.guard';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { DetailsComponent } from './details/details.component';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

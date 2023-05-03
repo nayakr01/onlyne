@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { Client } from '../interfaces/client.interface';
 import { ClientService } from '../services/client.service';
 import { ModalService } from '../services/modal.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -12,40 +13,45 @@ import { ModalService } from '../services/modal.service';
 export class UserprofileComponent implements OnInit {
 
   token!: string;
-  user!: Client;
-  selectedUser!: Client;
+  client!: Client;
+  selectedClient!: Client;
 
   constructor(private clientService: ClientService,
-    private modalService: ModalService) {}
+    private modalService: ModalService,
+    private authService: AuthService) {}
   
   ngOnInit(): void {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
       elem.classList.remove('nav-active');
     });
-    this.getUser();
+    this.getClient();
+    this.authService.clientUpdated.subscribe((updatedClient) => {
+      this.client = updatedClient;
+    });
   }
 
-  getUser() {
+  getClient() {
     this.token = localStorage.getItem('token') || "";
-    if(this.token != "") {
-      const decodedToken: any = jwt_decode(this.token);
-      this.user = {
-        id: decodedToken.userId,
-        name: decodedToken.name,
-        email: decodedToken.email
-      };
-      console.log(this.user.id);
-    }
-    this.clientService.getUser(this.user.id, this.token).subscribe({
+    this.client = this.authService.getClient();
+    this.clientService.getClient(this.client.id, this.token).subscribe({
       next: (data) => {
-        console.log("usuario:");
-        console.log(data);
+        console.log("cliente:",data);
+        this.client = {
+          id: data.msg._id,
+          name: data.msg.name,
+          email: data.msg.email,
+          profilePhoto: data.msg.profilePhoto,
+          lists_created: data.msg.lists_created,
+          lists_favourite: data.msg.lists_favourite,
+          ratings: data.msg.ratings
+        };
+        console.log(this.client);
       }
     });
   }
 
-  openModal(user: Client) {
-    this.selectedUser = user;
+  openModal(client: Client) {
+    this.selectedClient = client;
     this.modalService.openModal();
   }
 

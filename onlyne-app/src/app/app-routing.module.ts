@@ -9,6 +9,7 @@ import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
 import { DetailsComponent } from './details/details.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'details/:id', component: DetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: UserprofileComponent },
+  { path: 'profile', component: UserprofileComponent, canActivate: [AuthGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];

@@ -11,7 +11,7 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(userId: string, token: string): Observable<any> {
+  getClient(userId: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': token

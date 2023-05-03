@@ -25,7 +25,6 @@ export class RegisterComponent {
           this.authService.login(this.client.email, this.client.password)
           .subscribe({
             next: (data: any) => {
-              // guardar token en local storage
               localStorage.setItem('token', data.token);
               Swal.fire({
                 title: 'Sesion inciada',
@@ -38,12 +37,6 @@ export class RegisterComponent {
                   confirmButton: '#039be5'
                 },
               })
-              setTimeout(() => {
-                this.router.navigate(['/home'])
-                  .then(() => {
-                    window.location.reload();
-                  });
-              }, 1000);
             },
             error: (error: any) => {
               console.log(error);

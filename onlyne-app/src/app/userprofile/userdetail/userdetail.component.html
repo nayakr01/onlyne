@@ -1,7 +1,33 @@
-<div class="modal" *ngIf="modalService.modal">
-  <div class="overlay"></div>
-  <div class="modal-content">
-    <h2 style="color: black">{{ title }}</h2>
-    <button (click)="modalService.closeModal()" class="modal-close">Cerrar</button>
+<div class="modal animation fadeIn" *ngIf="modalService.modal">
+  <div class="modal-wrap">
+    <div class="modal-content">
+      <h2 id="title">Detalles del usuario</h2>
+      <div class="modal-left">
+        <img src="../../../assets/2.jpg" alt="fotito">
+      </div>
+      <div class="modal-right">
+        <form>
+          <label for="name">Nombre:</label>
+          <input type="text" name="name" id="name" [value]="this.client.name">
+          <label for="email">Email:</label>
+          <input type="text" name="email" id="email" [value]="this.client.email">
+          <ng-container *ngIf="modalService.isEditingPassword">
+            <h2>Cambio de contraseña</h2>
+            <label for="password">Contraseña actual:</label>
+            <input type="password" name="password" id="password" [(ngModel)]="this.currentPassword">
+            <label for="newPassword">Nueva contraseña:</label>
+            <input type="password" name="newPassword" id="newPassword" [(ngModel)]="this.newPassword">
+            <label for="confirmNewPassword">Confirmar nueva contraseña:</label>
+            <input type="password" name="confirmNewPassword" id="confirmNewPassword" [(ngModel)]="this.confirmPassword">
+          </ng-container>
+          <button type="submit" *ngIf="!modalService.isEditingPassword" (click)="updateClient()">Guardar</button>
+          <button type="submit" *ngIf="modalService.isEditingPassword" (click)="changePassword()">Cambiar contraseña</button>
+        </form>
+        <button (click)="modalService.closeModal()" class="modal-close">Cerrar</button>
+        <button (click)="toggleEditingPassword()" class="change-password-button">{{ modalService.isEditingPassword ? 'Cancelar' : 'Cambiar Contraseña' }}</button>
+      </div>
+    </div>
   </div>
 </div>
+
+

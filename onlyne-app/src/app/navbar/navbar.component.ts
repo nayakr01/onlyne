@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import jwt_decode from 'jwt-decode';
 import { Client } from '../interfaces/client.interface';
 import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,31 +13,21 @@ export class NavbarComponent {
 
   token!: string;
 
-  user!: Client;
+  client!: Client;
+
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getUser();
-  }
-
-  getUser() {
-    this.token = localStorage.getItem('token') || "";
-    if(this.token != "") {
-      const decodedToken: any = jwt_decode(this.token);
-      this.user = {
-        id: decodedToken.userId,
-        name: decodedToken.name,
-        email: decodedToken.email
-      };
-      console.log(this.user);
-    }
+    this.client = this.authService.getClient();
   }
 
   logout() {
     localStorage.removeItem('token');
-    location.reload();
+    this.router.navigate(['/home']);
     Swal.fire({
       title: 'Sesion cerrada',
-      text: `Nos vemos ${this.user.name}`,
+      text: `Nos vemos ${this.client.name}`,
       icon: 'success',
       buttonsStyling: false,
       background: '#1e1e2a',
@@ -45,6 +36,9 @@ export class NavbarComponent {
         confirmButton: '#039be5'
       },
     })
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
 
 }
