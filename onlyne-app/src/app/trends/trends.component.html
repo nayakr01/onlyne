@@ -46,9 +46,9 @@
                     <div class="box-text">
                         <h2 class="popular-title">{{ serie.title }}</h2>
                         <span class="popular-genre">{{ serie.genre }}</span>
-                        <a href="#" class="watch-btn play-btn">
+                        <span (click)="getDetailsSerie(serie)" class="watch-btn play-btn">
                             <i class="bx bx-right-arrow"></i>
-                        </a>
+                        </span>
                     </div>
                 </div>
             </div>

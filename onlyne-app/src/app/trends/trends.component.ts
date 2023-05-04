@@ -14,6 +14,7 @@ interface MoviesWithGenre {
 }
 
 interface SeriesWithGenre {
+  id: number;
   title: string;
   genre: string;
   path: string;
@@ -100,6 +101,7 @@ export class TrendsComponent {
             const genre = generos.find(g => g.id === genreId);
             if (genre) {
               const seriesWithGenres: SeriesWithGenre = {
+                id: serie.id,
                 title: serie.original_name,
                 genre: genre.name,
                 path: serie.poster_path
@@ -118,6 +120,11 @@ export class TrendsComponent {
   }
 
   getDetailsMovie(movie: MoviesWithGenre) {
-    this.router.navigate(['/details', movie.id]);
+    this.router.navigate(['/details-movie', movie.id]);
+  }
+
+  getDetailsSerie(serie: SeriesWithGenre) {
+    console.log(serie);
+    this.router.navigate(['/details-serie', serie.id]);
   }
 }

@@ -7,9 +7,10 @@ import { TrendsComponent } from './trends/trends.component';
 import { ExplorerComponent } from './explorer/explorer.component';
 import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from './details-movies/details-movies.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AuthGuard } from './guard/auth.guard';
+import { DetailsSeriesComponent } from './details-series/details-series.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'explorer', component: ExplorerComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'series', component: SeriesComponent },
-  { path: 'details/:id', component: DetailsComponent },
+  { path: 'details-movie/:id', component: DetailsComponent },
+  { path: 'details-serie/:id', component: DetailsSeriesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: UserprofileComponent, canActivate: [AuthGuard] },

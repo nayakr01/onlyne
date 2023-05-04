@@ -4,6 +4,12 @@ export interface CreditsMovies {
     crew: Cast[];
 }
 
+export interface CreditsSeries {
+    id:   number;
+    cast: Cast[];
+    crew: Cast[];
+}
+
 export interface Cast {
     adult:                boolean;
     gender:               number;

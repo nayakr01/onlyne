@@ -17,8 +17,9 @@ import { MoviesComponent } from './movies/movies.component';
 import { SeriesComponent } from './series/series.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { UserdetailComponent } from './userprofile/userdetail/userdetail.component';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from './details-movies/details-movies.component';
 import { AuthGuard } from './guard/auth.guard';
+import { DetailsSeriesComponent } from './details-series/details-series.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AuthGuard } from './guard/auth.guard';
     SeriesComponent,
     UserprofileComponent,
     UserdetailComponent,
-    DetailsComponent
+    DetailsComponent,
+    DetailsSeriesComponent
   ],
   imports: [
     BrowserModule,

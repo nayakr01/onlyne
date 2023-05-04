@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+<div class="play-container container" *ngIf="serie">
+    <img [src]="serie.backdrop_path ? 'https://image.tmdb.org/t/p/w1280' + serie.backdrop_path : 'https://www.chestnutgrove.org.uk/MainFolder/default-banner/default-banner-mobile.jpg'" alt="" class="play-img">
+    <div class="play-text">
+        <h2>{{ serie.name }}</h2>
+        <div class="rating" *ngIf="serie.vote_average">
+            <h1>{{ serie.vote_average.toFixed(2) }}</h1>
+            <i *ngFor="let star of getStarRating(serie.vote_average)" class="{{ star }}"></i>
+        </div>
+        <div class="tags">
+            <span *ngFor="let genres of serie.genres">{{ genres.name }}</span>
+        </div>
+        <div>
+            <a href="{{ trailer }}" target="_blank" class="watch-btn" *ngIf="trailer">
+                <i class="bx bx-right-arrow"></i>
+                <span>Mirar Trailer</span>
+            </a>
+            <a href="#" target="_blank" class="watch-btn">
+                <i class='bx bx-plus'></i>
+                <span>Añadir a Lista</span>
+            </a>
+        </div>
+    </div>
+    <i class="bx bxs-heart play-movie"></i>
+</div>
+<div class="about-movie container" *ngIf="serie">
+    <h2>{{ serie.name }}</h2>
+    <p> {{ serie.overview }}</p>
+    <h2 class="cast-heading">Actores Principales</h2>
+    <div class="cast">
+        <div class="cast-box" *ngFor="let actor of cast | slice:0:5">
+            <img [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w500' + actor.profile_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+                alt="" class="cast-img">
+            <span class="cast-title">{{ actor.name }}</span>
+        </div>
+    </div>
+    <div class="heading" id="headingExplorer">
+        <h3 class="heading-title">Comentarios</h3>
+    </div>
+</div>

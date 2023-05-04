@@ -8,7 +8,7 @@
             <img [src]="movie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + movie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="movie-box-img">
             <div class="box-text">
                 <h2 class="movie-title">{{ movie.title }}</h2>
-                <span class="movie-gender">{{ movie.genre }}</span>
+                <span class="movie-gender">{{ movie.genre }} | Película</span>
                 <span (click)="getDetailsMovie(movie)" class="watch-btn play-btn">
                     <i class="bx bx-right-arrow"></i>
                 </span>
@@ -18,10 +18,10 @@
             <img [src]="serie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + serie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="movie-box-img">
             <div class="box-text">
                 <h2 class="movie-title">{{ serie.title }}</h2>
-                <span class="movie-gender">{{ serie.genre }}</span>
-                <a href="#" class="watch-btn play-btn">
+                <span class="movie-gender">{{ serie.genre }} | Serie</span>
+                <span (click)="getDetailsSerie(serie)" class="watch-btn play-btn">
                     <i class="bx bx-right-arrow"></i>
-                </a>
+                </span>
             </div>
         </div>
     </div>

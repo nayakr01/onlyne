@@ -71,6 +71,6 @@ export class MoviesComponent {
   }
 
   getDetailsMovie(movie: MoviesWithGenre) {
-    this.router.navigate(['/details', movie.id]);
+    this.router.navigate(['/details-movie', movie.id]);
   }
 }

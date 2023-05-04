@@ -18,7 +18,8 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let movie of moviesWithGenre; let i=index">
                 <div class="popular-box">
-                    <img [src]="movie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + movie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="popular-box-img">
+                    <img [src]="movie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + movie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' "
+                        alt="" class="popular-box-img">
                     <div class="box-text">
                         <h1 class="top">{{ i + 1 }}</h1>
                         <div class="popular-div">
@@ -32,7 +33,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
     <br>
     <div class="heading">
@@ -46,7 +47,8 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let serie of seriesWithGenre; let i=index">
                 <div class="popular-box">
-                    <img [src]="serie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + serie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="popular-box-img">
+                    <img [src]="serie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + serie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' "
+                        alt="" class="popular-box-img">
                     <div class="box-text">
                         <h1 class="top">{{ i + 1 }}</h1>
                         <div class="popular-div">
@@ -60,6 +62,5 @@
                 </div>
             </div>
         </div>
-       
     </div>
 </section>

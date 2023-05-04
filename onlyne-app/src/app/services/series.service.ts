@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Serie, SeriesResponse } from '../interfaces/series.interfaces';
 import { SerieDetails } from '../interfaces/details.interfaces';
+import { Cast, CreditsSeries } from '../interfaces/credits.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,22 @@ export class SeriesService {
 
   getDetails(id: string) {
     return this.http.get<SerieDetails>(`${this.serverURL}/tv/${id}`, { params: this.params }).pipe(
+    );
+  }
+
+  getTrailer(id: string) {
+    return this.http.get(`${this.serverURL}/tv/${id}/videos?`, { params: this.params }).pipe(
+      map((response: any) => {
+        const results = response.results;
+        const trailer = results.find((video: any) => video.type === 'Trailer');
+        return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : '';
+      })
+    );
+  }
+
+  getActor(id: string):Observable<Cast[]> {
+    return this.http.get<CreditsSeries>(`${this.serverURL}/tv/${id}/credits?`, { params: this.params }).pipe(
+      map((res) => res.cast)
     );
   }
 }

@@ -1,22 +1,20 @@
 import { Component } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
-import { SeriesService } from '../services/series.service';
 import { ActivatedRoute } from '@angular/router';
-import { MovieDetails, SerieDetails } from '../interfaces/details.interfaces';
+import { MovieDetails } from '../interfaces/details.interfaces';
 import { Cast } from '../interfaces/credits.interfaces';
 import { Swiper } from 'swiper';
 
 @Component({
   selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.css']
+  templateUrl: './details-movies.component.html',
+  styleUrls: ['./details-movies.component.css']
 })
 export class DetailsComponent {
-  constructor(private moviesService: MoviesService, private seriesService: SeriesService, private activatedRoute: ActivatedRoute) { }
+  constructor(private moviesService: MoviesService, private activatedRoute: ActivatedRoute) { }
 
   cast: Cast[] = [];
   movie?: MovieDetails;
-  serie?: SerieDetails;
   trailer?: string;
 
   ngOnInit() {
@@ -39,10 +37,6 @@ export class DetailsComponent {
     const { id } = this.activatedRoute.snapshot.params;
     this.moviesService.getDetails(id).subscribe(movie => {
       this.movie = movie;
-    });
-
-    this.seriesService.getDetails(id).subscribe(serie => {
-      this.serie = serie;
     });
   }
 

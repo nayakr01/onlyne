@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { SeriesService } from '../services/series.service';
 import { Serie } from '../interfaces/series.interfaces';
 import { Genre } from '../interfaces/genres.interfaces';
+import { Router } from '@angular/router';
 
 
 interface SeriesWithGenre {
+  id: number;
   title: string;
   genre: string;
   path: string;
@@ -23,15 +25,15 @@ export class SeriesComponent {
 
   seriesWithGenre: SeriesWithGenre[] = [];
 
-  constructor(private seriesService: SeriesService) { }
+  constructor(private seriesService: SeriesService,  private router: Router) { }
 
   ngOnInit() {
     let series = document.getElementById('series');
-    document.querySelectorAll('.nav-link').forEach(function (elem){
-        elem.classList.remove('nav-active');
+    document.querySelectorAll('.nav-link').forEach(function (elem) {
+      elem.classList.remove('nav-active');
     });
     series?.classList.add('nav-active');
-    
+
     for (let index = 1; index <= 5; index++) {
       this.getSeries(index);
     }
@@ -50,6 +52,7 @@ export class SeriesComponent {
             const genre = generos.find(g => g.id === genreId);
             if (genre) {
               const seriesWithGenres: SeriesWithGenre = {
+                id: serie.id,
                 title: serie.original_name,
                 genre: genre.name,
                 path: serie.poster_path
@@ -65,5 +68,9 @@ export class SeriesComponent {
         console.log('Error al obtener las series:', error);
       }
     });
+  }
+  getDetailsSerie(serie: SeriesWithGenre) {
+    console.log(serie);
+    this.router.navigate(['/details-serie', serie.id]);
   }
 }
