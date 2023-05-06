@@ -17,6 +17,9 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  profilePhoto: {
+    type: String
+  },
   lists_created: [{
     type: Array
   }],

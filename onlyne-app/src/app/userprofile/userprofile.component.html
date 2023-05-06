@@ -6,7 +6,7 @@
             <div class="shadow"></div>
             <div class="avatar">
                 <img src="./assets/2.jpg" alt="img">
-                <a href="#" class="change-photo">
+                <a (click)="moda2Service.open('modal-1')" class="change-photo">
                     <i class="fas fa-camera"></i>
                     <span>Cambiar foto</span>
                 </a>
@@ -60,3 +60,14 @@
         </div>
     </div>
 </section>
+<!-- Change Photo Modal -->
+<app-modal id="modal-1">
+    <h3>Elige tu avatar</h3>
+    <input type="file" (change)="photoSelected($event)" accept="image/png, image/jpg, image/jpeg" id="avatarInput">
+    <label id="labelPhoto" for="avatarInput">Subir foto desde un dispositivo local</label>
+    <h5>El formato debe ser JPEG o PNG y no puede superar los 5 MB.</h5>
+    <p style="font-size: x-small;">o selecciona una de nuestros avatares sugeridos</p>
+
+
+    <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
+</app-modal>

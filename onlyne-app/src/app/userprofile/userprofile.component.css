@@ -445,3 +445,7 @@ input[type="submit"]:hover {
   right: 20px;
   cursor: pointer;
 }
+
+.avatar a {
+  cursor: pointer;
+}

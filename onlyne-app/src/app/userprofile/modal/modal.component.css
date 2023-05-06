@@ -1,0 +1,58 @@
+/* MODAL STYLES */
+.jw-modal {
+  display: none;
+}
+
+.jw-modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow-x: hidden;
+  background-color: #00000070;
+}
+
+.jw-modal-body {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  text-align: center;
+  background: #191b1f;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+body.jw-modal-open {
+  overflow: hidden;
+}
+
+.jw-modal-body i {
+  position: absolute;
+  font-size: 30px;
+  top: 10px;
+  right: 10px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+#labelPhoto {
+  background-color: var(--cotainer-color);
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  cursor: pointer;
+}
+
+#labelPhoto:hover {
+  background-color: var(--main-color);
+  transition: 0.7s;
+}

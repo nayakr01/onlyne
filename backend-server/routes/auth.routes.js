@@ -1,10 +1,14 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 const router  = express.Router();
 const userSchema = require('../models/user');
 const authorize = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator');
+const { log } = require('console');
 
 // Register
 router.post('/register', [
@@ -216,5 +220,54 @@ router.route('/deleteuser/:id').delete((req, res, next) => {
     }
   })
 })
+
+//Upload Profile Photo
+// Configuration of multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/'); // Folder where photos are saved.
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = `${Date.now()}-${Math.round(Math.random()*1e9)}${path.extname(file.originalname)}`
+    cb(null, uniqueName);
+  }
+});
+
+// Middleware configuration of Multer.
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true)
+    } else {
+      cb(new Error('El archivo seleccionado no es una imagen válida'))
+    }
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 5 // Max size: 5MB
+  }
+});
+
+// Upload Photo Route
+router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req, res, next) => {
+  try {
+    const user = await userSchema.findById(req.body.userId);
+    if (!user) {
+      return res.status(404).json({ msg: 'Usuario no encontrado' });
+    }
+    if (user.profilePhoto) {
+      fs.unlink(user.profilePhoto, (err) => {
+        if (err) {
+          console.log(`Error deleting previous profile photo: ${err}`);
+        }
+      });
+    }
+    user.profilePhoto = req.file.path;
+    await user.save();
+    res.status(200).json({ msg: 'Imagen de perfil actualizada correctamente' });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

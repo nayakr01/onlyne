@@ -71,6 +71,14 @@ export class AuthService {
     }
   }
 
+  uploadPhoto(clientId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('profilePhoto', file);
+    formData.append('userId', clientId);
+    const headers = new HttpHeaders().set('Authorization', this.getToken());
+    return this.http.post(this.urlServer + '/api/uploadphoto', formData, { headers });
+  }
+
   public getClient(): Client {
     this.getClientToken();
     return this.client;

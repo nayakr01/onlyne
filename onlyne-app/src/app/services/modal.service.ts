@@ -11,13 +11,11 @@ export class ModalService {
   constructor() { }
 
   openModal() {
-    console.log("---open---");
     this.modal = true;
   }
 
   closeModal() {
-    console.log("---cerrar---");
     this.modal = false;
   }
-
+  
 }
