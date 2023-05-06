@@ -3,11 +3,12 @@
         <a href="home" class="logo">
             Only<span>ne</span>
         </a>
-        <div class="search-box">
-            <input type="search" name="" id="search-input" placeholder="Buscar Películas o Series">
-            <i class="bx bx-search"></i>
-        </div>
-
+        <form>
+            <div class="search-box">
+                <input type="search" name="" id="search-input" placeholder="Buscar Películas o Series" #txtSearch (keyup.enter)="searchContent(txtSearch.value)">
+                <i class="bx bx-search"></i>
+            </div>
+        </form>
         <a *ngIf="!client" routerLink="/login" class="user">
             <button><i class='bx bx-user'></i> Iniciar sesión </button>
         </a>

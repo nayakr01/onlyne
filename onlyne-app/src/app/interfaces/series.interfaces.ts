@@ -1,8 +1,14 @@
 export interface SeriesResponse {
+    dates:         Dates;
     page:          number;
     results:       Serie[];
     total_pages:   number;
     total_results: number;
+}
+
+export interface Dates {
+    maximum: string;
+    minimum: string;
 }
 
 export interface Serie {

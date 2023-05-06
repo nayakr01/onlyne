@@ -65,9 +65,14 @@ export class MoviesService {
     );
   }
 
-  getActor(id: string):Observable<Cast[]> {
+  getActor(id: string): Observable<Cast[]> {
     return this.http.get<CreditsMovies>(`${this.serverURL}/movie/${id}/credits?`, { params: this.params }).pipe(
       map((res) => res.cast)
     );
+  }
+
+  search(text: string): Observable<Movie[]> {
+    const params = { ...this.params, page: 1, query: text };
+    return this.http.get<MoviesResponse>(`${this.serverURL}/search/movie`, {params}).pipe(map((res) => res.results));
   }
 }

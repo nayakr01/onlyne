@@ -54,7 +54,7 @@ export class MoviesComponent {
               const moviesWithGenres: MoviesWithGenre = {
                 id: movie.id,
                 title: movie.title,
-                genre: genre.name,
+                genre: genre.name || 'Sin género',
                 path: movie.poster_path
               };
               this.moviesWithGenre?.push(moviesWithGenres);

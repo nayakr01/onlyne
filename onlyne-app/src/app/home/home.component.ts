@@ -73,7 +73,7 @@ export class HomeComponent {
               const moviesWithGenres: MoviesWithGenre = {
                 id: movie.id,
                 title: movie.title,
-                genre: genre.name,
+                genre: genre.name || 'Sin género',
                 path: movie.poster_path,
                 type: "0",
               };
@@ -105,7 +105,7 @@ export class HomeComponent {
               const seriesWithGenres: SeriesWithGenre = {
                 id: serie.id,
                 title: serie.original_name,
-                genre: genre.name,
+                genre: genre.name || 'Sin género',
                 path: serie.poster_path,
                 type: "1",
               };

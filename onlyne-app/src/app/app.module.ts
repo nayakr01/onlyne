@@ -21,6 +21,7 @@ import { DetailsComponent } from './details-movies/details-movies.component';
 import { AuthGuard } from './guard/auth.guard';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
 import { ModalComponent } from './userprofile/modal/modal.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -37,8 +38,7 @@ import { ModalComponent } from './userprofile/modal/modal.component';
     UserprofileComponent,
     UserdetailComponent,
     DetailsComponent,
-    DetailsSeriesComponent,
-    ModalComponent
+    DetailsSeriesComponent
   ],
   imports: [
     BrowserModule,
