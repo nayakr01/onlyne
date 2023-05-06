@@ -54,7 +54,7 @@ export class SeriesComponent {
               const seriesWithGenres: SeriesWithGenre = {
                 id: serie.id,
                 title: serie.original_name,
-                genre: genre.name,
+                genre: genre.name || 'Sin género',
                 path: serie.poster_path
               };
               this.seriesWithGenre?.push(seriesWithGenres);

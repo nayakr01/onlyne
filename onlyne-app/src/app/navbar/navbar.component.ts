@@ -15,8 +15,7 @@ export class NavbarComponent {
 
   client!: Client;
 
-  constructor(private authService: AuthService,
-    private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.client = this.authService.getClient();
@@ -41,4 +40,11 @@ export class NavbarComponent {
     }, 1000);
   }
 
+  searchContent(text:string) {
+    text = text.trim();
+    if(text.length === 0) {
+      return;
+    }
+    this.router.navigate(['/search', text]);
+  }
 }

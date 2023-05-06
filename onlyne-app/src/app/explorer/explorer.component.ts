@@ -66,7 +66,7 @@ export class ExplorerComponent {
               const moviesWithGenres: MoviesWithGenre = {
                 id: movie.id,
                 title: movie.title,
-                genre: genre.name,
+                genre: genre.name || 'Sin género',
                 path: movie.poster_path
               };
               this.moviesWithGenre?.push(moviesWithGenres);
@@ -97,7 +97,7 @@ export class ExplorerComponent {
               const seriesWithGenres: SeriesWithGenre = {
                 id: serie.id,
                 title: serie.original_name,
-                genre: genre.name,
+                genre: genre.name || 'Sin género',
                 path: serie.poster_path
               };
               this.seriesWithGenre?.push(seriesWithGenres);

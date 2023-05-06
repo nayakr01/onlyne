@@ -70,4 +70,10 @@ export class SeriesService {
       map((res) => res.cast)
     );
   }
+
+  
+  search(text: string): Observable<Serie[]> {
+    const params = { ...this.params, page: 1, query: text };
+    return this.http.get<SeriesResponse>(`${this.serverURL}/search/tv`, {params}).pipe(map((res) => res.results));
+  }
 }

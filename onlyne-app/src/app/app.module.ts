@@ -20,6 +20,7 @@ import { UserdetailComponent } from './userprofile/userdetail/userdetail.compone
 import { DetailsComponent } from './details-movies/details-movies.component';
 import { AuthGuard } from './guard/auth.guard';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { DetailsSeriesComponent } from './details-series/details-series.componen
     UserprofileComponent,
     UserdetailComponent,
     DetailsComponent,
-    DetailsSeriesComponent
+    DetailsSeriesComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
