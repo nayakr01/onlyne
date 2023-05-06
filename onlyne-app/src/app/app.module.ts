@@ -38,7 +38,9 @@ import { SearchComponent } from './search/search.component';
     UserprofileComponent,
     UserdetailComponent,
     DetailsComponent,
-    DetailsSeriesComponent
+    DetailsSeriesComponent,
+    ModalComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
