@@ -35,11 +35,9 @@ export class UserprofileComponent implements OnInit {
   }
 
   getClient() {
-    this.token = localStorage.getItem('token') || "";
     this.client = this.authService.getClient();
-    this.clientService.getClient(this.client.id, this.token).subscribe({
-      next: (data) => {
-        console.log("cliente:",data);
+    this.authService.getClientData(this.client.id).subscribe({
+      next: (data: any) => {
         this.client = {
           id: data.msg._id,
           name: data.msg.name,
@@ -48,8 +46,11 @@ export class UserprofileComponent implements OnInit {
           lists_created: data.msg.lists_created,
           lists_favourite: data.msg.lists_favourite,
           ratings: data.msg.ratings
+
         };
-        console.log(this.client);
+      },
+      error: (error: any) => {
+        console.log('Error al obtener las series:', error);
       }
     });
   }
@@ -72,10 +73,7 @@ export class UserprofileComponent implements OnInit {
       this.authService.uploadPhoto(this.client.id, this.selectedPhoto)
       .subscribe(event => {
         console.log(event);
-        
-        /* let response: any = event.body;
-        this.client = response.client as Client;
-        console.log(this.client); */
+        this.client = event.user;
         Swal.fire('La foto se ha subido completamente!', event.msg, 'success');
       });
     }

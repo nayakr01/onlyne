@@ -264,10 +264,17 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
     }
     user.profilePhoto = req.file.path;
     await user.save();
-    res.status(200).json({ msg: 'Imagen de perfil actualizada correctamente' });
+    res.status(200).json({ user: user, msg: 'Imagen de perfil actualizada correctamente' });
   } catch (error) {
     next(error);
   }
+});
+
+//View Photo
+router.route('/public/uploads/:filename').get((req, res, next) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, '../public/uploads', filename);
+  res.sendFile(filePath);
 });
 
 module.exports = router;

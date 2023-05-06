@@ -49,6 +49,11 @@ export class AuthService {
     return this.http.post(this.urlServer + '/api/register', { name, email, password });
   }
 
+  getClientData(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', this.getToken());
+    return this.http.get(this.urlServer + '/api/userprofile/' + id, { headers })
+  }
+
   getToken(): string {
     return this.token || localStorage.getItem('token');
   }
@@ -67,7 +72,6 @@ export class AuthService {
         name: decodedToken.name,
         email: decodedToken.email
       };
-      console.log(this.client);
     }
   }
 
@@ -76,6 +80,7 @@ export class AuthService {
     formData.append('profilePhoto', file);
     formData.append('userId', clientId);
     const headers = new HttpHeaders().set('Authorization', this.getToken());
+    this.clientUpdated.emit(this.client);
     return this.http.post(this.urlServer + '/api/uploadphoto', formData, { headers });
   }
 

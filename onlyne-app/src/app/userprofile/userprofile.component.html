@@ -5,7 +5,7 @@
         <div class="profile-content">
             <div class="shadow"></div>
             <div class="avatar">
-                <img src="./assets/2.jpg" alt="img">
+                <img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="img">
                 <a (click)="moda2Service.open('modal-1')" class="change-photo">
                     <i class="fas fa-camera"></i>
                     <span>Cambiar foto</span>
@@ -36,7 +36,7 @@
         <div class="my-list">
             <div class="item">
                 <ul>
-                    <li><img src="./assets/2.jpg" alt="" class="templatemo-item"></li>
+                    <li><img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="" class="templatemo-item"></li>
                     <li>
                         <h4>Nombre</h4><span>Nombre de lista</span>
                     </li>
