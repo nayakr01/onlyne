@@ -61,7 +61,7 @@ export class HomeComponent {
   getRatingMovies(page: number) {
     this.moviesService.getRatingMovies(page).subscribe({
       next: (data: any) => {
-        console.log(data);
+        /* console.log(data); */
         this.movies = data;
         this.moviesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
@@ -93,7 +93,7 @@ export class HomeComponent {
   getRatingSeries(page: number) {
     this.seriesService.getRatingSeries(page).subscribe({
       next: (data: any) => {
-        console.log(data);
+        /* console.log(data); */
         this.series = data;
         this.seriesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
@@ -127,7 +127,7 @@ export class HomeComponent {
   }
 
   getDetailsSerie(serie: SeriesWithGenre) {
-    console.log(serie);
+    /* console.log(serie); */
     this.router.navigate(['/details-serie', serie.id]);
   }
 }

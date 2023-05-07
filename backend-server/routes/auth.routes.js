@@ -78,6 +78,7 @@ router.post('/login', async (req, res) => {
         name: user.name,
         email: user.email,
         userId: user._id,
+        profilePhoto: user.profilePhoto
       },
       'ale-secret-key',
       {
@@ -156,6 +157,7 @@ router.route('/updateuser/:id').put(async (req, res, next) => {
         name: data.name,
         email: data.email,
         userId: data._id,
+        profilePhoto: user.profilePhoto
       },
       'ale-secret-key',
       {
@@ -264,7 +266,30 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
     }
     user.profilePhoto = req.file.path;
     await user.save();
-    res.status(200).json({ user: user, msg: 'Imagen de perfil actualizada correctamente' });
+    const jwtToken = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+        userId: user._id,
+        profilePhoto: user.profilePhoto
+      },
+      'ale-secret-key',
+      {
+        expiresIn: '1h',
+      },
+    )
+    // Cambiar el nombre del campo _id a id
+    const updatedUser = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      userId: user._id,
+      profilePhoto: user.profilePhoto,
+      lists_created: user.lists_created,
+      lists_favourite: user.lists_favourite,
+      ratings: user.ratings
+    }
+    res.status(200).json({ user: updatedUser, msg: 'Imagen de perfil actualizada correctamente',token: jwtToken,expiresIn: 3600});
   } catch (error) {
     next(error);
   }

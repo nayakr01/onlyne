@@ -29,29 +29,12 @@ export class UserprofileComponent implements OnInit {
       elem.classList.remove('nav-active');
     });
     this.getClient();
-    this.authService.clientUpdated.subscribe((updatedClient) => {
-      this.client = updatedClient;
-    });
   }
 
   getClient() {
     this.client = this.authService.getClient();
-    this.authService.getClientData(this.client.id).subscribe({
-      next: (data: any) => {
-        this.client = {
-          id: data.msg._id,
-          name: data.msg.name,
-          email: data.msg.email,
-          profilePhoto: data.msg.profilePhoto,
-          lists_created: data.msg.lists_created,
-          lists_favourite: data.msg.lists_favourite,
-          ratings: data.msg.ratings
-
-        };
-      },
-      error: (error: any) => {
-        console.log('Error al obtener las series:', error);
-      }
+    this.authService.clientUpdated.subscribe((updatedClient) => {
+      this.client = updatedClient;
     });
   }
 
@@ -70,8 +53,14 @@ export class UserprofileComponent implements OnInit {
     if (!this.selectedPhoto) {
       Swal.fire('Error Upload: ', 'Debes seleccionar una foto', 'error');
     } else {
+      console.log("--uploadclient--");
+      
+      console.log(this.client.id);
+      
       this.authService.uploadPhoto(this.client.id, this.selectedPhoto)
       .subscribe(event => {
+        console.log("--event--");
+        
         console.log(event);
         this.client = event.user;
         Swal.fire('La foto se ha subido completamente!', event.msg, 'success');

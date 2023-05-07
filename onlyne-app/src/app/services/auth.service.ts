@@ -13,18 +13,22 @@ export class AuthService {
   urlServer = 'http://localhost:3000';
   public client!: Client;
 
-  constructor(private http: HttpClient) { }
+  public clientUpdated = new EventEmitter<Client>();
+
+  constructor(private http: HttpClient) {
+    this.getClientToken();
+  }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(this.urlServer +'/api/login', { email, password }).pipe(
       tap((response:any) => {
         this.token = response.token;
         localStorage.setItem('token', this.token);
+        this.getClientToken();
       })
     );
   }
 
-  public clientUpdated = new EventEmitter<Client>();
 
   updateClient(id: any, data:any): Observable<Client> {
     return this.http.put<Client>(this.urlServer + '/api/updateuser/' + id, { name: data.newName,
@@ -54,25 +58,27 @@ export class AuthService {
     return this.http.get(this.urlServer + '/api/userprofile/' + id, { headers })
   }
 
-  getToken(): string {
-    return this.token || localStorage.getItem('token');
-  }
-
-  logout(): void {
-    this.token = null;
-    localStorage.removeItem('token');
-  }
-
-  getClientToken() {
-    this.token = localStorage.getItem('token') || "";
-    if(this.token != "") {
-      const decodedToken: any = jwt_decode(this.token);
-      this.client = {
-        id: decodedToken.userId,
-        name: decodedToken.name,
-        email: decodedToken.email
-      };
-    }
+  getClientProfile() {
+    this.getClientData(this.client.id).subscribe({
+      next: (data: any) => {
+        this.client = {
+          id: data.msg._id,
+          name: data.msg.name,
+          email: data.msg.email,
+          profilePhoto: data.msg.profilePhoto,
+          lists_created: data.msg.lists_created,
+          lists_favourite: data.msg.lists_favourite,
+          ratings: data.msg.ratings
+        };
+        console.log("--clientprofile--");
+        console.log(this.client);
+        
+        
+      },
+      error: (error: any) => {
+        console.log('Error al obtener las series:', error);
+      }
+    });
   }
 
   uploadPhoto(clientId: string, file: File): Observable<any> {
@@ -81,11 +87,43 @@ export class AuthService {
     formData.append('userId', clientId);
     const headers = new HttpHeaders().set('Authorization', this.getToken());
     this.clientUpdated.emit(this.client);
-    return this.http.post(this.urlServer + '/api/uploadphoto', formData, { headers });
+    return this.http.post(this.urlServer + '/api/uploadphoto', formData, { headers }).pipe(
+      tap((response:any) => {
+        this.token = response.token;
+        localStorage.removeItem('token');
+        localStorage.setItem('token', this.token);
+        this.clientUpdated.emit(response.user);
+      })
+    );
+  }
+
+  logout(): void {
+    this.token = null;
+    localStorage.removeItem('token');
+  }
+
+  getToken(): string {
+    return this.token || localStorage.getItem('token');
+  }
+
+  getClientToken() {
+    this.getToken();
+    this.token = localStorage.getItem('token') || "";
+    if(this.token != "") {
+      const decodedToken: any = jwt_decode(this.token);
+      this.client = {
+        id: decodedToken.userId,
+        name: decodedToken.name,
+        email: decodedToken.email,
+        profilePhoto: decodedToken.profilePhoto
+      };
+    }
+    console.log("--getclienttoken--");
+    console.log(this.client);
   }
 
   public getClient(): Client {
-    this.getClientToken();
+    this.getClientProfile();
     return this.client;
   }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
+import { Client } from '../interfaces/client.interface';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +14,33 @@ export class LoginComponent {
   isOn!: boolean;
   email = "";
   password = "";
+  client!: Client;
 
   constructor(private authService: AuthService,
     private router: Router) { }
 
   ngOnInit() {
+    this.getClient();
+  }
 
+  getClient() {
+    this.client = this.authService.getClient();
+    this.authService.clientUpdated.subscribe((updatedClient) => {
+      this.client = updatedClient;
+    });
   }
 
   login() {
     this.authService.login(this.email, this.password)
       .subscribe({
         next: (data: any) => {
+          console.log("--data--");
+          console.log(data);
+          this.client = {
+            id: data._id,
+            name: "",
+            email: ""
+          }
           // guardar token en local storage
           localStorage.setItem('token', data.token);
           Swal.fire({
