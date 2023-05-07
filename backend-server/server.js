@@ -28,8 +28,8 @@ mongoose.connect('mongodb+srv://ale:ale@cluster-onlyne.t0txeqv.mongodb.net/Onlyn
 });
 
 const auth = require('./routes/auth.routes');
+const path = require('path');
 app.use('/api', auth);
-
 
 app.listen(port, () => {
   console.log('Server started on port 3000');

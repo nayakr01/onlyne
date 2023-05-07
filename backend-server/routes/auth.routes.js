@@ -157,7 +157,7 @@ router.route('/updateuser/:id').put(async (req, res, next) => {
         name: data.name,
         email: data.email,
         userId: data._id,
-        profilePhoto: user.profilePhoto
+        profilePhoto: data.profilePhoto
       },
       'ale-secret-key',
       {
@@ -168,7 +168,7 @@ router.route('/updateuser/:id').put(async (req, res, next) => {
     res.status(200).json({
       token: jwtToken,
       expiresIn: 3600,
-      _id: data._id,
+      id: data._id,
       client: newData
     })
   } catch (error) {
@@ -257,7 +257,7 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
     if (!user) {
       return res.status(404).json({ msg: 'Usuario no encontrado' });
     }
-    if (user.profilePhoto) {
+    if (user.profilePhoto && !user.profilePhoto.includes('avatar')) {
       fs.unlink(user.profilePhoto, (err) => {
         if (err) {
           console.log(`Error deleting previous profile photo: ${err}`);
@@ -300,6 +300,56 @@ router.route('/public/uploads/:filename').get((req, res, next) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, '../public/uploads', filename);
   res.sendFile(filePath);
+});
+
+//Photo default
+router.route('/defaultphoto').post(authorize,upload.single('profilePhoto'), async (req, res, next) => {
+  try {
+    const user = await userSchema.findById(req.body.userId);
+    if (!user) {
+      return res.status(404).json({ msg: 'Usuario no encontrado' });
+    }
+    if (user.profilePhoto && !user.profilePhoto.includes('avatar')) {
+      fs.unlink(user.profilePhoto, (err) => {
+        if (err) {
+          console.log(`Error deleting previous profile photo: ${err}`);
+        }
+      });
+    }
+    user.profilePhoto = req.body.photo;
+    await user.save();
+    const jwtToken = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+        userId: user._id,
+        profilePhoto: user.profilePhoto
+      },
+      'ale-secret-key',
+      {
+        expiresIn: '1h',
+      },
+    )
+    // Cambiar el nombre del campo _id a id
+    const updatedUser = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      userId: user._id,
+      profilePhoto: user.profilePhoto,
+      lists_created: user.lists_created,
+      lists_favourite: user.lists_favourite,
+      ratings: user.ratings
+    }
+    res.status(200).json({ 
+      user: updatedUser, 
+      msg: 'Imagen de perfil actualizada correctamente', 
+      token: jwtToken, 
+      expiresIn: 3600
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

@@ -21,7 +21,7 @@ export class UserprofileComponent implements OnInit {
 
   constructor(private clientService: ClientService,
     private modalService: ModalService,
-    private authService: AuthService,
+    protected authService: AuthService,
     protected moda2Service: Moda2Service) {}
   
   ngOnInit(): void {
@@ -29,6 +29,7 @@ export class UserprofileComponent implements OnInit {
       elem.classList.remove('nav-active');
     });
     this.getClient();
+    this.currentPhoto = this.client?.profilePhoto;
   }
 
   getClient() {
@@ -39,12 +40,11 @@ export class UserprofileComponent implements OnInit {
   }
 
   photoSelected(event: any) {
+    this.selectedPhoto = event.target.files[0];
     if (this.selectedPhoto && this.selectedPhoto.type.indexOf('image') < 0) {
       Swal.fire('Error al seleccionar imagen: ', 'El archivo debe ser del tipo imagen', 'error');
       this.selectedPhoto = null;
     } else {
-      this.selectedPhoto = event.target.files[0];
-      console.log(this.selectedPhoto);
       this.uploadPhoto();
     }
   }
@@ -53,19 +53,27 @@ export class UserprofileComponent implements OnInit {
     if (!this.selectedPhoto) {
       Swal.fire('Error Upload: ', 'Debes seleccionar una foto', 'error');
     } else {
-      console.log("--uploadclient--");
-      
-      console.log(this.client.id);
-      
       this.authService.uploadPhoto(this.client.id, this.selectedPhoto)
       .subscribe(event => {
-        console.log("--event--");
-        
-        console.log(event);
         this.client = event.user;
+        this.currentPhoto = this.client.profilePhoto;
         Swal.fire('La foto se ha subido completamente!', event.msg, 'success');
       });
     }
+  }
+
+  selectedDefaultPhoto!: string;
+  currentPhoto!: any;
+  selectDefaultPhoto(namePhoto: string) {
+    this.currentPhoto = namePhoto;
+    this.selectedDefaultPhoto = namePhoto;
+  }
+
+  uploadDefaultPhoto() {
+    this.authService.uploadDefaultPhoto(this.client.id, this.selectedDefaultPhoto).subscribe(event => {
+      this.client = event.user;
+      Swal.fire('La foto se ha actualizado correctamente!', event.msg, 'success');
+    });
   }
 
   openModal(client: Client) {

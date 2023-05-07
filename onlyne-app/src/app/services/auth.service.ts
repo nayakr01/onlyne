@@ -97,6 +97,22 @@ export class AuthService {
     );
   }
 
+  uploadDefaultPhoto(clientId: string, photo: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('photo', photo);
+    formData.append('userId', clientId);
+    const headers = new HttpHeaders().set('Authorization', this.getToken());
+    this.clientUpdated.emit(this.client);
+    return this.http.post(this.urlServer + '/api/defaultphoto', formData, { headers }).pipe(
+      tap((response:any) => {
+        this.token = response.token;
+        localStorage.removeItem('token');
+        localStorage.setItem('token', this.token);
+        this.clientUpdated.emit(response.user);
+      })
+    );
+  }
+
   logout(): void {
     this.token = null;
     localStorage.removeItem('token');

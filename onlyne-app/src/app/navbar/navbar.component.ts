@@ -15,7 +15,7 @@ export class NavbarComponent {
 
   client!: Client;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(protected authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.getClient();
