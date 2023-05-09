@@ -34,11 +34,11 @@
         <h1>Mis Listas</h1>
         <hr>
         <div class="my-list">
-            <div class="item">
+            <div class="item" *ngFor="let list of userLists">
                 <ul>
                     <li><img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="" class="templatemo-item"></li>
                     <li>
-                        <h4>Nombre</h4><span>Nombre de lista</span>
+                        <h4>{{ list.title }}</h4><span>Nombre de lista</span>
                     </li>
                     <li>
                         <h4>Seguidores</h4><span>Número de seguidores</span>

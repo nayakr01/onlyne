@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import jwt_decode from 'jwt-decode';
 import { Client } from '../interfaces/client.interface';
-import { ClientService } from '../services/client.service';
 import { ModalService } from '../services/modal.service';
 import { AuthService } from '../services/auth.service';
 import { Moda2Service } from './modal/moda2.service';
 import Swal from 'sweetalert2';
+import { ListsService } from '../services/lists.service';
+import { List } from '../interfaces/list.interfaces';
 
 @Component({
   selector: 'app-userprofile',
@@ -20,11 +21,12 @@ export class UserprofileComponent implements OnInit {
   selectedPhoto!: File | null;
   selectedDefaultPhoto!: string;
   currentPhoto!: any;
+  userLists!: List[];
 
-  constructor(private clientService: ClientService,
-    private modalService: ModalService,
+  constructor(private modalService: ModalService,
     protected authService: AuthService,
-    protected moda2Service: Moda2Service) {}
+    protected moda2Service: Moda2Service,
+    private listsService: ListsService) {}
   
   ngOnInit(): void {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -32,12 +34,24 @@ export class UserprofileComponent implements OnInit {
     });
     this.getClient();
     this.currentPhoto = this.client?.profilePhoto;
+    this.getLists();
   }
 
   getClient() {
     this.client = this.authService.getClient();
     this.authService.clientUpdated.subscribe((updatedClient) => {
       this.client = updatedClient;
+    });
+  }
+
+  getLists() {
+    this.listsService.getLists(this.client.id).subscribe((data: any) => {
+      this.userLists = data;
+      console.log("foreach de las listas");
+      this.userLists.forEach(e => {
+        console.log(e);
+        
+      });
     });
   }
 

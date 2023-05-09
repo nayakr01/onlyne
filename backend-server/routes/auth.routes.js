@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const router  = express.Router();
 const userSchema = require('../models/user');
+const listSchema = require('../models/list');
 const authorize = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 const { log } = require('console');
@@ -41,6 +42,7 @@ router.post('/register', [
         name: req.body.name,
         email: req.body.email,
         password: hash,
+        profilePhoto: "public/uploads/avatar1.jpg"
       })
     user.save().then((response) => {
         res.status(201).json({
@@ -350,6 +352,43 @@ router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), asy
   } catch (error) {
     next(error);
   }
+});
+
+// Get All Lists
+router.get('/lists', authorize, (req, res) => {
+  listSchema.find()
+    .then(lists => {
+      res.send(lists);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Error al recuperar las listas."
+      });
+    });
+});
+
+// Get All Lists of a Specific User
+router.get('/users/:userId/lists', authorize, (req, res) => {
+  const userId = req.params.userId;
+
+  userSchema.findById(userId)
+    .then(user => {
+      const listIds = user.lists_created;
+      listSchema.find({ _id: { $in: listIds } })
+        .then(lists => {
+          res.send(lists);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: err.message || "Error al recuperar las listas del usuario."
+          });
+        });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Error al recuperar el usuario."
+      });
+    });
 });
 
 module.exports = router;

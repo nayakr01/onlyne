@@ -26,6 +26,7 @@ export class RegisterComponent {
           .subscribe({
             next: (data: any) => {
               localStorage.setItem('token', data.token);
+              this.router.navigate(['home']);
               Swal.fire({
                 title: 'Sesion inciada',
                 text: `Bienvenido ${this.client.email}`,

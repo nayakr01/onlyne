@@ -10,7 +10,6 @@ import { Client } from '../interfaces/client.interface';
 export class AuthService {
 
   private token: any = '';
-  headers = new HttpHeaders({});
   urlServer = 'http://localhost:3000';
   public client!: Client;
 
@@ -55,7 +54,7 @@ export class AuthService {
   }
 
   getClientData(id: string): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', this.getToken());
+    /* const headers = new HttpHeaders().set('Authorization', this.getToken()); */
     return this.http.get(this.urlServer + '/api/userprofile/' + id)
   }
 
