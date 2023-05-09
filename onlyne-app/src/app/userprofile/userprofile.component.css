@@ -449,3 +449,14 @@ input[type="submit"]:hover {
 .avatar a {
   cursor: pointer;
 }
+
+#btn-modal {
+  cursor: pointer;
+  width: 400px;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}

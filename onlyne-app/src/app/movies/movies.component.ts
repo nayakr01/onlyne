@@ -42,7 +42,6 @@ export class MoviesComponent {
   getMovies(page: number) {
     this.moviesService.getMovies(page).subscribe({
       next: (data: any) => {
-        console.log(data);
         const movies: Movie[] = data;
         this.moviesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];

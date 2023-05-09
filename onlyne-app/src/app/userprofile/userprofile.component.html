@@ -82,6 +82,6 @@
             <img (click)="selectDefaultPhoto('public/uploads/avatar6.jpg')" src="http://localhost:3000/api/public/uploads/avatar6.jpg" alt="avatar6">
         </div>
     </div>
-    <button (click)="uploadDefaultPhoto()" style="cursor: pointer; width: 400px;">Confirmar</button>
+    <button id="btn-modal" (click)="uploadDefaultPhoto()" [disabled]="!this.selectedDefaultPhoto">Confirmar</button>
     <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
 </app-modal>

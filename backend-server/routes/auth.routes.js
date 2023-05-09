@@ -101,7 +101,7 @@ router.post('/login', async (req, res) => {
 })
 
 // Get Users
-router.get('/users', (req, res) => {
+router.get('/users', authorize, (req, res) => {
   userSchema.find()
     .then(users => {
       res.send(users);
@@ -129,7 +129,7 @@ router.route('/userprofile/:id').get(authorize, async (req, res, next) => {
 });
 
 // Update User
-router.route('/updateuser/:id').put(async (req, res, next) => {
+router.route('/updateuser/:id').put(authorize, async (req, res, next) => {
   const newName = req.body.name;
   
   const existingUser = await userSchema.findOne({ name: newName });
@@ -180,7 +180,7 @@ router.route('/updateuser/:id').put(async (req, res, next) => {
 router.route('/updatepassworduser/:id').put([
   check('currentPassword').not().isEmpty().withMessage('La contraseña actual es obligatoria'),
   check('newPassword').not().isEmpty().isLength({ min: 5, max: 50 }).withMessage('La contraseña debe tener entre 5 y 50 caracteres'),
-], async (req, res, next) => {
+], authorize, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
@@ -211,7 +211,7 @@ router.route('/updatepassworduser/:id').put([
 });
 
 // Delete User
-router.route('/deleteuser/:id').delete((req, res, next) => {
+router.route('/deleteuser/:id').delete(authorize, (req, res, next) => {
   userSchema.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -303,7 +303,7 @@ router.route('/public/uploads/:filename').get((req, res, next) => {
 });
 
 //Photo default
-router.route('/defaultphoto').post(authorize,upload.single('profilePhoto'), async (req, res, next) => {
+router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), async (req, res, next) => {
   try {
     const user = await userSchema.findById(req.body.userId);
     if (!user) {

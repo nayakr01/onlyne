@@ -10,6 +10,7 @@ import { Client } from '../interfaces/client.interface';
 export class AuthService {
 
   private token: any = '';
+  headers = new HttpHeaders({});
   urlServer = 'http://localhost:3000';
   public client!: Client;
 
@@ -55,30 +56,32 @@ export class AuthService {
 
   getClientData(id: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', this.getToken());
-    return this.http.get(this.urlServer + '/api/userprofile/' + id, { headers })
+    return this.http.get(this.urlServer + '/api/userprofile/' + id)
   }
 
   getClientProfile() {
-    this.getClientData(this.client.id).subscribe({
-      next: (data: any) => {
-        this.client = {
-          id: data.msg._id,
-          name: data.msg.name,
-          email: data.msg.email,
-          profilePhoto: data.msg.profilePhoto,
-          lists_created: data.msg.lists_created,
-          lists_favourite: data.msg.lists_favourite,
-          ratings: data.msg.ratings
-        };
-        console.log("--clientprofile--");
-        console.log(this.client);
-        
-        
-      },
-      error: (error: any) => {
-        console.log('Error al obtener las series:', error);
-      }
-    });
+    if (this.client) {
+      this.getClientData(this.client.id).subscribe({
+        next: (data: any) => {
+          this.client = {
+            id: data.msg._id,
+            name: data.msg.name,
+            email: data.msg.email,
+            profilePhoto: data.msg.profilePhoto,
+            lists_created: data.msg.lists_created,
+            lists_favourite: data.msg.lists_favourite,
+            ratings: data.msg.ratings
+          };
+          console.log("--clientprofile--");
+          console.log(this.client);
+          
+          
+        },
+        error: (error: any) => {
+          console.log('Error al obtener las series:', error);
+        }
+      });   
+    }
   }
 
   uploadPhoto(clientId: string, file: File): Observable<any> {

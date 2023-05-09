@@ -54,7 +54,6 @@ export class ExplorerComponent {
   getMovies(page: number) {
     this.moviesService.getMovies(page).subscribe({
       next: (data: any) => {
-        console.log(data);
         const movies: Movie[] = data;
         this.moviesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
@@ -85,7 +84,6 @@ export class ExplorerComponent {
   getSeries(page: number) {
     this.seriesService.getSeries(page).subscribe({
       next: (data: any) => {
-        console.log(data);
         const series: Serie[] = data;
         this.seriesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];

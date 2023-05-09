@@ -18,6 +18,8 @@ export class UserprofileComponent implements OnInit {
   client!: Client;
   selectedClient!: Client;
   selectedPhoto!: File | null;
+  selectedDefaultPhoto!: string;
+  currentPhoto!: any;
 
   constructor(private clientService: ClientService,
     private modalService: ModalService,
@@ -62,18 +64,22 @@ export class UserprofileComponent implements OnInit {
     }
   }
 
-  selectedDefaultPhoto!: string;
-  currentPhoto!: any;
   selectDefaultPhoto(namePhoto: string) {
     this.currentPhoto = namePhoto;
     this.selectedDefaultPhoto = namePhoto;
   }
 
   uploadDefaultPhoto() {
-    this.authService.uploadDefaultPhoto(this.client.id, this.selectedDefaultPhoto).subscribe(event => {
-      this.client = event.user;
-      Swal.fire('La foto se ha actualizado correctamente!', event.msg, 'success');
-    });
+    console.log("--uploaddefaulthoto--");
+    console.log(this.selectedDefaultPhoto);
+    
+    if (this.selectedDefaultPhoto != null) {
+      this.authService.uploadDefaultPhoto(this.client.id, this.selectedDefaultPhoto).subscribe(event => {
+        this.client = event.user;
+        Swal.fire('La foto se ha actualizado correctamente!', event.msg, 'success');
+        this.selectedDefaultPhoto = '';
+      });
+    }
   }
 
   openModal(client: Client) {

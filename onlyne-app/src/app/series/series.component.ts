@@ -42,7 +42,6 @@ export class SeriesComponent {
   getSeries(page: number) {
     this.seriesService.getSeries(page).subscribe({
       next: (data: any) => {
-        console.log(data);
         const series: Serie[] = data;
         this.seriesService.getGenres().subscribe(data => {
           const generos: Genre[] = data['genres'];
@@ -70,7 +69,6 @@ export class SeriesComponent {
     });
   }
   getDetailsSerie(serie: SeriesWithGenre) {
-    console.log(serie);
     this.router.navigate(['/details-serie', serie.id]);
   }
 }
