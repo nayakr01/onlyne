@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { Movie, MoviesResponse } from '../interfaces/movies.interfaces';
 import { MovieDetails } from '../interfaces/details.interfaces';
 import { Cast, CreditsMovies } from '../interfaces/credits.interfaces';
+import { Streaming } from '../interfaces/streaming.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,10 @@ export class MoviesService {
     return this.http.get<CreditsMovies>(`${this.serverURL}/movie/${id}/credits?`, { params: this.params }).pipe(
       map((res) => res.cast)
     );
+  }
+
+  getStreaming(id: string): Observable<Streaming> {
+    return this.http.get<Streaming>(`${this.serverURL}/movie/${id}/watch/providers`, { params: this.params });
   }
 
   search(text: string): Observable<Movie[]> {

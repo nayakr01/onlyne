@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { Serie, SeriesResponse } from '../interfaces/series.interfaces';
 import { SerieDetails } from '../interfaces/details.interfaces';
 import { Cast, CreditsSeries } from '../interfaces/credits.interfaces';
+import { Streaming } from '../interfaces/streaming.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,9 @@ export class SeriesService {
     );
   }
 
+  getStreaming(id: string): Observable<Streaming> {
+    return this.http.get<Streaming>(`${this.serverURL}/tv/${id}/watch/providers`, { params: this.params });
+  }
   
   search(text: string): Observable<Serie[]> {
     const params = { ...this.params, page: 1, query: text };

@@ -498,6 +498,38 @@ button:hover {
     object-position: center;
 }
 
+.plataform-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--main-color);
+}
+
+.plataform {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+    gap: 1rem;
+}
+
+.plataform-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.plataform-div {
+    height: 40px;
+}
+
+.plataform-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 @media (max-width:1170px) {
     .navbar {
         bottom: 0;

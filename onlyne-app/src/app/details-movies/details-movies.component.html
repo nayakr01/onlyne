@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div class="play-container container" *ngIf="movie">
-    <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w1280' + movie.backdrop_path : 'https://www.chestnutgrove.org.uk/MainFolder/default-banner/default-banner-mobile.jpg'" alt="" class="play-img">
+    <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w1280' + movie.backdrop_path : 'https://www.chestnutgrove.org.uk/MainFolder/default-banner/default-banner-mobile.jpg'"
+        alt="" class="play-img">
     <div class="play-text">
         <h2>{{ movie.title }}</h2>
         <div class="rating" *ngIf="movie.vote_average">
@@ -10,12 +11,12 @@
         <div class="tags">
             <span *ngFor="let genres of movie.genres">{{ genres.name }}</span>
         </div>
-        <div>
+        <div [ngStyle]="{'display': 'flex', 'justify-content': 'flex-start'}">
             <a href="{{ trailer }}" target="_blank" class="watch-btn" *ngIf="trailer">
                 <i class="bx bx-right-arrow"></i>
                 <span>Mirar Trailer</span>
             </a>
-            <a href="#" target="_blank" class="watch-btn">
+            <a href="#" target="_blank" class="watch-btn" [ngStyle]="{'margin-left': '10px'}">
                 <i class='bx bx-plus'></i>
                 <span>Añadir a Lista</span>
             </a>
@@ -32,6 +33,17 @@
             <img [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w500' + actor.profile_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
                 alt="" class="cast-img">
             <span class="cast-title">{{ actor.name }}</span>
+        </div>
+    </div>
+    <div *ngIf="streaming?.results?.ES?.flatrate">
+        <h2 class="plataform-heading"> Plataformas de streaming</h2>
+        <div class="plataform">
+            <div class="plataform-box" *ngFor="let stream of streaming?.results?.ES?.flatrate">
+                <img src="https://image.tmdb.org/t/p/original/{{stream.logo_path}}" alt="{{stream.provider_name}}" class="plataform-img">
+                <div class="plataform-div">
+                    <span class="plataform-title">{{stream.provider_name}}</span> 
+                </div>
+            </div>
         </div>
     </div>
     <div class="heading" id="headingExplorer">

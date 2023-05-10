@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 import { ActivatedRoute } from '@angular/router';
 import { MovieDetails } from '../interfaces/details.interfaces';
+import { Streaming } from '../interfaces/streaming.interface';
 import { Cast } from '../interfaces/credits.interfaces';
 import { Swiper } from 'swiper';
 
@@ -16,6 +17,7 @@ export class DetailsComponent {
   cast: Cast[] = [];
   movie?: MovieDetails;
   trailer?: string;
+  streaming?: Streaming;
 
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -37,6 +39,9 @@ export class DetailsComponent {
     const { id } = this.activatedRoute.snapshot.params;
     this.moviesService.getDetails(id).subscribe(movie => {
       this.movie = movie;
+      this.moviesService.getStreaming(id).subscribe(streaming => {
+        this.streaming = streaming;
+      });
     });
   }
 

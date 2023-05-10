@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SerieDetails } from '../interfaces/details.interfaces';
 import { Cast } from '../interfaces/credits.interfaces';
 import { Swiper } from 'swiper';
+import { Streaming } from '../interfaces/streaming.interface';
 
 @Component({
   selector: 'app-details-series',
@@ -16,6 +17,7 @@ export class DetailsSeriesComponent {
   cast: Cast[] = [];
   serie?: SerieDetails;
   trailer?: string;
+  streaming?: Streaming;
 
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -37,6 +39,9 @@ export class DetailsSeriesComponent {
     const { id } = this.activatedRoute.snapshot.params;
     this.seriesService.getDetails(id).subscribe(serie => {
       this.serie = serie;
+      this.seriesService.getStreaming(id).subscribe(streaming => {
+        this.streaming = streaming;
+      });
     });
   }
 
