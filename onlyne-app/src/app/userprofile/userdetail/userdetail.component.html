@@ -1,9 +1,9 @@
 <div class="modal animation fadeIn" *ngIf="modalService.modal">
   <div class="modal-wrap">
     <div class="modal-content">
-      <h2 id="title">Detalles del usuario</h2>
+      <h2 id="title">Detalles del usuario -> <span>{{ this.client.name }}</span></h2>
       <div class="modal-left">
-        <img src="../../../assets/2.jpg" alt="fotito">
+        <img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="fotito">
       </div>
       <div class="modal-right">
         <form>
@@ -12,7 +12,7 @@
           <label for="email">Email:</label>
           <input type="text" name="email" id="email" [value]="this.client.email">
           <ng-container *ngIf="modalService.isEditingPassword">
-            <h2>Cambio de contraseña</h2>
+            <h2 id="title2">Cambio de contraseña</h2>
             <label for="password">Contraseña actual:</label>
             <input type="password" name="password" id="password" [(ngModel)]="this.currentPassword">
             <label for="newPassword">Nueva contraseña:</label>
