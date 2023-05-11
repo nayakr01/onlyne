@@ -71,10 +71,7 @@ export class AuthService {
             lists_favourite: data.msg.lists_favourite,
             ratings: data.msg.ratings
           };
-          console.log("--clientprofile--");
-          console.log(this.client);
-          
-          
+          this.clientUpdated.emit(this.client);
         },
         error: (error: any) => {
           console.log('Error al obtener las series:', error);

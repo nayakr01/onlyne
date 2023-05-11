@@ -1,5 +1,5 @@
 export interface List {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   listPhoto?: string;

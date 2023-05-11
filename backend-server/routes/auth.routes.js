@@ -118,7 +118,7 @@ router.get('/users', authorize, (req, res) => {
 // Get Single User
 router.route('/userprofile/:id').get(authorize, async (req, res, next) => {
   try {
-    const user = await userSchema.findById(req.params.id);
+    const user = await userSchema.findById(req.params.id).populate('lists_created') ;
     if (!user) {
       return res.status(404).json({ msg: 'Usuario no encontrado' });
     }
@@ -357,6 +357,7 @@ router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), asy
 // Get All Lists
 router.get('/lists', authorize, (req, res) => {
   listSchema.find()
+    .populate('author', 'name email')
     .then(lists => {
       res.send(lists);
     })
@@ -375,6 +376,7 @@ router.get('/users/:userId/lists', authorize, (req, res) => {
     .then(user => {
       const listIds = user.lists_created;
       listSchema.find({ _id: { $in: listIds } })
+        .populate('author', 'name email') // Populate the 'author' field with the 'name' and 'email' properties
         .then(lists => {
           res.send(lists);
         })
@@ -388,6 +390,63 @@ router.get('/users/:userId/lists', authorize, (req, res) => {
       res.status(500).send({
         message: err.message || "Error al recuperar el usuario."
       });
+    });
+});
+
+//Create List
+router.post('/lists', authorize, (req, res) => {
+  const newList = new listSchema({
+    title: req.body.title,
+    description: req.body.description,
+    author: req.body.author
+    /* listPhoto: req.body.listPhoto */
+  });
+  newList.save()
+    .then(response => {
+      userSchema.findById(req.body.author)
+        .then(user => {
+          user.lists_created.push(response._id);
+          user.save()
+            .then(() => {
+              res.status(201).json({
+                message: 'Lista creada con éxito!',
+                result: response,
+              });
+            })
+            .catch(error => {
+              res.status(400).json({ error: error.message });
+            });
+        })
+        .catch(error => {
+          res.status(400).json({ error: error.message });
+        });
+    })
+    .catch(error => {
+      res.status(400).json({ error: error.message });
+    });
+});
+
+// Delete List
+router.delete('/lists/:id', authorize, (req, res) => {
+  const listId = req.params.id;
+
+  listSchema.findByIdAndDelete(listId)
+    .then(deletedList => {
+      if (!deletedList) {
+        return res.status(404).json({ message: 'La lista no se encontró.' });
+      }
+
+      // Remove the list ID from the user's lists_created array
+      userSchema.findByIdAndUpdate(deletedList.author, { $pull: { lists_created: listId } })
+        .then(() => {
+          res.status(200).json({ message: 'Lista eliminada correctamente.' });
+        })
+        .catch(error => {
+          res.status(400).json({ error: error });
+        });
+    })
+    .catch(error => {
+      res.status(400).json({ error: error });
     });
 });
 

@@ -22,6 +22,8 @@ export class UserprofileComponent implements OnInit {
   selectedDefaultPhoto!: string;
   currentPhoto!: any;
   userLists!: List[];
+  listName!: string;
+  listDescription!: string;
 
   constructor(private modalService: ModalService,
     protected authService: AuthService,
@@ -34,7 +36,8 @@ export class UserprofileComponent implements OnInit {
     });
     this.getClient();
     this.currentPhoto = this.client?.profilePhoto;
-    this.getLists();
+    this.getUserLists();
+    
   }
 
   getClient() {
@@ -44,14 +47,77 @@ export class UserprofileComponent implements OnInit {
     });
   }
 
-  getLists() {
-    this.listsService.getLists(this.client.id).subscribe((data: any) => {
+  getUserLists() {
+    this.listsService.getUserLists(this.client.id).subscribe((data: any) => {
       this.userLists = data;
       console.log("foreach de las listas");
       this.userLists.forEach(e => {
         console.log(e);
         
       });
+    });
+  }
+
+  createList() {
+    this.listsService.createList(this.listName, this.listDescription, this.client.id).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Lista creada',
+          text: `La lista ${this.listName} se ha creado correctamente`,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      },
+      error: (error: any) => {
+        let e = error.error.error.match(/Error: (.+)/)[0];
+        Swal.fire({
+          title: 'Error al crear la lista',
+          text: e,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
+    });
+  }
+
+  deleteList(id:string) {
+    this.listsService.deleteList(id).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Lista eliminada',
+          text: data.message,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      },
+      error: (error: any) => {
+        Swal.fire({
+          title: 'Error al eliminar la lista',
+          text: error,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
     });
   }
 

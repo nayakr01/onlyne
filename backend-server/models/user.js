@@ -24,7 +24,8 @@ const userSchema = new Schema({
     type: String
   },
   lists_created: [{
-    type: Array
+    type: String,
+    ref: 'list',
   }],
   lists_favourite: [{
     type: Array

@@ -13,11 +13,15 @@ const listSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   listPhoto: {
     type: String
+  },
+  author: {
+    type: String,
+    ref: 'user',
+    required: true
   }
 }, {collection: 'Lists'});
 

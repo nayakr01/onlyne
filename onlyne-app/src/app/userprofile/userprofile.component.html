@@ -31,6 +31,7 @@
 </section>
 <section class="list container">
     <div class="user-profile">
+        <button (click)="moda2Service.open('modal-2')">Crear lista</button>
         <h1>Mis Listas</h1>
         <hr>
         <div class="my-list">
@@ -53,6 +54,11 @@
                     <li>
                         <div class="main-border-button">
                             <a href="#" class="">Editar</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="main-border-button">
+                            <a (click)="deleteList(list._id)" class="">Borrar</a>
                         </div>
                     </li>
                 </ul>
@@ -83,5 +89,22 @@
         </div>
     </div>
     <button id="btn-modal" (click)="uploadDefaultPhoto()" [disabled]="!this.selectedDefaultPhoto">Confirmar</button>
+    <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
+</app-modal>
+
+<app-modal id="modal-2">
+    <h3>Modal 2</h3>
+    <div class="user-avatar">
+        <img src="http://localhost:3000/api/{{this.currentPhoto}}" alt="profile-photo">
+    </div>
+    <div class="list">
+        <form>
+            <label for="listName">Nombre de la Lista:</label>
+            <input type="text" name="listName" id="listName" [(ngModel)]="this.listName">
+            <label for="listDescription">Descripcion de la Lista:</label>
+            <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30" rows="10"></textarea>
+            <button type="submit" (click)="createList()">Crear</button>
+        </form>
+    </div>
     <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
 </app-modal>

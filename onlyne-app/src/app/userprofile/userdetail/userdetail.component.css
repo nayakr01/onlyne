@@ -81,6 +81,13 @@
   background-size: cover;
 }
 
+i {
+  position: absolute;
+  font-size: 50px;
+  top: 10px;
+  right: 10px;
+}
+
 img {
   border-radius: 20%;
 }
