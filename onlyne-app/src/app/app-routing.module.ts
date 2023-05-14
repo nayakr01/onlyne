@@ -12,6 +12,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AuthGuard } from './guard/auth.guard';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
 import { SearchComponent } from './search/search.component';
+import { DetailListComponent } from './detail-list/detail-list.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'series', component: SeriesComponent },
   { path: 'details-movie/:id', component: DetailsComponent },
   { path: 'details-serie/:id', component: DetailsSeriesComponent },
+  { path: 'detail-list/:id', component: DetailListComponent },
   { path: 'search/:text', component: SearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

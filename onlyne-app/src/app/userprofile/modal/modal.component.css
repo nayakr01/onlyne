@@ -35,7 +35,7 @@ body.jw-modal-open {
   overflow: hidden;
 }
 
-.jw-modal-body i {
+#close {
   position: absolute;
   font-size: 30px;
   top: 10px;

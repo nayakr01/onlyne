@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { Client } from '../interfaces/client.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  
   private token: any = '';
+  private refreshToken: any = '';
   urlServer = 'http://localhost:3000';
   public client!: Client;
 
@@ -23,6 +25,8 @@ export class AuthService {
     return this.http.post(this.urlServer +'/api/login', { email, password }).pipe(
       tap((response:any) => {
         this.token = response.token;
+        this.refreshToken = response.refreshToken;
+        this.setCookie('refreshToken', this.refreshToken);;
         localStorage.setItem('token', this.token);
         this.getClientToken();
       })
@@ -54,7 +58,6 @@ export class AuthService {
   }
 
   getClientData(id: string): Observable<any> {
-    /* const headers = new HttpHeaders().set('Authorization', this.getToken()); */
     return this.http.get(this.urlServer + '/api/userprofile/' + id)
   }
 
@@ -115,6 +118,38 @@ export class AuthService {
   logout(): void {
     this.token = null;
     localStorage.removeItem('token');
+  }
+
+  refreshClientToken(): Observable<any> {
+    console.log("refreshtoken");
+    const refreshToken = this.getCookie('refreshToken');
+    console.log(refreshToken);
+    return this.http.post(this.urlServer + "/api/refresh", { email: this.client.email, refreshToken: refreshToken });
+  }
+
+  private setCookie(name: string, value: string, expirationDays: number = 30) {
+    const date = new Date();
+    date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
+  }
+
+  private getCookie(name: string): string {
+    const cookieName = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) == ' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(cookieName) == 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+
+    return '';
   }
 
   getToken(): string {

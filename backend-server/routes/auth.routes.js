@@ -84,14 +84,19 @@ router.post('/login', async (req, res) => {
       },
       'ale-secret-key',
       {
-        expiresIn: '1h',
+        expiresIn: '24h',
       },
     )
 
+    const refreshToken = jwt.sign({ email: user.email }, "ale-refreshSecret", {
+      expiresIn: "48h",
+    });
+
     res.status(200).json({
       token: jwtToken,
-      expiresIn: 3600,
+      expiresIn: 86400,
       _id: user._id,
+      refreshToken: refreshToken
     })
 
   } catch (err) {
@@ -101,6 +106,42 @@ router.post('/login', async (req, res) => {
     })
   }
 })
+
+// Refresh Token
+const { verifyRefresh } = require("../middlewares/helper")
+router.post("/refresh", async (req, res) => {
+  const { email, refreshToken } = req.body;
+  const isValid = verifyRefresh(email, refreshToken);
+  if (!isValid) {
+    return res
+      .status(401)
+      .json({ success: false, error: "Invalid token,try login again" });
+  }
+
+  const user = await userSchema.findOne({ email: req.body.email })
+  if (!user) {
+    return res.status(401).json({
+      message: 'El email o la contraseña son incorrectos',
+    })
+  }
+  const accessToken = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+        userId: user._id,
+        profilePhoto: user.profilePhoto
+      },
+      'ale-secret-key',
+      {
+        expiresIn: '24h',
+      },
+    )
+
+  const newRefreshToken = jwt.sign({ email: user.email }, "ale-refreshSecret", {
+    expiresIn: "48h",
+  });
+  return res.status(200).json({ success: true, accessToken, newRefreshToken });
+});
 
 // Get Users
 router.get('/users', authorize, (req, res) => {
@@ -163,13 +204,13 @@ router.route('/updateuser/:id').put(authorize, async (req, res, next) => {
       },
       'ale-secret-key',
       {
-        expiresIn: '1h',
+        expiresIn: '24h',
       },
     )
 
     res.status(200).json({
       token: jwtToken,
-      expiresIn: 3600,
+      expiresIn: 86400,
       id: data._id,
       client: newData
     })
@@ -277,7 +318,7 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
       },
       'ale-secret-key',
       {
-        expiresIn: '1h',
+        expiresIn: '24h',
       },
     )
     // Cambiar el nombre del campo _id a id
@@ -291,7 +332,7 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
       lists_favourite: user.lists_favourite,
       ratings: user.ratings
     }
-    res.status(200).json({ user: updatedUser, msg: 'Imagen de perfil actualizada correctamente',token: jwtToken,expiresIn: 3600});
+    res.status(200).json({ user: updatedUser, msg: 'Imagen de perfil actualizada correctamente',token: jwtToken,expiresIn: 86400});
   } catch (error) {
     next(error);
   }
@@ -329,7 +370,7 @@ router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), asy
       },
       'ale-secret-key',
       {
-        expiresIn: '1h',
+        expiresIn: '24h',
       },
     )
     // Cambiar el nombre del campo _id a id
@@ -347,7 +388,7 @@ router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), asy
       user: updatedUser, 
       msg: 'Imagen de perfil actualizada correctamente', 
       token: jwtToken, 
-      expiresIn: 3600
+      expiresIn: 86400
     });
   } catch (error) {
     next(error);
@@ -398,8 +439,9 @@ router.post('/lists', authorize, (req, res) => {
   const newList = new listSchema({
     title: req.body.title,
     description: req.body.description,
-    author: req.body.author
-    /* listPhoto: req.body.listPhoto */
+    author: req.body.author,
+    listPhoto: 'public/uploads/default-image-list.png',
+    listM_S: []
   });
   newList.save()
     .then(response => {
@@ -448,6 +490,33 @@ router.delete('/lists/:id', authorize, (req, res) => {
     .catch(error => {
       res.status(400).json({ error: error });
     });
+});
+
+// Add Movie or Series to User's List
+router.post('/users/:userId/lists/:listId/items', authorize, async (req, res) => {
+  const userId = req.params.userId;
+  const listId = req.params.listId;
+  const itemId = req.body;
+
+  try {
+    const user = await userSchema.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const list = await listSchema.findById(listId);
+    if (!list) {
+      return res.status(404).json({ message: 'Lista no encontrada' });
+    }
+
+    list.listM_S.push(itemId);
+
+    await list.save();
+
+    res.status(201).json({ message: 'Elemento añadido a la lista con éxito' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;

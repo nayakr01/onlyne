@@ -23,4 +23,8 @@ export class ListsService {
     return this.http.delete(`${this.urlServer}/api/lists/${listId}`);
   }
 
+  addMovieToList(clientId: string, listId: string, movieId: string) {
+    return this.http.post(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { itemId: movieId });
+  }
+
 }

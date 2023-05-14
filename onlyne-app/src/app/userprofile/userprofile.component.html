@@ -37,7 +37,7 @@
         <div class="my-list">
             <div class="item" *ngFor="let list of userLists">
                 <ul>
-                    <li><img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="" class="templatemo-item"></li>
+                    <li><img src="http://localhost:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
                     <li>
                         <h4>{{ list.title }}</h4><span>Nombre de lista</span>
                     </li>
@@ -48,7 +48,7 @@
                     </li>
                     <li>
                         <div class="main-border-button">
-                            <a href="#" class="">Mostrar</a>
+                            <a routerLink="/detail-list/{{list._id}}" class="">Mostrar</a>
                         </div>
                     </li>
                     <li>
@@ -91,7 +91,7 @@
     <button id="btn-modal" (click)="uploadDefaultPhoto()" [disabled]="!this.selectedDefaultPhoto">Confirmar</button>
     <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
 </app-modal>
-
+<!-- Create List Modal -->
 <app-modal id="modal-2">
     <h3>Modal 2</h3>
     <div class="user-avatar">

@@ -90,7 +90,7 @@
     transition: all ease-in 200ms;
 }
 
-.user-profile .change-photo i {
+#close {
     margin-bottom: .5rem;
     font-size: 2rem;
 }
@@ -307,7 +307,7 @@ input[type="submit"]:hover {
   transition: all ease-in 200ms;
 }
 
-.user-profile .change-photo i {
+#close{
   margin-bottom: .5rem;
   font-size: 2rem;
 }

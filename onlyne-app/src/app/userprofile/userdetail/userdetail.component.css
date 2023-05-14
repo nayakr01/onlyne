@@ -81,7 +81,7 @@
   background-size: cover;
 }
 
-i {
+#close {
   position: absolute;
   font-size: 50px;
   top: 10px;

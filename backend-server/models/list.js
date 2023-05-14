@@ -22,6 +22,9 @@ const listSchema = new Schema({
     type: String,
     ref: 'user',
     required: true
+  },
+  listM_S: {
+    type: Array
   }
 }, {collection: 'Lists'});
 

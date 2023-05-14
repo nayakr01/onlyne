@@ -22,6 +22,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
 import { ModalComponent } from './userprofile/modal/modal.component';
 import { SearchComponent } from './search/search.component';
+import { DetailListComponent } from './detail-list/detail-list.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { SearchComponent } from './search/search.component';
     DetailsComponent,
     DetailsSeriesComponent,
     ModalComponent,
-    SearchComponent
+    SearchComponent,
+    DetailListComponent
   ],
   imports: [
     BrowserModule,
