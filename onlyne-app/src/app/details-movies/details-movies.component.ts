@@ -34,6 +34,15 @@ export class DetailsComponent {
   listName!: string;
   listDescription!: string;
 
+  searchTerm: string = '';
+  filteredLists: List[] = [];
+
+  filterLists() {
+    this.filteredLists = this.userLists.filter((list: List) =>
+      list.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
       elem.classList.remove('nav-active');
@@ -98,6 +107,7 @@ export class DetailsComponent {
   getUserLists() {
     this.listsService.getUserLists(this.client.id).subscribe((data: any) => {
       this.userLists = data;
+      this.filteredLists = [...this.userLists];
       console.log("foreach de las listas");
       this.userLists.forEach(e => {
         console.log(e);
@@ -157,6 +167,8 @@ export class DetailsComponent {
             confirmButton: '#039be5'
           },
         })
+        this.filteredLists.push(data.result);
+        this.moda2Service.close();
       },
       error: (error: any) => {
         let e = error.error.error.match(/Error: (.+)/)[0];

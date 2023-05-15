@@ -1,2 +1,21 @@
 <app-navbar></app-navbar>
-<p>detail-list works!</p>
+<div class="play-container container" *ngIf="list">
+    <div class="play-text">
+        <h2>{{ list.title }}</h2>
+
+        <div class="tags">
+            <span>{{ list.description }}</span>
+        </div>
+    </div>
+</div>
+<div class="about-movie container" *ngIf="list?.listM_S && list?.listM_S?.length > 0">
+  <div class="cast">
+    <div class="cast-box" *ngFor="let detail of movieDetails">
+      <a [routerLink]="['/details-movie', detail.id]">
+        <img [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+          alt="photo" class="cast-img">
+        <span class="cast-title">{{ detail.title }}</span>
+      </a>
+    </div>
+  </div>
+</div>

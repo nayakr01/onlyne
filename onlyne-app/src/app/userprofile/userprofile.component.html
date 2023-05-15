@@ -53,7 +53,7 @@
                     </li>
                     <li>
                         <div class="main-border-button">
-                            <a href="#" class="">Editar</a>
+                            <a (click)="moda2Service.open('modal-3');selectListId(list._id)" class="">Editar</a>
                         </div>
                     </li>
                     <li>
@@ -104,6 +104,23 @@
             <label for="listDescription">Descripcion de la Lista:</label>
             <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30" rows="10"></textarea>
             <button type="submit" (click)="createList()">Crear</button>
+        </form>
+    </div>
+    <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
+</app-modal>
+<!-- Edit List Modal -->
+<app-modal id="modal-3">
+    <h3>Editar Lista</h3>
+    <div class="user-avatar">
+        <img src="http://localhost:3000/api/{{this.currentPhoto}}" alt="profile-photo">
+    </div>
+    <div class="list">
+        <form>
+            <label for="listName">Nombre de la Lista:</label>
+            <input type="text" name="listName" id="listName" [(ngModel)]="this.listNameEdit">
+            <label for="listDescription">Descripcion de la Lista:</label>
+            <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescriptionEdit" cols="30" rows="10"></textarea>
+            <button type="submit" (click)="editList()">Editar</button>
         </form>
     </div>
     <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>

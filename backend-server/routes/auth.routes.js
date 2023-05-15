@@ -409,6 +409,24 @@ router.get('/lists', authorize, (req, res) => {
     });
 });
 
+// Get List by ID
+router.get('/lists/:id', authorize, (req, res) => {
+  const listId = req.params.id;
+
+  listSchema.findById(listId)
+    .populate('author', 'name email')
+    .then(list => {
+      if (!list) {
+        return res.status(404).json({ message: 'Lista no encontrada' });
+      }
+      
+      res.json(list);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err.message || 'Error al buscar la lista' });
+    });
+});
+
 // Get All Lists of a Specific User
 router.get('/users/:userId/lists', authorize, (req, res) => {
   const userId = req.params.userId;
@@ -464,6 +482,27 @@ router.post('/lists', authorize, (req, res) => {
         });
     })
     .catch(error => {
+      res.status(400).json({ error: error.message });
+    });
+});
+
+// Update List
+router.put('/lists/:id', authorize, (req, res) => {
+  const listId = req.params.id;
+
+  listSchema.findByIdAndUpdate(listId, req.body, { new: true })
+    .then(updatedList => {
+      if (!updatedList) {
+        return res.status(404).json({ message: 'La lista no se encontró.' });
+      }
+
+      res.status(200).json({ message: 'Lista actualizada correctamente.', result: updatedList });
+    })
+    .catch(error => {
+      if (error.code === 11000) {
+        return res.status(400).json({ error: 'Ya existe una lista con ese nombre.' });
+      }
+
       res.status(400).json({ error: error.message });
     });
 });

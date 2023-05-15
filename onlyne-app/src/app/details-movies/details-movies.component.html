@@ -25,14 +25,14 @@
             <app-modal id="modal-3">
                 <h3>Añadir a Lista</h3>
                 <div class="search-box">
-                    <input type="search" name="" id="search-input" placeholder="Buscar una lista" #txtSearch>
+                    <input type="search" name="" id="search-input" placeholder="Buscar una lista" [(ngModel)]="searchTerm" (input)="filterLists()">
                     <i class="bx bx-search"></i>
                 </div>
                 <button (click)="moda2Service.close();moda2Service.open('modal-2')">Crear lista</button>
                 <hr style="width: 100%;">
                 <div class="my-lists">
                     <ul>
-                        <li *ngFor="let list of userLists" (click)="addToList(list._id)">{{ list.title }}</li>
+                        <li *ngFor="let list of filteredLists" (click)="addToList(list._id)">{{ list.title }}</li>
                     </ul>
                 </div>
                 <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>

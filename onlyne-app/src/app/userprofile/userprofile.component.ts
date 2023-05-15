@@ -21,9 +21,14 @@ export class UserprofileComponent implements OnInit {
   selectedPhoto!: File | null;
   selectedDefaultPhoto!: string;
   currentPhoto!: any;
+
   userLists!: List[];
   listName!: string;
   listDescription!: string;
+  selectedList!: any;
+  selectedListId!:any;
+  listNameEdit!: string;
+  listDescriptionEdit!: string;
 
   constructor(private modalService: ModalService,
     protected authService: AuthService,
@@ -53,8 +58,54 @@ export class UserprofileComponent implements OnInit {
       console.log("foreach de las listas");
       this.userLists.forEach(e => {
         console.log(e);
-        
       });
+    });
+  }
+
+  getListById(listId: string) {
+    this.listsService.getListById(listId).subscribe({
+      next: (data:any) => {
+        this.selectedList = data;
+        this.listNameEdit = data.title;
+        this.listDescriptionEdit = data.description;
+      }
+    })
+  }
+
+  selectListId(listId: string) {
+    this.selectedListId = listId;
+    this.getListById(this.selectedListId);
+  }
+
+  editList() {
+    this.listsService.updateList(this.selectedListId, this.listNameEdit, this.listDescriptionEdit).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Lista creada',
+          text: `La lista ${data.result.title} se ha actualizado correctamente`,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+        this.getUserLists();
+      },
+      error: (error: any) => {
+        Swal.fire({
+          title: 'Error al editar la lista',
+          text: error.error.error,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
     });
   }
 
@@ -72,6 +123,7 @@ export class UserprofileComponent implements OnInit {
             confirmButton: '#039be5'
           },
         })
+        this.userLists.push(data.result);
       },
       error: (error: any) => {
         let e = error.error.error.match(/Error: (.+)/)[0];
@@ -104,6 +156,7 @@ export class UserprofileComponent implements OnInit {
             confirmButton: '#039be5'
           },
         })
+        this.userLists = this.userLists.filter(list => list._id !== id);
       },
       error: (error: any) => {
         Swal.fire({

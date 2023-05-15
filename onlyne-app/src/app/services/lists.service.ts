@@ -15,8 +15,16 @@ export class ListsService {
     return this.http.get(`${this.urlServer}/api/users/${id}/lists`);
   }
 
+  getListById(id: string): Observable<any> {
+    return this.http.get(`${this.urlServer}/api/lists/${id}`);
+  }
+
   createList(title: string, description: string, authorId: string): Observable<any> {
     return this.http.post(`${this.urlServer}/api/lists`, { title: title, description: description, author: authorId });
+  }
+
+  updateList(listId: string, title: string, description: string): Observable<any> {
+    return this.http.put(`${this.urlServer}/api/lists/${listId}`, { title: title, description: description });
   }
 
   deleteList(listId: string): Observable<any> {

@@ -13,6 +13,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
 import { SearchComponent } from './search/search.component';
 import { DetailListComponent } from './detail-list/detail-list.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  exports: [RouterModule],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }]
 })
 export class AppRoutingModule { }
