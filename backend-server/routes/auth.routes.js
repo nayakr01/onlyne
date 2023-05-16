@@ -531,6 +531,28 @@ router.delete('/lists/:id', authorize, (req, res) => {
     });
 });
 
+// Upload List Photo Route
+router.post('/uploadListPhoto', authorize, upload.single('listPhoto'), async (req, res, next) => {
+  try {
+    const list = await listSchema.findById(req.body.listId);
+    if (!list) {
+      return res.status(404).json({ msg: 'Lista no encontrada' });
+    }
+    if (list.listPhoto && !list.listPhoto.includes('default-image')) {
+      fs.unlink(list.listPhoto, (err) => {
+        if (err) {
+          console.log(`Error deleting previous list photo: ${err}`);
+        }
+      });
+    }
+    list.listPhoto = req.file.path;
+    await list.save();
+    res.status(200).json({ list: list, msg: 'Imagen de lista actualizada correctamente'});
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Add Movie or Series to User's List
 router.post('/users/:userId/lists/:listId/items', authorize, async (req, res) => {
   const userId = req.params.userId;

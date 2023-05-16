@@ -7,8 +7,8 @@
             <div class="avatar">
                 <img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="profile-img">
                 <a (click)="moda2Service.open('modal-1')" class="change-photo">
-                    <i class="fas fa-camera"></i>
                     <span>Cambiar foto</span>
+                    <i class='bx bxs-camera'></i>
                 </a>
             </div>
             <div class="data-profile">
@@ -53,7 +53,7 @@
                     </li>
                     <li>
                         <div class="main-border-button">
-                            <a (click)="moda2Service.open('modal-3');selectListId(list._id)" class="">Editar</a>
+                            <a (click)="moda2Service.open('modal-editList');selectListId(list._id)" class="">Editar</a>
                         </div>
                     </li>
                     <li>
@@ -109,19 +109,30 @@
     <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
 </app-modal>
 <!-- Edit List Modal -->
-<app-modal id="modal-3">
-    <h3>Editar Lista</h3>
-    <div class="user-avatar">
-        <img src="http://localhost:3000/api/{{this.currentPhoto}}" alt="profile-photo">
+<app-modal id="modal-editList">
+    <div id="editList">
+        <h3 id="title-list">Editar Información</h3>
+        <div class="content">
+            <div class="list-avatar">
+                <img id="list-img" src="http://localhost:3000/api/{{this.selectedList?.listPhoto}}" alt="profile-photo">
+                <label for="listPhotos">
+                    <a class="change-photo">
+                        <i class='bx bx-pencil'></i>
+                        <span>Elegir foto</span>
+                    </a>
+                </label>
+                <input type="file" (change)="uploadListPhoto($event)" accept="image/png, image/jpg, image/jpeg" id="listPhotos">
+            </div>
+            <div class="content-form">
+                <form>
+                    <label for="listName">Nombre:</label>
+                    <input type="text" name="listName" id="listName" [(ngModel)]="this.listNameEdit">
+                    <label for="listDescription">Descripcion de la Lista:</label>
+                    <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescriptionEdit" cols="30" rows="10"></textarea>
+                </form>
+            </div>
+        </div>
+        <button type="submit" (click)="editList()">Guardar</button>
+        <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
     </div>
-    <div class="list">
-        <form>
-            <label for="listName">Nombre de la Lista:</label>
-            <input type="text" name="listName" id="listName" [(ngModel)]="this.listNameEdit">
-            <label for="listDescription">Descripcion de la Lista:</label>
-            <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescriptionEdit" cols="30" rows="10"></textarea>
-            <button type="submit" (click)="editList()">Editar</button>
-        </form>
-    </div>
-    <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
 </app-modal>

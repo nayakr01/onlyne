@@ -19,6 +19,7 @@ export class UserprofileComponent implements OnInit {
   client!: Client;
   selectedClient!: Client;
   selectedPhoto!: File | null;
+  selectedListPhoto!: File | null;
   selectedDefaultPhoto!: string;
   currentPhoto!: any;
 
@@ -75,6 +76,34 @@ export class UserprofileComponent implements OnInit {
   selectListId(listId: string) {
     this.selectedListId = listId;
     this.getListById(this.selectedListId);
+  }
+
+  uploadListPhoto(event: any) {
+    this.selectedListPhoto = event.target.files[0];
+    if (this.selectedListPhoto && this.selectedListPhoto.type.indexOf('image') < 0) {
+      Swal.fire('Error al seleccionar imagen: ', 'El archivo debe ser del tipo imagen', 'error');
+      this.selectedListPhoto = null;
+    } else {
+      if (this.selectedListPhoto) {
+        this.listsService.uploadListPhoto(this.selectedListId, this.selectedListPhoto).subscribe({
+          next: (data:any) => {
+            Swal.fire({
+              title: 'Foto actualizada',
+              text: `La foto de la lista ${data.list.title} se ha actualizado correctamente`,
+              icon: 'success',
+              buttonsStyling: false,
+              background: '#1e1e2a',
+              color: 'white',
+              customClass: {
+                confirmButton: '#039be5'
+              },
+            })
+            this.selectedList = data.list;
+            this.getUserLists();
+          }
+        });
+      }
+    }
   }
 
   editList() {

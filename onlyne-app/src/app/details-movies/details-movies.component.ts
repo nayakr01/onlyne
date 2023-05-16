@@ -37,12 +37,6 @@ export class DetailsComponent {
   searchTerm: string = '';
   filteredLists: List[] = [];
 
-  filterLists() {
-    this.filteredLists = this.userLists.filter((list: List) =>
-      list.title.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
-
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
       elem.classList.remove('nav-active');
@@ -60,6 +54,11 @@ export class DetailsComponent {
     });
   }
 
+  filterLists() {
+    this.filteredLists = this.userLists.filter((list: List) =>
+      list.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 
   getDetails() {
     const { id } = this.activatedRoute.snapshot.params;

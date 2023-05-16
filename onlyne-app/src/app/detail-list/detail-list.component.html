@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 <div class="play-container container" *ngIf="list">
+    <img id="list-img" src="http://localhost:3000/api/{{this.list?.listPhoto}}" alt="profile-photo">
     <div class="play-text">
         <h2>{{ list.title }}</h2>
 
@@ -10,12 +11,23 @@
 </div>
 <div class="about-movie container" *ngIf="list?.listM_S && list?.listM_S?.length > 0">
   <div class="cast">
-    <div class="cast-box" *ngFor="let detail of movieDetails">
-      <a [routerLink]="['/details-movie', detail.id]">
-        <img [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
-          alt="photo" class="cast-img">
-        <span class="cast-title">{{ detail.title }}</span>
-      </a>
+    <div class="cast-box" *ngFor="let detail of listDetails">
+      <div *ngIf="detail.typeOf == 'movie'">
+        <a [routerLink]="['/details-movie', detail.id]">
+          <img [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+            alt="photo" class="cast-img">
+          <span class="cast-title">{{ detail.title }}</span>
+        </a>
+      </div>
+
+      <div *ngIf="detail.typeOf == 'serie'">
+        <a [routerLink]="['/details-serie', detail.id]">
+          <img [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+            alt="photo" class="cast-img">
+          <span class="cast-title">{{ detail.name }}</span>
+        </a>
+      </div>
+
     </div>
   </div>
 </div>

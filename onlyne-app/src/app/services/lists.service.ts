@@ -31,8 +31,19 @@ export class ListsService {
     return this.http.delete(`${this.urlServer}/api/lists/${listId}`);
   }
 
+  uploadListPhoto(listId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('listPhoto', file);
+    formData.append('listId', listId);
+    return this.http.post(this.urlServer + '/api/uploadListPhoto', formData);
+  }
+
   addMovieToList(clientId: string, listId: string, movieId: string) {
-    return this.http.post(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { itemId: movieId });
+    return this.http.post(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { movieId: movieId });
+  }
+
+  addSerieToList(clientId: string, listId: string, serieId: string) {
+    return this.http.post(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { serieId: serieId });
   }
 
 }
