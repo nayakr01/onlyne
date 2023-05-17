@@ -11,6 +11,10 @@ export class ListsService {
 
   constructor(private http: HttpClient) { }
 
+  getAllLists(): Observable<any>  {
+    return this.http.get(`${this.urlServer}/api/lists`);
+  }
+
   getUserLists(id: string): Observable<any> {
     return this.http.get(`${this.urlServer}/api/users/${id}/lists`);
   }

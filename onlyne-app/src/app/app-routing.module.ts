@@ -14,6 +14,7 @@ import { DetailsSeriesComponent } from './details-series/details-series.componen
 import { SearchComponent } from './search/search.component';
 import { DetailListComponent } from './detail-list/detail-list.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ListsComponent } from './lists/lists.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'explorer', component: ExplorerComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'series', component: SeriesComponent },
+  { path: 'lists', component: ListsComponent },
   { path: 'details-movie/:id', component: DetailsComponent },
   { path: 'details-serie/:id', component: DetailsSeriesComponent },
   { path: 'detail-list/:id', component: DetailListComponent },

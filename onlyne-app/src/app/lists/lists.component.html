@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<section class="home container" id="home">
+    <img src="../assets/img/background-series.png" alt="" class="home-img">
+    <div class="home-text">
+        <h1 class="home-title">Listas de Usuarios <br> Onlyne <img src="./assets/img/iconwhite.png" alt=""></h1>
+        <h2>Encuentra tu lista favorita <i class='bx bx-tv'></i></h2>
+    </div>
+</section>
+<section class="movies container" id="movies">
+    <div class="heading">
+        <h2 class="heading-title">Listas de Usuarios</h2>
+    </div>
+    <div class="movies-content">
+        <div class="movie-box" *ngFor="let list of lists">
+            <img src="http://localhost:3000/api/{{list.listPhoto}}" alt="ListPhoto" class="movie-box-img">
+            <div class="box-text">
+                <h2 class="movie-title">{{ list.title }}</h2>
+                <span class="movie-gender">{{ list.author.name }}</span>
+                <a routerLink="/detail-list/{{list._id}}" class="watch-btn play-btn">
+                    <i class="bx bx-right-arrow"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

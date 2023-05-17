@@ -23,6 +23,7 @@ import { DetailsSeriesComponent } from './details-series/details-series.componen
 import { ModalComponent } from './userprofile/modal/modal.component';
 import { SearchComponent } from './search/search.component';
 import { DetailListComponent } from './detail-list/detail-list.component';
+import { ListsComponent } from './lists/lists.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { DetailListComponent } from './detail-list/detail-list.component';
     DetailsSeriesComponent,
     ModalComponent,
     SearchComponent,
-    DetailListComponent
+    DetailListComponent,
+    ListsComponent
   ],
   imports: [
     BrowserModule,

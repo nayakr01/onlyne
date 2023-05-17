@@ -34,10 +34,6 @@ export class DetailListComponent {
       next: (data:any) => {
         this.list = data;
         this.list.listM_S.forEach((item: any) => {
-          console.log("--item Movie--");
-          console.log(item.movieId);
-          console.log("--item serie--");
-          console.log(item.serieId);
           if (item.movieId) {
             this.getMovieDetail(item.movieId);
           } else if (item.serieId) {
