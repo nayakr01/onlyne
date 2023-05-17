@@ -19,6 +19,10 @@ export class ListsService {
     return this.http.get(`${this.urlServer}/api/users/${id}/lists`);
   }
 
+  getUserFavoriteLists(id: string): Observable<any> {
+    return this.http.get(`${this.urlServer}/api/users/${id}/favoriteLists`);
+  }
+
   getListById(id: string): Observable<any> {
     return this.http.get(`${this.urlServer}/api/lists/${id}`);
   }
@@ -35,6 +39,10 @@ export class ListsService {
     return this.http.delete(`${this.urlServer}/api/lists/${listId}`);
   }
 
+  deleteFavoriteList(userId: string, listId: string): Observable<any> {
+    return this.http.delete(`${this.urlServer}/api/users/${userId}/favorites/${listId}`);
+  }
+
   uploadListPhoto(listId: string, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('listPhoto', file);
@@ -48,6 +56,10 @@ export class ListsService {
 
   addSerieToList(clientId: string, listId: string, serieId: string) {
     return this.http.post(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { serieId: serieId });
+  }
+
+  addListToFavourites(clientId: string, listId: string) {
+    return this.http.post(`${this.urlServer}/api/users/${clientId}/favorites`, { listId: listId });
   }
 
 }

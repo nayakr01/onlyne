@@ -64,6 +64,38 @@
                 </ul>
             </div>
         </div>
+        <h1>Mis Listas Favoritas</h1>
+        <hr>
+        <div class="my-list">
+            <div class="item" *ngFor="let list of userFavoriteLists">
+                <ul>
+                    <li><img src="http://localhost:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
+                    <li>
+                        <h4>{{ list.title }}</h4><span>Nombre de lista</span>
+                    </li>
+                    <li>
+                        <h4>Seguidores</h4><span>Número de seguidores</span>
+                    </li>
+                    <li>
+                    </li>
+                    <li>
+                        <div class="main-border-button">
+                            <a routerLink="/detail-list/{{list._id}}" class="">Mostrar</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="main-border-button">
+                            <a (click)="moda2Service.open('modal-editList');selectListId(list._id)" class="">Editar</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="main-border-button">
+                            <a (click)="deleteFavoriteList(list._id)" class="">Borrar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 <!-- Change Photo Modal -->

@@ -24,6 +24,7 @@ export class UserprofileComponent implements OnInit {
   currentPhoto!: any;
 
   userLists!: List[];
+  userFavoriteLists!: List[];
   listName!: string;
   listDescription!: string;
   selectedList!: any;
@@ -43,7 +44,7 @@ export class UserprofileComponent implements OnInit {
     this.getClient();
     this.currentPhoto = this.client?.profilePhoto;
     this.getUserLists();
-    
+    this.getUserFavoriteLists();
   }
 
   getClient() {
@@ -58,6 +59,16 @@ export class UserprofileComponent implements OnInit {
       this.userLists = data;
       console.log("foreach de las listas");
       this.userLists.forEach(e => {
+        console.log(e);
+      });
+    });
+  }
+
+  getUserFavoriteLists() {
+    this.listsService.getUserFavoriteLists(this.client.id).subscribe((data: any) => {
+      this.userFavoriteLists = data;
+      console.log("foreach de las listas favoritas");
+      data.forEach((e:any) => {
         console.log(e);
       });
     });
@@ -186,6 +197,38 @@ export class UserprofileComponent implements OnInit {
           },
         })
         this.userLists = this.userLists.filter(list => list._id !== id);
+      },
+      error: (error: any) => {
+        Swal.fire({
+          title: 'Error al eliminar la lista',
+          text: error,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
+    });
+  }
+
+  deleteFavoriteList(listId:string) {
+    this.listsService.deleteFavoriteList(this.client.id, listId).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Lista eliminada',
+          text: data.message,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+        this.userFavoriteLists = this.userFavoriteLists.filter(list => list._id !== listId);
       },
       error: (error: any) => {
         Swal.fire({

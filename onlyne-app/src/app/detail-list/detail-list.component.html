@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="play-container container" *ngIf="list">
-    <img id="list-img" src="http://localhost:3000/api/{{this.list?.listPhoto}}" alt="profile-photo">
+    <img id="list-img" src="http://localhost:3000/api/{{this.list?.listPhoto}}" alt="profile-photo" class="play-img">
     <div class="play-text">
         <h2>{{ list.title }}</h2>
 
@@ -8,6 +8,7 @@
             <span>{{ list.description }}</span>
         </div>
     </div>
+    <i (click)="addListToFavourites()" class="bx bxs-heart play-movie"></i>
 </div>
 <div class="about-movie container" *ngIf="list?.listM_S && list?.listM_S?.length > 0">
   <div class="cast">

@@ -28,7 +28,8 @@ const userSchema = new Schema({
     ref: 'list',
   }],
   lists_favourite: [{
-    type: Array
+    type: String,
+    ref: 'list',
   }],
   ratings: [{
     type: Array

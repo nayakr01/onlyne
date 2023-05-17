@@ -3,6 +3,9 @@ import { ListsService } from '../services/lists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from '../services/movies.service';
 import { SeriesService } from '../services/series.service';
+import { Client } from '../interfaces/client.interface';
+import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail-list',
@@ -14,18 +17,21 @@ export class DetailListComponent {
   listId!: string;
   list!: any;
   listDetails: any[] = [];
+  client!: Client;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private listsService: ListsService,
     private moviesService: MoviesService,
-    private seriesService: SeriesService) { }
+    private seriesService: SeriesService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if(id!== null) this.listId = id;
     });
+    this.getClient();
     this.getListById(this.listId);
   }
 
@@ -63,6 +69,44 @@ export class DetailListComponent {
       next: (serie) => {
         const serieWithType: any = { ...serie, typeOf: 'serie' };
         this.listDetails.push(serieWithType);
+      }
+    });
+  }
+
+  getClient() {
+    this.client = this.authService.getClient();
+    this.authService.clientUpdated.subscribe((updatedClient) => {
+      this.client = updatedClient;
+    });
+  }
+
+  addListToFavourites() {
+    this.listsService.addListToFavourites(this.client.id, this.listId).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Añadido a favoritos',
+          text: data.message,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      },
+      error: (error) => {
+        Swal.fire({
+          title: 'Error al añadir a favoritos',
+          text: error.error.message,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
       }
     });
   }

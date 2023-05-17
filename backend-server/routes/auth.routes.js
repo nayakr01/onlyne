@@ -580,4 +580,76 @@ router.post('/users/:userId/lists/:listId/items', authorize, async (req, res) =>
   }
 });
 
+// Get All Favorite Lists of a Specific User
+router.get('/users/:userId/favoriteLists', authorize, (req, res) => {
+  const userId = req.params.userId;
+
+  userSchema.findById(userId)
+    .then(user => {
+      const listIds = user.lists_favourite;
+      listSchema.find({ _id: { $in: listIds } })
+        .populate('author', 'name email') // Populate the 'author' field with the 'name' and 'email' properties
+        .then(lists => {
+          res.send(lists);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: err.message || "Error al recuperar las listas favoritas del usuario."
+          });
+        });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Error al recuperar el usuario."
+      });
+    });
+});
+
+// Add List to Favorites
+router.post('/users/:userId/favorites', authorize, async (req, res) => {
+  const userId = req.params.userId;
+  const listId = req.body.listId;
+
+  try {
+    const user = await userSchema.findById(userId);
+    if (user.lists_created.includes(listId)) {
+      return res.status(400).json({ message: 'No puedes agregar tus propias listas a favoritos' });
+    }
+
+    if (user.lists_favourite.includes(listId)) {
+      return res.status(400).json({ message: 'La lista ya está en favoritos' });
+    }
+
+    user.lists_favourite.push(listId);
+    await user.save();
+
+    res.status(200).json({ message: 'Lista agregada a favoritos correctamente' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al agregar la lista a favoritos' });
+  }
+});
+
+// Remove List from Favorites
+router.delete('/users/:userId/favorites/:listId', authorize, async (req, res) => {
+  const userId = req.params.userId;
+  const listId = req.params.listId;
+
+  try {
+    const user = await userSchema.findById(userId);
+    if (!user.lists_favourite.includes(listId)) {
+      return res.status(400).json({ message: 'La lista no está en favoritos' });
+    }
+
+    const index = user.lists_favourite.indexOf(listId);
+    if (index > -1) {
+      user.lists_favourite.splice(index, 1);
+      await user.save();
+    }
+
+    res.status(200).json({ message: 'Lista eliminada de favoritos correctamente' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar la lista de favoritos' });
+  }
+});
+
 module.exports = router;
