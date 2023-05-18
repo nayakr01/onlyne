@@ -19,7 +19,7 @@
                     <ng-template #emptyList>
                       <li>0 Mis listas</li>
                     </ng-template>
-                    <li *ngIf="this.client.lists_favourite; else emptyList2">{{this.client.lists_favourite.length}} Mis listas favoritas</li>
+                    <li *ngIf="this.client.lists_favourite; else emptyList2">{{ this.client.lists_favourite.length }} Mis listas favoritas</li>
                     <ng-template #emptyList2>
                       <li>0 Mis listas favoritas</li>
                     </ng-template>
@@ -41,9 +41,16 @@
                     <li>
                         <h4>{{ list.title }}</h4><span>Nombre de lista</span>
                     </li>
-                    <li>
-                        <h4>Seguidores</h4><span>Número de seguidores</span>
+                    
+                    <li *ngIf="list.followers; else emptyListFavourite2">
+                        <h4>{{ list.followers }}</h4><span>Número de seguidores</span>
                     </li>
+                        <ng-template #emptyListFavourite2>
+                            <li>
+                                <h4>0</h4><span>Número de seguidores</span>
+                            </li>
+                        </ng-template>    
+                    
                     <li>
                     </li>
                     <li>
@@ -74,7 +81,7 @@
                         <h4>{{ list.title }}</h4><span>Nombre de lista</span>
                     </li>
                     <li>
-                        <h4>Seguidores</h4><span>Número de seguidores</span>
+                        <h4>{{ list.followers }}</h4><span>Número de seguidores</span>
                     </li>
                     <li>
                     </li>

@@ -652,4 +652,22 @@ router.delete('/users/:userId/favorites/:listId', authorize, async (req, res) =>
   }
 });
 
+// Get Followers Count of a list
+router.get('/lists/:listId/followers/count', authorize, async (req, res) => {
+  try {
+    const listId = req.params.listId;
+
+    const list = await listSchema.findById(listId).exec();
+    if (!list) {
+      return res.status(404).json({ error: 'La lista no existe' });
+    }
+
+    const followersCount = await userSchema.countDocuments({ lists_favourite: listId }).exec();
+    return res.json({ count: followersCount });
+  } catch (error) {
+    console.error('Error al obtener el número de seguidores de la lista:', error);
+    return res.status(500).json({ error: 'Error al obtener el número de seguidores de la lista' });
+  }
+});
+
 module.exports = router;

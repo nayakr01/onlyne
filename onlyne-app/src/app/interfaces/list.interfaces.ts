@@ -6,4 +6,5 @@ export interface List {
   description: string;
   listPhoto?: string;
   author: Client;
+  followers?: number;
 }

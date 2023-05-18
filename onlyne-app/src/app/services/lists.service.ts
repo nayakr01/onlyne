@@ -62,4 +62,8 @@ export class ListsService {
     return this.http.post(`${this.urlServer}/api/users/${clientId}/favorites`, { listId: listId });
   }
 
+  getFollowersOfList(listId: string): Observable<any> {
+    return this.http.get(`${this.urlServer}/api/lists/${listId}/followers/count`);
+  }
+
 }

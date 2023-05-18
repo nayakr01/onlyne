@@ -57,9 +57,12 @@ export class UserprofileComponent implements OnInit {
   getUserLists() {
     this.listsService.getUserLists(this.client.id).subscribe((data: any) => {
       this.userLists = data;
-      console.log("foreach de las listas");
-      this.userLists.forEach(e => {
-        console.log(e);
+      this.userLists.forEach(list => {
+        this.listsService.getFollowersOfList(list._id).subscribe({
+          next: (data:any) => {
+            list.followers = data.count;
+          }
+        });
       });
     });
   }
@@ -67,9 +70,12 @@ export class UserprofileComponent implements OnInit {
   getUserFavoriteLists() {
     this.listsService.getUserFavoriteLists(this.client.id).subscribe((data: any) => {
       this.userFavoriteLists = data;
-      console.log("foreach de las listas favoritas");
-      data.forEach((e:any) => {
-        console.log(e);
+      this.userFavoriteLists.forEach(list => {
+        this.listsService.getFollowersOfList(list._id).subscribe({
+          next: (data:any) => {
+            list.followers = data.count;
+          }
+        });
       });
     });
   }
@@ -82,6 +88,16 @@ export class UserprofileComponent implements OnInit {
         this.listDescriptionEdit = data.description;
       }
     })
+  }
+
+  getFollowersOfList(listId: string) {
+    this.listsService.getFollowersOfList(listId).subscribe({
+      next: (data:any) => {
+        console.log("----------");
+        console.log(data);
+        
+      }
+    });
   }
 
   selectListId(listId: string) {
@@ -229,6 +245,7 @@ export class UserprofileComponent implements OnInit {
           },
         })
         this.userFavoriteLists = this.userFavoriteLists.filter(list => list._id !== listId);
+        this.client.lists_favourite = this.userFavoriteLists;
       },
       error: (error: any) => {
         Swal.fire({
