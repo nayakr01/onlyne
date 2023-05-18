@@ -25,10 +25,30 @@
     left: 0;
 }
 
+.profile.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bx {
+  font-size: 20px;
+}
+
+.onlyne-content .onlyne-title {
+  margin-top: 25px;
+  font-size: 100px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .user-profile .banner-profile,
 .user-profile .shadow {
     border-radius: 0 0 40px 40px;
-    background-color: #039be5;
+
 }
 
 .user-profile img {
@@ -151,6 +171,11 @@
 
 .my-list .item ul li:first-child {
     width: 110px;
+    position: relative;
+}
+
+.my-list .item ul li:first-child img {
+  margin-top: 0;
 }
 
 .my-list .item ul li:last-child {
@@ -171,11 +196,6 @@
 .my-list .main-button {
     text-align: center;
     margin-bottom: -53px;
-}
-
-.templatemo-item {
-    max-width: 80px;
-    border-radius: 23px;
 }
 
 .main-button a,
@@ -240,12 +260,6 @@ input[type="submit"]:hover {
   height: 100%;
   bottom: 0;
   left: 0;
-}
-
-.user-profile .banner-profile,
-.user-profile .shadow {
-  border-radius: 0 0 40px 40px;
-  background-color: #039be5;
 }
 
 .user-profile img {
@@ -396,7 +410,7 @@ input[type="submit"]:hover {
 
 .templatemo-item {
   max-width: 80px;
-  border-radius: 23px;
+  border-radius: 20px;
 }
 
 .main-button a,
@@ -477,7 +491,10 @@ button[disabled] {
 }
 
 .content-form label {
- float: left;
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 #listName {
@@ -523,6 +540,17 @@ button[disabled] {
   object-fit: cover;
 }
 
+.list-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-title i {
+  margin-left: 5px;
+}
+
+
 .list-avatar .change-photo {
   position: absolute;
   display: flex;
@@ -552,4 +580,20 @@ button[disabled] {
 
 .list-avatar input {
   display: none;
+}
+
+.my-list .item ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.my-list .item ul li:last-child {
+  width: auto;
+  text-align: right;
+}
+
+.my-list .item ul li:last-child .main-border-button {
+  margin-left: auto;
 }

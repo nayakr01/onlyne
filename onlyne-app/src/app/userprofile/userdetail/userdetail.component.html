@@ -24,7 +24,6 @@
           <button type="submit" *ngIf="modalService.isEditingPassword" (click)="changePassword()">Cambiar contraseña</button>
         </form>
         <i (click)="modalService.closeModal()" class='bx bx-x' id="close"></i>
-        <button (click)="modalService.closeModal()" class="modal-close">Cerrar</button>
         <button (click)="toggleEditingPassword()" class="change-password-button">{{ modalService.isEditingPassword ? 'Cancelar' : 'Cambiar Contraseña' }}</button>
       </div>
     </div>

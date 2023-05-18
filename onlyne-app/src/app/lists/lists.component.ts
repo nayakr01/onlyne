@@ -14,6 +14,11 @@ export class ListsComponent {
   constructor(private listsService: ListsService) {}
 
   ngOnInit() {
+    let lists = document.getElementById('lists');
+    document.querySelectorAll('.nav-link').forEach(function (elem) {
+      elem.classList.remove('nav-active');
+    });
+    lists?.classList.add('nav-active');
     this.getAllLists();
   }
 
@@ -24,5 +29,4 @@ export class ListsComponent {
       }
     });
   }
-
 }

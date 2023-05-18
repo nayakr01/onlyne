@@ -1,45 +1,49 @@
 <app-navbar></app-navbar>
 <app-userdetail [client]="client"></app-userdetail>
 <section class="profile container">
-    <div class="user-profile">
-        <div class="profile-content">
-            <div class="shadow"></div>
-            <div class="avatar">
-                <img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="profile-img">
-                <a (click)="moda2Service.open('modal-1')" class="change-photo">
-                    <span>Cambiar foto</span>
-                    <i class='bx bxs-camera'></i>
-                </a>
-            </div>
-            <div class="data-profile">
-                <h4 class="user-title">&commat;{{this.client.name}}</h4>
-                <p class="user-bio">Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
-                <ul class="profile-list">
-                    <li *ngIf="this.client.lists_created; else emptyList">{{this.client.lists_created.length}} Mis listas</li>
-                    <ng-template #emptyList>
-                      <li>0 Mis listas</li>
-                    </ng-template>
-                    <li *ngIf="this.client.lists_favourite; else emptyList2">{{this.client.lists_favourite.length}} Mis listas favoritas</li>
-                    <ng-template #emptyList2>
-                      <li>0 Mis listas favoritas</li>
-                    </ng-template>
-                </ul>
-                <button (click)="openModal(client)">Editar Datos</button>
+    <div class="onlyne-content">
+        <h1 class="onlyne-title">ONLYNE</h1>
+        <div class="user-profile">
+            <div class="profile-content">
+                <div class="shadow"></div>
+                <div class="avatar">
+                    <img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="profile-img">
+                    <a (click)="moda2Service.open('modal-1')" class="change-photo">
+                        <span>Cambiar foto</span>
+                        <i class='bx bxs-camera'></i>
+                    </a>
+                </div>
+                <div class="data-profile">
+                    <h4 class="user-title">&commat;{{this.client.name}}</h4>
+
+                    <ul class="profile-list">
+                        <li *ngIf="this.client.lists_created; else emptyList">{{this.client.lists_created.length}} Mis
+                            listas </li>
+                        <ng-template #emptyList>
+                            <li>0 Mis listas</li>
+                        </ng-template>
+                        <li *ngIf="this.client.lists_favourite; else emptyList2">{{this.client.lists_favourite.length}}
+                            Mis listas favoritas</li>
+                        <ng-template #emptyList2>
+                            <li>0 Mis listas favoritas</li>
+                        </ng-template>
+                    </ul>
+                    <button (click)="openModal(client)"><i class='bx bxs-edit'></i></button>
+                </div>
             </div>
         </div>
     </div>
 </section>
 <section class="list container">
     <div class="user-profile">
-        <button (click)="moda2Service.open('modal-2')">Crear lista</button>
-        <h1>Mis Listas</h1>
+        <h1 class="list-title">Mis Listas <i (click)="moda2Service.open('modal-2')" class="bx bx-plus"></i></h1>
         <hr>
         <div class="my-list">
             <div class="item" *ngFor="let list of userLists">
                 <ul>
                     <li><img src="http://localhost:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
                     <li>
-                        <h4>{{ list.title }}</h4><span>Nombre de lista</span>
+                        <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
                     <li>
                         <h4>Seguidores</h4><span>Número de seguidores</span>
@@ -64,6 +68,7 @@
                 </ul>
             </div>
         </div>
+        <br>
         <h1>Mis Listas Favoritas</h1>
         <hr>
         <div class="my-list">
@@ -71,7 +76,7 @@
                 <ul>
                     <li><img src="http://localhost:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
                     <li>
-                        <h4>{{ list.title }}</h4><span>Nombre de lista</span>
+                        <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
                     <li>
                         <h4>Seguidores</h4><span>Número de seguidores</span>
@@ -106,18 +111,26 @@
     </div>
     <input type="file" (change)="photoSelected($event)" accept="image/png, image/jpg, image/jpeg" id="avatarInput">
     <label id="labelPhoto" for="avatarInput">Subir foto desde un dispositivo local</label>
+    <br>
     <h5>El formato debe ser JPEG o PNG y no puede superar los 5 MB.</h5>
     <p style="font-size: x-small;">o selecciona una de nuestros avatares sugeridos</p>
+    <br>
     <div class="photo-container">
         <div class="row">
-            <img (click)="selectDefaultPhoto('public/uploads/avatar1.jpg')" src="http://localhost:3000/api/public/uploads/avatar1.jpg" alt="avatar1">
-            <img (click)="selectDefaultPhoto('public/uploads/avatar2.jpg')" src="http://localhost:3000/api/public/uploads/avatar2.jpg" alt="avatar2">
-            <img (click)="selectDefaultPhoto('public/uploads/avatar3.jpg')" src="http://localhost:3000/api/public/uploads/avatar3.jpg" alt="avatar3">
+            <img (click)="selectDefaultPhoto('public/uploads/avatar1.jpg')"
+                src="http://localhost:3000/api/public/uploads/avatar1.jpg" alt="avatar1">
+            <img (click)="selectDefaultPhoto('public/uploads/avatar2.jpg')"
+                src="http://localhost:3000/api/public/uploads/avatar2.jpg" alt="avatar2">
+            <img (click)="selectDefaultPhoto('public/uploads/avatar3.jpg')"
+                src="http://localhost:3000/api/public/uploads/avatar3.jpg" alt="avatar3">
         </div>
         <div class="row">
-            <img (click)="selectDefaultPhoto('public/uploads/avatar4.jpg')" src="http://localhost:3000/api/public/uploads/avatar4.jpg" alt="avatar4">
-            <img (click)="selectDefaultPhoto('public/uploads/avatar5.jpg')" src="http://localhost:3000/api/public/uploads/avatar5.jpg" alt="avatar5">
-            <img (click)="selectDefaultPhoto('public/uploads/avatar6.jpg')" src="http://localhost:3000/api/public/uploads/avatar6.jpg" alt="avatar6">
+            <img (click)="selectDefaultPhoto('public/uploads/avatar4.jpg')"
+                src="http://localhost:3000/api/public/uploads/avatar4.jpg" alt="avatar4">
+            <img (click)="selectDefaultPhoto('public/uploads/avatar5.jpg')"
+                src="http://localhost:3000/api/public/uploads/avatar5.jpg" alt="avatar5">
+            <img (click)="selectDefaultPhoto('public/uploads/avatar6.jpg')"
+                src="http://localhost:3000/api/public/uploads/avatar6.jpg" alt="avatar6">
         </div>
     </div>
     <button id="btn-modal" (click)="uploadDefaultPhoto()" [disabled]="!this.selectedDefaultPhoto">Confirmar</button>
@@ -134,7 +147,8 @@
             <label for="listName">Nombre de la Lista:</label>
             <input type="text" name="listName" id="listName" [(ngModel)]="this.listName">
             <label for="listDescription">Descripcion de la Lista:</label>
-            <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30" rows="10"></textarea>
+            <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30"
+                rows="10"></textarea>
             <button type="submit" (click)="createList()">Crear</button>
         </form>
     </div>
@@ -153,14 +167,16 @@
                         <span>Elegir foto</span>
                     </a>
                 </label>
-                <input type="file" (change)="uploadListPhoto($event)" accept="image/png, image/jpg, image/jpeg" id="listPhotos">
+                <input type="file" (change)="uploadListPhoto($event)" accept="image/png, image/jpg, image/jpeg"
+                    id="listPhotos">
             </div>
             <div class="content-form">
                 <form>
                     <label for="listName">Nombre:</label>
                     <input type="text" name="listName" id="listName" [(ngModel)]="this.listNameEdit">
                     <label for="listDescription">Descripcion de la Lista:</label>
-                    <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescriptionEdit" cols="30" rows="10"></textarea>
+                    <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescriptionEdit"
+                        cols="30" rows="10"></textarea>
                 </form>
             </div>
         </div>
