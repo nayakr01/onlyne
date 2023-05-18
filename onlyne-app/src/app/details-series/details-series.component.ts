@@ -41,8 +41,10 @@ export class DetailsSeriesComponent {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
       elem.classList.remove('nav-active');
     });
-    this.getClient();
-    this.getUserLists();
+    if (this.client) {
+      this.getClient();
+      this.getUserLists();
+    }
     this.getDetails();
     this.getTrailer();
     this.getActor();

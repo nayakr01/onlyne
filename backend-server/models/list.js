@@ -25,6 +25,9 @@ const listSchema = new Schema({
   },
   listM_S: {
     type: Array
+  },
+  followers: {
+    type: Array
   }
 }, {collection: 'Lists'});
 

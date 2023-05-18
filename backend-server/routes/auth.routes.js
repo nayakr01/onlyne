@@ -396,7 +396,7 @@ router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), asy
 });
 
 // Get All Lists
-router.get('/lists', authorize, (req, res) => {
+router.get('/lists', (req, res) => {
   listSchema.find()
     .populate('author', 'name email')
     .then(lists => {
@@ -410,7 +410,7 @@ router.get('/lists', authorize, (req, res) => {
 });
 
 // Get List by ID
-router.get('/lists/:id', authorize, (req, res) => {
+router.get('/lists/:id', (req, res) => {
   const listId = req.params.id;
 
   listSchema.findById(listId)
@@ -581,7 +581,7 @@ router.post('/users/:userId/lists/:listId/items', authorize, async (req, res) =>
 });
 
 // Get All Favorite Lists of a Specific User
-router.get('/users/:userId/favoriteLists', authorize, (req, res) => {
+router.get('/users/:userId/favouriteLists', authorize, (req, res) => {
   const userId = req.params.userId;
 
   userSchema.findById(userId)
@@ -605,8 +605,8 @@ router.get('/users/:userId/favoriteLists', authorize, (req, res) => {
     });
 });
 
-// Add List to Favorites
-router.post('/users/:userId/favorites', authorize, async (req, res) => {
+// Add List to Favourites
+router.post('/users/:userId/favourites', authorize, async (req, res) => {
   const userId = req.params.userId;
   const listId = req.body.listId;
 
@@ -623,14 +623,20 @@ router.post('/users/:userId/favorites', authorize, async (req, res) => {
     user.lists_favourite.push(listId);
     await user.save();
 
+    const list = await listSchema.findById(listId);
+    if (list) {
+      list.followers.push(userId);
+      await list.save();
+    }
+
     res.status(200).json({ message: 'Lista agregada a favoritos correctamente' });
   } catch (error) {
     res.status(500).json({ error: 'Error al agregar la lista a favoritos' });
   }
 });
 
-// Remove List from Favorites
-router.delete('/users/:userId/favorites/:listId', authorize, async (req, res) => {
+// Remove List from Favourites
+router.delete('/users/:userId/favourites/:listId', authorize, async (req, res) => {
   const userId = req.params.userId;
   const listId = req.params.listId;
 
@@ -644,6 +650,15 @@ router.delete('/users/:userId/favorites/:listId', authorize, async (req, res) =>
     if (index > -1) {
       user.lists_favourite.splice(index, 1);
       await user.save();
+    }
+
+    const list = await listSchema.findById(listId);
+    if (list) {
+      const followerIndex = list.followers.indexOf(userId);
+      if (followerIndex > -1) {
+        list.followers.splice(followerIndex, 1);
+        await list.save();
+      }
     }
 
     res.status(200).json({ message: 'Lista eliminada de favoritos correctamente' });
@@ -662,7 +677,7 @@ router.get('/lists/:listId/followers/count', authorize, async (req, res) => {
       return res.status(404).json({ error: 'La lista no existe' });
     }
 
-    const followersCount = await userSchema.countDocuments({ lists_favourite: listId }).exec();
+    const followersCount = list.followers.length;
     return res.json({ count: followersCount });
   } catch (error) {
     console.error('Error al obtener el número de seguidores de la lista:', error);

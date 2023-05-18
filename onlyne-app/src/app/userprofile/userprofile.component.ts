@@ -68,7 +68,7 @@ export class UserprofileComponent implements OnInit {
   }
 
   getUserFavoriteLists() {
-    this.listsService.getUserFavoriteLists(this.client.id).subscribe((data: any) => {
+    this.listsService.getUserFavouriteLists(this.client.id).subscribe((data: any) => {
       this.userFavoriteLists = data;
       this.userFavoriteLists.forEach(list => {
         this.listsService.getFollowersOfList(list._id).subscribe({
@@ -180,6 +180,7 @@ export class UserprofileComponent implements OnInit {
           },
         })
         this.userLists.push(data.result);
+        this.client.lists_created = this.userLists;
       },
       error: (error: any) => {
         let e = error.error.error.match(/Error: (.+)/)[0];
@@ -213,6 +214,7 @@ export class UserprofileComponent implements OnInit {
           },
         })
         this.userLists = this.userLists.filter(list => list._id !== id);
+        this.client.lists_created = this.userLists;
       },
       error: (error: any) => {
         Swal.fire({
@@ -231,7 +233,7 @@ export class UserprofileComponent implements OnInit {
   }
 
   deleteFavoriteList(listId:string) {
-    this.listsService.deleteFavoriteList(this.client.id, listId).subscribe({
+    this.listsService.deleteFavouriteList(this.client.id, listId).subscribe({
       next: (data: any) => {
         Swal.fire({
           title: 'Lista eliminada',

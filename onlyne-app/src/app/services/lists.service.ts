@@ -19,8 +19,8 @@ export class ListsService {
     return this.http.get(`${this.urlServer}/api/users/${id}/lists`);
   }
 
-  getUserFavoriteLists(id: string): Observable<any> {
-    return this.http.get(`${this.urlServer}/api/users/${id}/favoriteLists`);
+  getUserFavouriteLists(id: string): Observable<any> {
+    return this.http.get(`${this.urlServer}/api/users/${id}/favouriteLists`);
   }
 
   getListById(id: string): Observable<any> {
@@ -39,8 +39,8 @@ export class ListsService {
     return this.http.delete(`${this.urlServer}/api/lists/${listId}`);
   }
 
-  deleteFavoriteList(userId: string, listId: string): Observable<any> {
-    return this.http.delete(`${this.urlServer}/api/users/${userId}/favorites/${listId}`);
+  deleteFavouriteList(userId: string, listId: string): Observable<any> {
+    return this.http.delete(`${this.urlServer}/api/users/${userId}/favourites/${listId}`);
   }
 
   uploadListPhoto(listId: string, file: File): Observable<any> {
@@ -59,7 +59,7 @@ export class ListsService {
   }
 
   addListToFavourites(clientId: string, listId: string) {
-    return this.http.post(`${this.urlServer}/api/users/${clientId}/favorites`, { listId: listId });
+    return this.http.post(`${this.urlServer}/api/users/${clientId}/favourites`, { listId: listId });
   }
 
   getFollowersOfList(listId: string): Observable<any> {
