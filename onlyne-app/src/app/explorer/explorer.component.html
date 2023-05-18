@@ -1,11 +1,20 @@
 <app-navbar></app-navbar>
 <section class="explorer container" id="explorer">
+    <div id="headingExplorer">
+        <div id="tags">
+            <div class="tag" *ngFor="let genre of allGenres" [class.selected]="genre === selectedGenre"
+                (click)="selectGenre(genre)">
+                {{ genre.name }}
+            </div>
+        </div>
+    </div>
     <div class="heading" id="headingExplorer">
         <h2 class="heading-title">Películas y Series</h2>
     </div>
     <div class="movies-content">
         <div class="movie-box" *ngFor="let movie of moviesWithGenre">
-            <img [src]="movie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + movie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="movie-box-img">
+            <img [src]="movie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + movie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' "
+                alt="" class="movie-box-img">
             <div class="box-text">
                 <h2 class="movie-title">{{ movie.title }}</h2>
                 <span class="movie-gender">{{ movie.genre }} | Película</span>
@@ -15,7 +24,8 @@
             </div>
         </div>
         <div class="movie-box" *ngFor="let serie of seriesWithGenre">
-            <img [src]="serie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + serie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' " alt="" class="movie-box-img">
+            <img [src]="serie.path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + serie.path : 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1902/pavelstasevich190200120/124934975-no-hay-icono-de-imagen-disponible-vector-plano.jpg?ver=6' "
+                alt="" class="movie-box-img">
             <div class="box-text">
                 <h2 class="movie-title">{{ serie.title }}</h2>
                 <span class="movie-gender">{{ serie.genre }} | Serie</span>

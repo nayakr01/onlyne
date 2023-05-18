@@ -25,6 +25,8 @@ export class SeriesComponent {
 
   seriesWithGenre: SeriesWithGenre[] = [];
 
+  selectedGenre: Genre | null = null;
+
   constructor(private seriesService: SeriesService,  private router: Router) { }
 
   ngOnInit() {
@@ -37,6 +39,18 @@ export class SeriesComponent {
     for (let index = 1; index <= 5; index++) {
       this.getSeries(index);
     }
+    this.getGenresForSeries();
+  }
+
+  getGenresForSeries() {
+    this.seriesService.getGenres().subscribe(
+      (data: any) => {
+        this.genres = this.genres.concat(data.genres);
+      },
+      error => {
+        console.log('Error al obtener los géneros de películas:', error);
+      }
+    );
   }
 
   getSeries(page: number) {
@@ -68,6 +82,42 @@ export class SeriesComponent {
       }
     });
   }
+
+  selectGenre(genre: Genre) {
+    if (this.selectedGenre === genre) {
+      this.selectedGenre = null;
+      this.seriesWithGenre = [];
+      for (let index = 1; index <= 5; index++) {
+        this.getSeries(index);
+      }
+    } else {
+      this.selectedGenre = genre;
+      this.seriesWithGenre = [];
+      this.getSeriesWithGenre(genre);
+    }
+  }
+
+  getSeriesWithGenre(genre: Genre) {
+    const genreId = genre.id;
+    this.seriesService.getSeriesByGenre(genreId).subscribe(
+      (data: any) => {
+        const series: Serie[] = data;
+        for (let serie of series) {
+          const seriesWithGenre: SeriesWithGenre = {
+            id: serie.id,
+            title: serie.original_name,
+            genre: genre.name || 'Sin género',
+            path: serie.poster_path
+          };
+          this.seriesWithGenre.push(seriesWithGenre);
+        }
+      },
+      error => {
+        console.log('Error al obtener las películas del género:', error);
+      }
+    );
+  }
+  
   getDetailsSerie(serie: SeriesWithGenre) {
     this.router.navigate(['/details-serie', serie.id]);
   }

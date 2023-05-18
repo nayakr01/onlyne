@@ -200,6 +200,10 @@ button {
     padding: 15px;
 }
 
+.log-in {
+    margin-left: 20px;
+}
+
 button:hover {
     background-color: var(--main-color);
     transition: 0.7s;

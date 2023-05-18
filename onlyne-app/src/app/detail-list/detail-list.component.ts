@@ -27,6 +27,9 @@ export class DetailListComponent {
     private authService: AuthService) { }
 
   ngOnInit() {
+    document.querySelectorAll('.nav-link').forEach(function (elem) {
+      elem.classList.remove('nav-active');
+    });
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if(id!== null) this.listId = id;

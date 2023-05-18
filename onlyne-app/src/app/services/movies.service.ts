@@ -80,4 +80,10 @@ export class MoviesService {
     const params = { ...this.params, page: 1, query: text };
     return this.http.get<MoviesResponse>(`${this.serverURL}/search/movie`, {params}).pipe(map((res) => res.results));
   }
+
+  getMoviesByGenre(genreId: number): Observable<Movie[]> {
+    return this.http.get<MoviesResponse>(`${this.serverURL}/discover/movie?`, { params: { ...this.params, with_genres: genreId.toString() } }).pipe(
+      map((res) => res.results)
+    );
+  }
 }

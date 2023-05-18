@@ -80,4 +80,10 @@ export class SeriesService {
     const params = { ...this.params, page: 1, query: text };
     return this.http.get<SeriesResponse>(`${this.serverURL}/search/tv`, {params}).pipe(map((res) => res.results));
   }
+
+  getSeriesByGenre(genreId: number): Observable<Serie[]> {
+    return this.http.get<SeriesResponse>(`${this.serverURL}/discover/tv?`, { params: { ...this.params, with_genres: genreId.toString() } }).pipe(
+      map((res) => res.results)
+    );
+  }
 }
