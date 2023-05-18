@@ -24,6 +24,8 @@ export class MoviesComponent {
 
   moviesWithGenre: MoviesWithGenre[] = [];
 
+  selectedGenre: Genre | null = null;
+
 
   constructor(private moviesService: MoviesService, private router: Router) { }
 
@@ -37,6 +39,19 @@ export class MoviesComponent {
     for (let index = 1; index <= 5; index++) {
       this.getMovies(index);
     }
+
+    this.getGenresForMovies();
+  }
+
+  getGenresForMovies() {
+    this.moviesService.getGenres().subscribe(
+      (data: any) => {
+        this.genres = this.genres.concat(data.genres);
+      },
+      error => {
+        console.log('Error al obtener los géneros de películas:', error);
+      }
+    );
   }
 
   getMovies(page: number) {
@@ -67,6 +82,41 @@ export class MoviesComponent {
         console.log('Error al obtener las películas:', error);
       }
     });
+  }
+
+  selectGenre(genre: Genre) {
+    if (this.selectedGenre === genre) {
+      this.selectedGenre = null;
+      this.moviesWithGenre = [];
+      for (let index = 1; index <= 5; index++) {
+        this.getMovies(index);
+      }
+    } else {
+      this.selectedGenre = genre;
+      this.moviesWithGenre = [];
+      this.getMoviesWithGenre(genre);
+    }
+  }
+
+  getMoviesWithGenre(genre: Genre) {
+    const genreId = genre.id;
+    this.moviesService.getMoviesByGenre(genreId).subscribe(
+      (data: any) => {
+        const movies: Movie[] = data;
+        for (let movie of movies) {
+          const moviesWithGenres: MoviesWithGenre = {
+            id: movie.id,
+            title: movie.title,
+            genre: genre.name || 'Sin género',
+            path: movie.poster_path
+          };
+          this.moviesWithGenre.push(moviesWithGenres);
+        }
+      },
+      error => {
+        console.log('Error al obtener las películas del género:', error);
+      }
+    );
   }
 
   getDetailsMovie(movie: MoviesWithGenre) {
