@@ -9,9 +9,10 @@
 <section class="movies container" id="movies">
     <div class="heading">
         <h2 class="heading-title">Películas</h2>
+        <i class='bx bx-filter' (click)="toggleGenres()"></i>
     </div>
     <br>
-    <div class="section-tags">
+    <div class="section-tags" [ngClass]="{ 'show-genres': showGenres, 'hide-genres': !showGenres }">
         <div id="tags">
             <div class="tag" *ngFor="let genre of genres" [class.selected]="genre === selectedGenre"
               (click)="selectGenre(genre)">

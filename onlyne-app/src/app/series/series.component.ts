@@ -27,7 +27,9 @@ export class SeriesComponent {
 
   selectedGenre: Genre | null = null;
 
-  constructor(private seriesService: SeriesService,  private router: Router) { }
+  showGenres: boolean = false;
+
+  constructor(private seriesService: SeriesService, private router: Router) { }
 
   ngOnInit() {
     let series = document.getElementById('series');
@@ -97,6 +99,10 @@ export class SeriesComponent {
     }
   }
 
+  toggleGenres() {
+    this.showGenres = !this.showGenres;
+  }
+
   getSeriesWithGenre(genre: Genre) {
     const genreId = genre.id;
     this.seriesService.getSeriesByGenre(genreId).subscribe(
@@ -117,7 +123,7 @@ export class SeriesComponent {
       }
     );
   }
-  
+
   getDetailsSerie(serie: SeriesWithGenre) {
     this.router.navigate(['/details-serie', serie.id]);
   }

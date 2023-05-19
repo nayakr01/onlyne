@@ -26,6 +26,8 @@ export class MoviesComponent {
 
   selectedGenre: Genre | null = null;
 
+  showGenres: boolean = false;
+
 
   constructor(private moviesService: MoviesService, private router: Router) { }
 
@@ -96,6 +98,10 @@ export class MoviesComponent {
       this.moviesWithGenre = [];
       this.getMoviesWithGenre(genre);
     }
+  }
+
+  toggleGenres() {
+    this.showGenres = !this.showGenres;
   }
 
   getMoviesWithGenre(genre: Genre) {
