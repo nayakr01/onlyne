@@ -3,6 +3,7 @@ import { Client } from 'src/app/interfaces/client.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
 import Swal from 'sweetalert2';
+import { apiUrl } from '../../../assets/js/config';
 
 @Component({
   selector: 'app-userdetail',
@@ -10,6 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./userdetail.component.css']
 })
 export class UserdetailComponent {
+  
+  apiUrl = apiUrl;
 
   title = "Detalles del Usuario";
   @Input() client!: Client;

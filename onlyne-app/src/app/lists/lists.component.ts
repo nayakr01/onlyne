@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { List } from '../interfaces/list.interfaces';
 import { ListsService } from '../services/lists.service';
+import { apiUrl } from '../../assets/js/config';
 
 @Component({
   selector: 'app-lists',
@@ -9,6 +10,8 @@ import { ListsService } from '../services/lists.service';
 })
 export class ListsComponent {
 
+  apiUrl = apiUrl;
+  
   lists!: Array<List>;
 
   constructor(private listsService: ListsService) {}

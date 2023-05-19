@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { Client } from '../interfaces/client.interface';
 import { CookieService } from 'ngx-cookie-service';
+import { apiUrl } from '../../assets/js/config';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   
   private token: any = '';
   private refreshToken: any = '';
-  urlServer = 'http://localhost:3000';
+  urlServer = `http://${apiUrl}:3000`;
   public client!: Client;
 
   public clientUpdated = new EventEmitter<Client>();

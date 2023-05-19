@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="play-container container" *ngIf="list">
-  <img id="list-img" src="http://localhost:3000/api/{{this.list?.listPhoto}}" alt="profile-photo" class="play-img">
+  <img id="list-img" src="http://{{apiUrl}}:3000/api/{{this.list?.listPhoto}}" alt="profile-photo" class="play-img">
   <div class="play-text">
     <h1>{{ list.title }}</h1>
     <p>{{ list.description }}</p>
