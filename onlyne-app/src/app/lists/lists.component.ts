@@ -26,6 +26,7 @@ export class ListsComponent {
     this.listsService.getAllLists().subscribe({
       next: (data) => {
         this.lists = data;
+        this.lists = this.lists.filter(list => list.visibility == 'Pública');
       }
     });
   }

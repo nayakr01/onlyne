@@ -45,18 +45,17 @@
                     <li>
                         <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
-                    
                     <li *ngIf="list.followers; else emptyListFavourite2">
-                        <h4>{{ list.followers }}</h4><span>Número de seguidores</span>
+                        <h4>Seguidores</h4><span>{{ list.followers }}</span>
                     </li>
                         <ng-template #emptyListFavourite2>
                             <li>
-                                <h4>0</h4><span>Número de seguidores</span>
+                                <h4>Seguidores</h4><span>0</span>
                             </li>
                         </ng-template>    
-                    
-                    <li>
-                    </li>
+                        <li>
+                            <h4>Visibilidad</h4><span> {{ list.visibility }}</span>
+                        </li>
                     <li>
                         <div class="main-border-button">
                             <a routerLink="/detail-list/{{list._id}}" class="">Mostrar</a>
@@ -86,7 +85,7 @@
                         <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
                     <li>
-                        <h4>{{ list.followers }}</h4><span>Número de seguidores</span>
+                        <h4>Seguidores</h4><span>{{ list.followers }}</span>
                     </li>
                     <li>
                     </li>
@@ -97,12 +96,7 @@
                     </li>
                     <li>
                         <div class="main-border-button">
-                            <a (click)="moda2Service.open('modal-editList');selectListId(list._id)" class="">Editar</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="main-border-button">
-                            <a (click)="deleteFavoriteList(list._id)" class="">Borrar</a>
+                            <a (click)="deleteFavoriteList(list._id)" class="">Quitar</a>
                         </div>
                     </li>
                 </ul>
@@ -145,17 +139,25 @@
 </app-modal>
 <!-- Create List Modal -->
 <app-modal id="modal-2">
-    <h3>Modal 2</h3>
-    <div class="user-avatar">
-        <img src="http://localhost:3000/api/{{this.currentPhoto}}" alt="profile-photo">
-    </div>
-    <div class="list">
+    <h3>Crear Lista</h3>
+    <div>
         <form>
             <label for="listName">Nombre de la Lista:</label>
             <input type="text" name="listName" id="listName" [(ngModel)]="this.listName">
             <label for="listDescription">Descripcion de la Lista:</label>
             <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30"
                 rows="10"></textarea>
+                <div class="radio-container">
+                    <label class="radio-label" for="private">
+                      <input class="radio-input" type="radio" [(ngModel)]="this.visibility" name="visibility" value="Privada" id="private"  checked>
+                      Privada
+                    </label>
+                    <label class="radio-label" for="public">
+                      <input class="radio-input" type="radio" [(ngModel)]="this.visibility" name="visibility" value="Pública" id="public">
+                      Pública
+                    </label>
+                </div>
+                <br>
             <button type="submit" (click)="createList()">Crear</button>
         </form>
     </div>
@@ -184,6 +186,16 @@
                     <label for="listDescription">Descripcion de la Lista:</label>
                     <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescriptionEdit"
                         cols="30" rows="10"></textarea>
+                        <div class="radio-container">
+                            <label class="radio-label" for="private">
+                              <input class="radio-input" type="radio" [(ngModel)]="this.visibility" name="visibility" value="Privada" id="private"  checked>
+                              Privada
+                            </label>
+                            <label class="radio-label" for="public">
+                              <input class="radio-input" type="radio" [(ngModel)]="this.visibility" name="visibility" value="Pública" id="public">
+                              Pública
+                            </label>
+                        </div>
                 </form>
             </div>
         </div>

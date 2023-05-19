@@ -27,6 +27,8 @@ export class UserdetailComponent {
       next: (data:any) => {
         Swal.fire({
           title: 'Cliente actualizado',
+          background: '#1e1e2a',
+          color: 'white',
           text: 'El cliente se ha modificado correctamente!',
           icon: 'success',
           buttonsStyling: false,
@@ -38,6 +40,8 @@ export class UserdetailComponent {
       error: (error:any) => {
         Swal.fire({
           title: 'Error al actualizar tus datos',
+          background: '#1e1e2a',
+          color: 'white',
           html: error.error.msg,
           icon: 'error',
           buttonsStyling: false,
@@ -58,6 +62,8 @@ export class UserdetailComponent {
             Swal.fire({
               title: 'Contraseña cambiada',
               text: 'La contraseña se ha cambiado correctamente!',
+              background: '#1e1e2a',
+              color: 'white',
               icon: 'success',
               buttonsStyling: false,
               customClass: {
@@ -80,6 +86,8 @@ export class UserdetailComponent {
             }
             Swal.fire({
               title: 'Error al registrarse',
+              background: '#1e1e2a',
+              color: 'white',
               html: errorMessage,
               icon: 'error',
               buttonsStyling: false,

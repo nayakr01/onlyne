@@ -162,6 +162,7 @@
 
 .my-list .item ul li img {
     margin-top: -100px;
+    margin-right: 100px;
 }
 
 .my-list .item ul li {
@@ -220,6 +221,50 @@ input[type="submit"]:hover {
     color: #039be5;
 }
 
+.radio-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.radio-input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  outline: none;
+  margin-right: 0.5rem;
+  position: relative;
+  transition: border-color 0.2s ease-in;
+  cursor: pointer;
+}
+
+.radio-input:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #039be5;
+}
+
+.radio-label:hover .radio-input {
+  border-color: #039be5;
+}
+
+
 .main-border-button a {
     font-size: 14px;
     color: #039be5;
@@ -234,6 +279,7 @@ input[type="submit"]:hover {
     transition: all .3s;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 .profile {
   position: relative;
@@ -410,6 +456,7 @@ input[type="submit"]:hover {
 
 .templatemo-item {
   max-width: 80px;
+  height: 80px;
   border-radius: 20px;
 }
 
@@ -488,6 +535,7 @@ button[disabled] {
     align-items: center;
     align-content: center;
     margin: 0px;
+    margin-top: 20px;
 }
 
 .content-form label {

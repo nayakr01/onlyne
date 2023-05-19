@@ -15,7 +15,7 @@
                 <i class="bx bx-right-arrow"></i>
                 <span>Mirar Trailer</span>
             </a>
-            <a (click)="moda2Service.open('modal-3')" target="_blank" class="watch-btn" [ngStyle]="{'margin-left': '10px'}">
+            <a *ngIf="client" (click)="moda2Service.open('modal-3')" target="_blank" class="watch-btn" [ngStyle]="{'margin-left': '10px'}">
                 <i class='bx bx-plus'></i>
                 <span>Añadir a Lista</span>
             </a>
@@ -40,21 +40,31 @@
             <!-- Create List Modal -->
             <app-modal id="modal-2">
                 <h3>Crear Lista</h3>
-                <div class="list">
+                <div>
                     <form>
                         <label for="listName">Nombre de la Lista:</label>
                         <input type="text" name="listName" id="listName" [(ngModel)]="this.listName">
                         <label for="listDescription">Descripcion de la Lista:</label>
-                        <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30" rows="10"></textarea>
+                        <textarea name="listDescription" id="listDescription" [(ngModel)]="this.listDescription" cols="30"
+                            rows="10"></textarea>
+                            <div class="radio-container">
+                                <label class="radio-label" for="private">
+                                  <input class="radio-input" type="radio" [(ngModel)]="this.visibility" name="visibility" value="Privada" id="private" checked>
+                                  Privada
+                                </label>
+                                <label class="radio-label" for="public">
+                                  <input class="radio-input" type="radio" [(ngModel)]="this.visibility" name="visibility" value="Pública" id="public">
+                                  Pública
+                                </label>
+                            </div>
+                            <br>
                         <button type="submit" (click)="createList()">Crear</button>
                     </form>
                 </div>
                 <i (click)="moda2Service.close()" class='bx bx-x' id="close"></i>
             </app-modal>
-            
         </div>
     </div>
-    <i class="bx bxs-heart play-movie"></i>
 </div>
 <div class="about-movie container" *ngIf="serie">
     <h2>{{ serie.name }}</h2>

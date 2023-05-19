@@ -31,6 +31,7 @@ export class UserprofileComponent implements OnInit {
   selectedListId!:any;
   listNameEdit!: string;
   listDescriptionEdit!: string;
+  visibility: string = 'Privada';
 
   constructor(private modalService: ModalService,
     protected authService: AuthService,
@@ -134,7 +135,7 @@ export class UserprofileComponent implements OnInit {
   }
 
   editList() {
-    this.listsService.updateList(this.selectedListId, this.listNameEdit, this.listDescriptionEdit).subscribe({
+    this.listsService.updateList(this.selectedListId, this.listNameEdit, this.listDescriptionEdit, this.visibility ).subscribe({
       next: (data: any) => {
         Swal.fire({
           title: 'Lista creada',
@@ -166,7 +167,7 @@ export class UserprofileComponent implements OnInit {
   }
 
   createList() {
-    this.listsService.createList(this.listName, this.listDescription, this.client.id).subscribe({
+    this.listsService.createList(this.listName, this.listDescription, this.client.id, this.visibility).subscribe({
       next: (data: any) => {
         Swal.fire({
           title: 'Lista creada',
@@ -181,6 +182,7 @@ export class UserprofileComponent implements OnInit {
         })
         this.userLists.push(data.result);
         this.client.lists_created = this.userLists;
+        this.getUserLists();
       },
       error: (error: any) => {
         let e = error.error.error.match(/Error: (.+)/)[0];
@@ -268,7 +270,17 @@ export class UserprofileComponent implements OnInit {
   photoSelected(event: any) {
     this.selectedPhoto = event.target.files[0];
     if (this.selectedPhoto && this.selectedPhoto.type.indexOf('image') < 0) {
-      Swal.fire('Error al seleccionar imagen: ', 'El archivo debe ser del tipo imagen', 'error');
+      Swal.fire({
+        title: 'Error al seleccionar imagen: ',
+        text: 'El archivo debe ser del tipo imagen',
+        icon: 'error',
+        buttonsStyling: false,
+        background: '#1e1e2a',
+        color: 'white',
+        customClass: {
+          confirmButton: '#039be5'
+        },
+      })
       this.selectedPhoto = null;
     } else {
       this.uploadPhoto();
@@ -277,7 +289,17 @@ export class UserprofileComponent implements OnInit {
 
   uploadPhoto() {
     if (!this.selectedPhoto) {
-      Swal.fire('Error Upload: ', 'Debes seleccionar una foto', 'error');
+      Swal.fire({
+        title: 'Error al actualizar: ',
+        text: 'Debes seleccionar una foto',
+        icon: 'error',
+        buttonsStyling: false,
+        background: '#1e1e2a',
+        color: 'white',
+        customClass: {
+          confirmButton: '#039be5'
+        },
+      })
     } else {
       this.authService.uploadPhoto(this.client.id, this.selectedPhoto)
       .subscribe(event => {

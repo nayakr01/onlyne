@@ -462,7 +462,8 @@ router.post('/lists', authorize, (req, res) => {
     description: req.body.description,
     author: req.body.author,
     listPhoto: 'public/uploads/default-image-list.png',
-    listM_S: []
+    listM_S: [],
+    visibility: req.body.visibility
   });
   newList.save()
     .then(response => {

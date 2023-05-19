@@ -28,6 +28,9 @@ const listSchema = new Schema({
   },
   followers: {
     type: Array
+  },
+  visibility: {
+    type: String
   }
 }, {collection: 'Lists'});
 

@@ -1,34 +1,43 @@
 <app-navbar></app-navbar>
 <div class="play-container container" *ngIf="list">
-    <img id="list-img" src="http://localhost:3000/api/{{this.list?.listPhoto}}" alt="profile-photo" class="play-img">
-    <div class="play-text">
-        <h2>{{ list.title }}</h2>
-
-        <div class="tags">
-            <span>{{ list.description }}</span>
-        </div>
-    </div>
-    <i (click)="addListToFavourites()" class="bx bxs-heart play-movie"></i>
-</div>
-<div class="about-movie container" *ngIf="list?.listM_S && list?.listM_S?.length > 0">
-  <div class="cast">
-    <div class="cast-box" *ngFor="let detail of listDetails">
-      <div *ngIf="detail.typeOf == 'movie'">
-        <a [routerLink]="['/details-movie', detail.id]">
-          <img [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
-            alt="photo" class="cast-img">
-          <span class="cast-title">{{ detail.title }}</span>
-        </a>
-      </div>
-
-      <div *ngIf="detail.typeOf == 'serie'">
-        <a [routerLink]="['/details-serie', detail.id]">
-          <img [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
-            alt="photo" class="cast-img">
-          <span class="cast-title">{{ detail.name }}</span>
-        </a>
-      </div>
-
+  <img id="list-img" src="http://localhost:3000/api/{{this.list?.listPhoto}}" alt="profile-photo" class="play-img">
+  <div class="play-text">
+    <h1>{{ list.title }}</h1>
+    <p>{{ list.description }}</p>
+    <div class="tags">
+      <span><i class='bx bxs-user'></i> {{ list.author.name}}</span>
     </div>
   </div>
+  <i *ngIf="client" (click)="addListToFavourites()" class="bx bxs-heart play-movie"></i>
 </div>
+<section class="movie container" id="movie">
+  <div class="heading" id="headingExplorer">
+    <h2 class="heading-title">Contenido de la lista</h2>
+  </div>
+  <div class="movies-content">
+    <div class="movie-box" *ngFor="let detail of listDetails">
+      <div *ngIf="detail.typeOf == 'movie'">
+        <img
+          [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+          alt="photo" class="movie-box-img">
+        <div class="box-text">
+          <h2 class="movie-title">{{ detail.title }}</h2>
+          <span [routerLink]="['/details-movie', detail.id]" class="watch-btn play-btn">
+            <i class="bx bx-right-arrow"></i>
+          </span>
+        </div>
+      </div>
+      <div *ngIf="detail.typeOf == 'serie'">
+        <img
+        [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+        alt="" class="movie-box-img">
+        <div class="box-text">
+          <h2 class="movie-title">{{ detail.name }}</h2>
+          <span [routerLink]="['/details-serie', detail.id]" class="watch-btn play-btn">
+            <i class="bx bx-right-arrow"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

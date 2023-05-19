@@ -36,6 +36,7 @@ export class DetailsComponent {
 
   searchTerm: string = '';
   filteredLists: List[] = [];
+  visibility: string = 'Privada';
 
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -155,7 +156,7 @@ export class DetailsComponent {
   }
 
   createList() {
-    this.listsService.createList(this.listName, this.listDescription, this.client.id).subscribe({
+    this.listsService.createList(this.listName, this.listDescription, this.client.id, this.visibility).subscribe({
       next: (data: any) => {
         Swal.fire({
           title: 'Lista creada',
