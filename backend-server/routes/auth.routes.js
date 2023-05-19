@@ -7,9 +7,12 @@ const fs = require('fs');
 const router  = express.Router();
 const userSchema = require('../models/user');
 const listSchema = require('../models/list');
+const commentSchema = require('../models/comment');
 const authorize = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 const { log } = require('console');
+const axios = require('axios');
+const FormData = require('form-data');
 
 // Register
 router.post('/register', [
@@ -682,6 +685,100 @@ router.get('/lists/:listId/followers/count', authorize, async (req, res) => {
   } catch (error) {
     console.error('Error al obtener el número de seguidores de la lista:', error);
     return res.status(500).json({ error: 'Error al obtener el número de seguidores de la lista' });
+  }
+});
+
+// Add comment to the Movie
+router.post('/movies/:id/comment', async (req, res) => {
+  try {
+    const movieId = req.params.id;
+    const comment = req.body.comment;
+    const userId = req.body.userId;
+
+    // Create FormData and append necessary data
+    const data = new FormData();
+    data.append('text', comment);
+    data.append('lang', 'es,en,fr,it,pt');
+    data.append('mode', 'standard');
+    data.append('api_user', '898220282');
+    data.append('api_secret', 'Q24E3awwVhDYskg2EEEz');
+
+    // Make a POST request to the offensive language check API
+    const response = await axios({
+      url: 'https://api.sightengine.com/1.0/text/check.json',
+      method: 'post',
+      data: data,
+      headers: data.getHeaders()
+    });
+
+    // Check the response for offensive language
+    if (response.data?.profanity?.matches.length > 0 || response.data?.link?.matches.length > 0) {
+      console.log("-----------------Matches-----------------------------");
+      console.log(response.data.profanity?.matches);
+      console.log(response.data.link?.matches);
+      // Offensive language found, handle accordingly
+      res.status(400).json({ profanity: response.data.profanity?.matches, link: response.data?.link?.matches , message: 'El comentario contiene lenguaje ofensivo o algún link' });
+    } else {
+      const newComment = new commentSchema({
+        movieSerieId: {id: serieId, type: "serie"},
+        userId: userId,
+        comment: comment
+      });
+
+      await newComment.save();
+
+      res.status(201).json({ message: 'Comentario agregado exitosamente' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al agregar el comentario a la película' });
+  }
+});
+
+// Add comment to the Serie
+router.post('/series/:id/comment', async (req, res) => {
+  try {
+    const serieId = req.params.id;
+    const comment = req.body.comment;
+    const userId = req.body.userId;
+
+    // Create FormData and append necessary data
+    const data = new FormData();
+    data.append('text', comment);
+    data.append('lang', 'es,en,fr,it,pt');
+    data.append('mode', 'standard');
+    data.append('api_user', '898220282');
+    data.append('api_secret', 'Q24E3awwVhDYskg2EEEz');
+
+    // Make a POST request to the offensive language check API
+    const response = await axios({
+      url: 'https://api.sightengine.com/1.0/text/check.json',
+      method: 'post',
+      data: data,
+      headers: data.getHeaders()
+    });
+
+    // Check the response for offensive language
+    if (response.data?.profanity?.matches.length > 0 || response.data?.link?.matches.length > 0) {
+      console.log("-----------------Matches-----------------------------");
+      console.log(response.data.profanity?.matches);
+      console.log(response.data.link?.matches);
+      // Offensive language found, handle accordingly
+      res.status(400).json({ profanity: response.data.profanity?.matches, link: response.data?.link?.matches , message: 'El comentario contiene lenguaje ofensivo o algún link' });
+    } else {
+      const newComment = new commentSchema({
+        movieSerieId: { id: serieId, type: 'movie' },
+        userId: userId,
+        comment: comment
+      });
+
+      await newComment.save();
+
+      res.status(201).json({ message: 'Comentario agregado exitosamente' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al agregar el comentario a la serie' });
   }
 });
 

@@ -41,8 +41,8 @@ export class DetailsSeriesComponent {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
       elem.classList.remove('nav-active');
     });
+    this.getClient();
     if (this.client) {
-      this.getClient();
       this.getUserLists();
     }
     this.getDetails();
@@ -108,6 +108,8 @@ export class DetailsSeriesComponent {
   getUserLists() {
     this.listsService.getUserLists(this.client.id).subscribe((data: any) => {
       this.userLists = data;
+      console.log(this.userLists);
+      
       this.filteredLists = [...this.userLists];
       console.log("foreach de las listas");
       this.userLists.forEach(e => {

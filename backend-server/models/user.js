@@ -33,6 +33,9 @@ const userSchema = new Schema({
   }],
   ratings: [{
     type: Array
+  }],
+  comments: [{
+    type: Array
   }]
 }, {collection: 'Users'});
 

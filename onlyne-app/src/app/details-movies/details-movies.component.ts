@@ -41,8 +41,8 @@ export class DetailsComponent {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
       elem.classList.remove('nav-active');
     });
+    this.getClient();
     if (this.client) {
-      this.getClient();
       this.getUserLists();
     }
     this.getDetails();
