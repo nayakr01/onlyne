@@ -1,15 +1,19 @@
 <app-navbar></app-navbar>
 <section class="explorer container" id="explorer">
     <div id="headingExplorer">
-        <div id="tags">
-            <div class="tag" *ngFor="let genre of allGenres" [class.selected]="genre === selectedGenre"
-                (click)="selectGenre(genre)">
-                {{ genre.name }}
-            </div>
-        </div>
     </div>
     <div class="heading" id="headingExplorer">
         <h2 class="heading-title">Películas y Series</h2>
+        <i class='bx bx-filter' (click)="toggleGenres()"></i>
+    </div>
+    <br>
+    <div class="section-tags" [ngClass]="{ 'show-genres': showGenres, 'hide-genres': !showGenres }">
+        <div id="tags">
+            <div class="tag" *ngFor="let genre of allGenres" [class.selected]="genre === selectedGenre"
+              (click)="selectGenre(genre)">
+              {{ genre.name }}
+            </div>
+        </div>
     </div>
     <div class="movies-content">
         <div class="movie-box" *ngFor="let movie of moviesWithGenre">

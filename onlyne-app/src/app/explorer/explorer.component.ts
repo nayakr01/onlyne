@@ -40,6 +40,8 @@ export class ExplorerComponent {
 
   selectedGenre: Genre | null = null;
 
+  showGenres: boolean = false;
+
 
   constructor(private moviesService: MoviesService, private seriesService: SeriesService, private router: Router) { }
 
@@ -155,7 +157,12 @@ export class ExplorerComponent {
       this.getMoviesWithGenre(genre);
       this.getSeriesWithGenre(genre);
     }
-  }  
+  }
+
+  toggleGenres() {
+    this.showGenres = !this.showGenres;
+  }
+
 
   getMoviesWithGenre(genre: Genre) {
     const genreId = genre.id;

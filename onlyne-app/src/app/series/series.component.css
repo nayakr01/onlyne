@@ -25,3 +25,15 @@
     margin-top: -45px;
     margin-bottom: 15px;
 }
+
+.show-genres {
+    display: block;
+}
+
+.hide-genres {
+    display: none;
+}
+
+.bx {
+    font-size: 160%;
+}
