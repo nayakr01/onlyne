@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { Client } from '../interfaces/client.interface';
 import { List } from '../interfaces/list.interfaces';
+import { Comment } from '../interfaces/comment.interface';
+import { apiUrl } from '../../assets/js/config';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-details-series',
@@ -18,11 +21,8 @@ import { List } from '../interfaces/list.interfaces';
   styleUrls: ['./details-series.component.css']
 })
 export class DetailsSeriesComponent {
-  constructor(private seriesService: SeriesService, 
-    private activatedRoute: ActivatedRoute,
-    protected moda2Service: Moda2Service,
-    protected authService: AuthService,
-    private listsService: ListsService) { }
+
+  apiUrl = apiUrl;
 
   cast: Cast[] = [];
   serie?: SerieDetails;
@@ -38,6 +38,15 @@ export class DetailsSeriesComponent {
   filteredLists: List[] = [];
 
   visibility: string = 'Privada';
+  comment!: string;
+  commentList!: Comment[];
+
+  constructor(private seriesService: SeriesService, 
+    private activatedRoute: ActivatedRoute,
+    protected moda2Service: Moda2Service,
+    protected authService: AuthService,
+    private listsService: ListsService,
+    private commentService: CommentService) { }
 
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -50,6 +59,7 @@ export class DetailsSeriesComponent {
     this.getDetails();
     this.getTrailer();
     this.getActor();
+    this.getSerieComments();
 
     const swiper = new Swiper('.swiper', {
       slidesPerView: 5.3,
@@ -220,6 +230,63 @@ export class DetailsSeriesComponent {
         Swal.fire({
           title: 'Error al crear la lista',
           text: e,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
+    });
+  }
+
+  getSerieComments() {
+    const { id } = this.activatedRoute.snapshot.params;
+    this.commentService.getSerieComment(id).subscribe({
+      next: (data: any) => {
+        this.commentList = data;
+        console.log(this.commentList);
+      }
+    });
+  }
+
+  addCommentToSerie() {
+    const { id } = this.activatedRoute.snapshot.params;
+    this.commentService.addCommentToSerie(this.client.id, id, this.comment).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Comentario añadido a la serie',
+          html: 'Se ha añadido el comentario la serie correctamente',
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      },
+      error: (error: any) => {
+        const errors:any = [];
+
+        error.error.profanity.forEach((item: any) => {
+          console.log(item);
+          const errorMessage = `- Palabra Ofensiva: ${item.match}, Intesidad: ${item.intensity}, Tipo: ${item.type}`;
+          errors.push(errorMessage);
+        });
+
+        error.error.link.forEach((item: any) => {
+          console.log(item);
+          const errorMessage = `- Link: ${item.match}, Categoria: ${item.category}`;
+          errors.push(errorMessage);
+        });
+
+        const errorsString = errors.join("<br>");
+        Swal.fire({
+          title: error.error.message,
+          html: errorsString,
           icon: 'error',
           buttonsStyling: false,
           background: '#1e1e2a',

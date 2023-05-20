@@ -17,8 +17,10 @@
   align-items: center;
   justify-content: center;
 }
+
 .movies-content {
   display: grid;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
@@ -54,7 +56,8 @@
   }
 
   .movies-content {
-    display: grid;
+    display: flex;
+    justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }

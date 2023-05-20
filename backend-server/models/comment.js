@@ -11,7 +11,7 @@ const commentSchema = new Schema({
   },
   userId: {
     type: String,
-    ref: 'User',
+    ref: 'user',
     required: true
   },
   comment: {

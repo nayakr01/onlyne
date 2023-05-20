@@ -759,6 +759,36 @@ router.get('/lists/:listId/followers/count', authorize, async (req, res) => {
   }
 });
 
+// Get all comments from a movie.
+router.get('/movies/:movieId/comment', async (req, res) => {
+  try {
+    const movieId = req.params.movieId;
+
+    const comments = await commentSchema.find({ 'movieSerieId.id': movieId, 'movieSerieId.type': 'movie' })
+      .populate('userId', 'name profilePhoto');
+
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al obtener los comentarios de la película' });
+  }
+});
+
+// Get all comments from a serie.
+router.get('/series/:serieId/comment', async (req, res) => {
+  try {
+    const serieId = req.params.serieId;
+
+    const comments = await commentSchema.find({ 'movieSerieId.id': serieId, 'movieSerieId.type': 'serie' })
+      .populate('userId', 'name profilePhoto');
+
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al obtener los comentarios de la película' });
+  }
+});
+
 // Add comment to the Movie
 router.post('/movies/:id/comment', async (req, res) => {
   try {
@@ -791,7 +821,7 @@ router.post('/movies/:id/comment', async (req, res) => {
       res.status(400).json({ profanity: response.data.profanity?.matches, link: response.data?.link?.matches , message: 'El comentario contiene lenguaje ofensivo o algún link' });
     } else {
       const newComment = new commentSchema({
-        movieSerieId: {id: serieId, type: "serie"},
+        movieSerieId: {id: movieId, type: "movie"},
         userId: userId,
         comment: comment
       });
@@ -838,7 +868,7 @@ router.post('/series/:id/comment', async (req, res) => {
       res.status(400).json({ profanity: response.data.profanity?.matches, link: response.data?.link?.matches , message: 'El comentario contiene lenguaje ofensivo o algún link' });
     } else {
       const newComment = new commentSchema({
-        movieSerieId: { id: serieId, type: 'movie' },
+        movieSerieId: { id: serieId, type: 'serie' },
         userId: userId,
         comment: comment
       });
@@ -850,6 +880,20 @@ router.post('/series/:id/comment', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al agregar el comentario a la serie' });
+  }
+});
+
+// Delete a comment from a movie.
+router.delete('/comment/:commentId', async (req, res) => {
+  try {
+    const commentId = req.params.commentId;
+
+    await commentSchema.findByIdAndRemove(commentId);
+
+    res.status(200).json({ message: 'Comentario eliminado exitosamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar el comentario' });
   }
 });
 

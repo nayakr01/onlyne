@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { Client } from '../interfaces/client.interface';
 import { List } from '../interfaces/list.interfaces';
+import { CommentService } from '../services/comment.service';
+import { Comment } from '../interfaces/comment.interface';
+import { apiUrl } from '../../assets/js/config';
 
 @Component({
   selector: 'app-details',
@@ -18,25 +21,32 @@ import { List } from '../interfaces/list.interfaces';
   styleUrls: ['./details-movies.component.css']
 })
 export class DetailsComponent {
-  constructor(private moviesService: MoviesService, 
-    private activatedRoute: ActivatedRoute,
-    protected moda2Service: Moda2Service,
-    protected authService: AuthService,
-    private listsService: ListsService) { }
 
+  apiUrl = apiUrl;
+  
   cast: Cast[] = [];
   movie?: MovieDetails;
   trailer?: string;
   streaming?: Streaming;
-
+  
   client!: Client;
   userLists!: List[];
   listName!: string;
   listDescription!: string;
-
+  
   searchTerm: string = '';
   filteredLists: List[] = [];
+
   visibility: string = 'Privada';
+  comment!: string;
+  commentList!: Comment[];
+
+  constructor(private moviesService: MoviesService, 
+    private activatedRoute: ActivatedRoute,
+    protected moda2Service: Moda2Service,
+    protected authService: AuthService,
+    private listsService: ListsService,
+    private commentService: CommentService) { }
 
   ngOnInit() {
     document.querySelectorAll('.nav-link').forEach(function (elem) {
@@ -49,6 +59,7 @@ export class DetailsComponent {
     this.getDetails();
     this.getTrailer();
     this.getActor();
+    this.getMovieComments();
 
     const swiper = new Swiper('.swiper', {
       slidesPerView: 5.3,
@@ -217,6 +228,63 @@ export class DetailsComponent {
         Swal.fire({
           title: 'Error al crear la lista',
           text: e,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
+    });
+  }
+
+  getMovieComments() {
+    const { id } = this.activatedRoute.snapshot.params;
+    this.commentService.getMovieComment(id).subscribe({
+      next: (data: any) => {
+        this.commentList = data;
+        console.log(this.commentList);
+      }
+    });
+  }
+
+  addCommentToMovie() {
+    const { id } = this.activatedRoute.snapshot.params;
+    this.commentService.addCommentToMovie(this.client.id, id, this.comment).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Comentario añadido a la película',
+          html: 'Se ha añadido el comentario la película correctamente',
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      },
+      error: (error: any) => {
+        const errors:any = [];
+
+        error.error.profanity.forEach((item: any) => {
+          console.log(item);
+          const errorMessage = `- Palabra Ofensiva: ${item.match}, Intesidad: ${item.intensity}, Tipo: ${item.type}`;
+          errors.push(errorMessage);
+        });
+
+        error.error.link.forEach((item: any) => {
+          console.log(item);
+          const errorMessage = `- Link: ${item.match}, Categoria: ${item.category}`;
+          errors.push(errorMessage);
+        });
+
+        const errorsString = errors.join("<br>");
+        Swal.fire({
+          title: error.error.message,
+          html: errorsString,
           icon: 'error',
           buttonsStyling: false,
           background: '#1e1e2a',
