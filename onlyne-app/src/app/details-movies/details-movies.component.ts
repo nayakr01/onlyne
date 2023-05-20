@@ -261,7 +261,7 @@ export class DetailsComponent {
       next: (data: any) => {
         Swal.fire({
           title: 'Comentario añadido a la película',
-          html: 'Se ha añadido el comentario la película correctamente',
+          html: 'Se ha añadido el comentario a la película correctamente',
           icon: 'success',
           buttonsStyling: false,
           background: '#1e1e2a',

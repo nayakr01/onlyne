@@ -263,7 +263,7 @@ export class DetailsSeriesComponent {
       next: (data: any) => {
         Swal.fire({
           title: 'Comentario añadido a la serie',
-          html: 'Se ha añadido el comentario la serie correctamente',
+          html: 'Se ha añadido el comentario a la serie correctamente',
           icon: 'success',
           buttonsStyling: false,
           background: '#1e1e2a',
