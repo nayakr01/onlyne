@@ -59,6 +59,26 @@ export class ListsService {
     return this.http.post(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { serieId: serieId });
   }
 
+  checkSerieInList(listId: string, itemId: string) {
+    return this.http.post(`${this.urlServer}/api/lists/${listId}/checkItem`, { serieId: itemId });
+  }
+
+  checkMovieInList(listId: string, itemId: string) {
+    return this.http.post(`${this.urlServer}/api/lists/${listId}/checkItem`, { movieId: itemId });
+  }
+
+  removeMovieToList(clientId: string, listId: string, movieId: string) {
+    return this.http.delete(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { 
+      body: { movieId: movieId }
+    });
+  }
+  
+  removeSerieToList(clientId: string, listId: string, serieId: string) {
+    return this.http.delete(`${this.urlServer}/api/users/${clientId}/lists/${listId}/items`, { 
+      body: { serieId: serieId }
+    });
+  }
+
   addListToFavourites(clientId: string, listId: string) {
     return this.http.post(`${this.urlServer}/api/users/${clientId}/favourites`, { listId: listId });
   }
@@ -66,5 +86,6 @@ export class ListsService {
   getFollowersOfList(listId: string): Observable<any> {
     return this.http.get(`${this.urlServer}/api/lists/${listId}/followers/count`);
   }
+
 
 }

@@ -22,8 +22,8 @@
           alt="photo" class="movie-box-img">
         <div class="box-text">
           <span class="movie-title">{{ detail.title }}</span>
-          <span class="trash-icon">
-            <i class="bx bxs-trash "></i>
+          <span *ngIf="this.client.name == list.author.name" (click)="removeMovieToList(detail.id)" class="trash-icon">
+            <i class="bx bxs-trash"></i>
           </span>
           <span [routerLink]="['/details-movie', detail.id]" class="watch-btn play-btn">
             <i class="bx bx-right-arrow"></i>
@@ -34,8 +34,10 @@
         <img
         [src]="detail.poster_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.poster_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
         alt="" class="movie-box-img">
-        <i class="bx bxs-trash trash-icon"></i>
         <div class="box-text">
+          <span *ngIf="this.client.name == list.author.name" (click)="removeSerieToList(detail.id)" class="trash-icon">
+            <i class="bx bxs-trash"></i>
+          </span>
           <span class="movie-title">{{ detail.name }}</span>
           <span [routerLink]="['/details-serie', detail.id]" class="watch-btn play-btn">
             <i class="bx bx-right-arrow"></i>

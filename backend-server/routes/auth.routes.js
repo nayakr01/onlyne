@@ -341,12 +341,12 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
   }
 });
 
-/* //View Photo
+//View Photo
 router.route('/public/uploads/:filename').get((req, res, next) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, '../public/uploads', filename);
   res.sendFile(filePath);
-}); */
+});
 
 //Photo default
 router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), async (req, res, next) => {
@@ -578,7 +578,77 @@ router.post('/users/:userId/lists/:listId/items', authorize, async (req, res) =>
 
     await list.save();
 
-    res.status(201).json({ message: 'Elemento añadido a la lista con éxito' });
+    res.status(201).json({ status: 201, message: 'Elemento añadido a la lista con éxito' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Remove Movie or Series from User's List
+router.delete('/users/:userId/lists/:listId/items', authorize, async (req, res) => {
+  const userId = req.params.userId;
+  const listId = req.params.listId;
+  const itemId = req.body;
+
+  try {
+    const user = await userSchema.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const list = await listSchema.findById(listId);
+    if (!list) {
+      return res.status(404).json({ message: 'Lista no encontrada' });
+    }
+
+    let itemIndex;
+
+    if (itemId.serieId) {
+      itemIndex = list.listM_S.findIndex(item => item.serieId == itemId.serieId);
+      if (itemIndex === -1 ) {
+        return res.status(404).json({ message: 'El elemento no está presente en la lista' });
+      }
+    }
+
+    if (itemId.movieId) {
+      itemIndex = list.listM_S.findIndex(item => item.movieId == itemId.movieId);
+      if (itemIndex === -1 ) {
+        return res.status(404).json({ message: 'El elemento no está presente en la lista' });
+      }
+    }
+
+    list.listM_S.splice(itemIndex, 1);
+
+    await list.save();
+
+    res.status(200).json({ status: 200, message: 'Elemento eliminado de la lista con éxito', list: list });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Check if Serie or Movie exists on the List
+router.post('/lists/:listId/checkItem', authorize, async (req, res) => {
+  const listId = req.params.listId;
+  const itemId = req.body;
+
+  try {
+    const list = await listSchema.findById(listId);
+    if (!list) {
+      return res.status(404).json({ message: 'Lista no encontrada' });
+    }
+
+    if(itemId.serieId) {
+      const isItemAdded = list.listM_S.some(item => item.serieId === itemId.serieId);
+      if (isItemAdded)return res.status(200).json({ status: 200, message: 'La serie ya está añadida a la lista.' });
+    }
+    
+    if(itemId.movieId) {
+      const isItemAdded = list.listM_S.some(item => item.movieId === itemId.movieId);
+      if (isItemAdded) return res.status(200).json({ status: 200, message: 'La película ya está añadida a la lista.' });
+    }
+
+    res.status(404).json({ error: "La película o serie no está añadida a la lista." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

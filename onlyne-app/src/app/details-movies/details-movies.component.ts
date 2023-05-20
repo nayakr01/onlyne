@@ -120,6 +120,50 @@ export class DetailsComponent {
 
   addToList(listId: string) {
     const { id } = this.activatedRoute.snapshot.params;
+    this.listsService.checkMovieInList(listId, id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: 'La serie ya está añadida a la lista.',
+          text: "¿Deseas añadirla de nuevo?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, añádela!',
+          cancelButtonText: 'Cancelar',
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.addMovieToList(listId);
+          } else if (result.dismiss) {
+            Swal.fire({
+              title: 'Cancelado!',
+              text: 'No se ha añadido la película a la lista.',
+              icon: 'error',
+              background: '#1e1e2a',
+              color: 'white',
+              customClass: {
+                confirmButton: '#039be5'
+              }
+            })
+          }
+        })
+      },
+      error: (error) => {
+        if (error.status == 404) {
+          this.addMovieToList(listId);
+        }
+      }
+    });
+  }
+
+  addMovieToList(listId: string) {
+    const { id } = this.activatedRoute.snapshot.params;
     this.listsService.addMovieToList(this.client.id, listId, id).subscribe({
       next: (data: any) => {
         console.log(data);
@@ -137,11 +181,8 @@ export class DetailsComponent {
         this.moda2Service.close();
       },
       error: (error: any) => {
-        console.log(error);
-        let e = error.error.error.match(/Error: (.+)/)[0];
         Swal.fire({
-          title: 'Error al crear la lista',
-          text: e,
+          title: 'Error al añadir la película a la lista',
           icon: 'error',
           buttonsStyling: false,
           background: '#1e1e2a',
@@ -152,7 +193,6 @@ export class DetailsComponent {
         })
       }
     });
-    
   }
 
   createList() {

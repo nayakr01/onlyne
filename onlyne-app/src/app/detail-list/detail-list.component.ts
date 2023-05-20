@@ -117,4 +117,28 @@ export class DetailListComponent {
     });
   }
 
+  removeMovieToList(item: string) {
+    this.listsService.removeMovieToList(this.client.id, this.listId, item).subscribe({
+      next: (data: any) => {
+        this.listDetails = [];
+        this.getListById(data.list._id)
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  removeSerieToList(item: string) {
+    this.listsService.removeSerieToList(this.client.id, this.listId, item).subscribe({
+      next: (data: any) => {
+        this.listDetails = [];
+        this.getListById(data.list._id)
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
 }

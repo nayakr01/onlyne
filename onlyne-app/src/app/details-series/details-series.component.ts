@@ -123,6 +123,50 @@ export class DetailsSeriesComponent {
 
   addToList(listId: string) {
     const { id } = this.activatedRoute.snapshot.params;
+    this.listsService.checkSerieInList(listId, id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: 'La serie ya está añadida a la lista.',
+          text: "¿Deseas añadirla de nuevo?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, añádela!',
+          cancelButtonText: 'Cancelar',
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.addSerieToList(listId);
+          } else if (result.dismiss) {
+            Swal.fire({
+              title: 'Cancelado!',
+              text: 'No se ha añadido la serie a la lista.',
+              icon: 'error',
+              background: '#1e1e2a',
+              color: 'white',
+              customClass: {
+                confirmButton: '#039be5'
+              }
+            })
+          }
+        })
+      },
+      error: (error) => {
+        if (error.status == 404) {
+          this.addSerieToList(listId);
+        }
+      }
+    });
+  }
+
+  addSerieToList(listId: string) {
+    const { id } = this.activatedRoute.snapshot.params;
     this.listsService.addSerieToList(this.client.id, listId, id).subscribe({
       next: (data: any) => {
         console.log(data);
@@ -140,11 +184,8 @@ export class DetailsSeriesComponent {
         this.moda2Service.close();
       },
       error: (error: any) => {
-        console.log(error);
-        let e = error.error.error.match(/Error: (.+)/)[0];
         Swal.fire({
-          title: 'Error al crear la lista',
-          text: e,
+          title: 'Error al añadir la serie a la lista',
           icon: 'error',
           buttonsStyling: false,
           background: '#1e1e2a',
@@ -155,7 +196,6 @@ export class DetailsSeriesComponent {
         })
       }
     });
-    
   }
 
   createList() {
