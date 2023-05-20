@@ -850,10 +850,21 @@ margin-left: auto;
 
 .input-com {
   padding: 12px 20px 12px 20px;
+  float: right;
   border-radius: 20px;
   border: 0;
   outline: none;
   cursor:pointer;
-  margin-left: 800px;
   margin-bottom: 15px;
+}
+
+@media (max-width: 911px) {
+
+  #headingExplorer{
+    margin-top: 1.3rem;
+  }
+
+  .comment-content {
+    width: 100%;
+  }
 }

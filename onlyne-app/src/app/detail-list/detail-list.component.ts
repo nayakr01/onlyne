@@ -121,7 +121,18 @@ export class DetailListComponent {
     this.listsService.removeMovieToList(this.client.id, this.listId, item).subscribe({
       next: (data: any) => {
         this.listDetails = [];
-        this.getListById(data.list._id)
+        this.getListById(data.list._id);
+        Swal.fire({
+          title: 'Película quitada de la lista',
+          text: `La película se ha eliminado correctamente de tu lista`,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
       },
       error: (error) => {
         console.log(error);
@@ -133,7 +144,18 @@ export class DetailListComponent {
     this.listsService.removeSerieToList(this.client.id, this.listId, item).subscribe({
       next: (data: any) => {
         this.listDetails = [];
-        this.getListById(data.list._id)
+        this.getListById(data.list._id);
+        Swal.fire({
+          title: 'Serie quitada de la lista',
+          text: `La serie se ha eliminado correctamente de tu lista`,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
       },
       error: (error) => {
         console.log(error);

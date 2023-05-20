@@ -14,7 +14,7 @@
   <div class="heading" id="movie">
     <h2 class="heading-title">Contenido de la lista</h2>
   </div>
-  <div class="movies-content">
+  <div *ngIf="listDetails.length > 0 else elseBlock" class="movies-content">
     <div class="movie-box" *ngFor="let detail of listDetails">
       <div *ngIf="detail.typeOf == 'movie'">
         <img
@@ -46,4 +46,7 @@
       </div>
     </div>
   </div>
+  <ng-template #elseBlock>
+    <h2>No tienes nada añadido a tu lista</h2>
+  </ng-template>
 </section>

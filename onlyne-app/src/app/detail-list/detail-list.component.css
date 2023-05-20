@@ -1,19 +1,65 @@
 .trash-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 15px;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    column-gap: 0.8rem;
-    color: white;
-    background: var(--main-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 15px;
+  margin-right: 15px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  column-gap: 0.8rem;
+  color: white;
+  background: var(--main-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.movies-content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.movies-content .movie-box:hover .movie-box-img {
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+
+.movie-box {
+  min-width: 250px;
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(8deg, hsl(240 17% 14% / 80%) 14%, hsl(240 17% 14% / 14%) 44%);
+  overflow: hidden;
+}
+
+.movie-box-img {
+  width: 100%;
+  flex: 1;
+}
+
+.box-text {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1rem;
+}
+
+@media (max-width: 991px) {
+  .movie-box {
+    height: 340px;
   }
+
+  .movies-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  #movie {
+    margin-bottom: 50px;
+  }
+}
