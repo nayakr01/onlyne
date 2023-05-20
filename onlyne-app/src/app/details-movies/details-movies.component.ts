@@ -257,7 +257,7 @@ export class DetailsComponent {
 
   addCommentToMovie() {
     const { id } = this.activatedRoute.snapshot.params;
-    this.commentService.addCommentToMovie(this.client.id, id, this.comment).subscribe({
+    this.commentService.addCommentToMovie(this.client.id, id, this.comment, this.selectedStars).subscribe({
       next: (data: any) => {
         Swal.fire({
           title: 'Comentario añadido a la película',

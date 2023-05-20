@@ -648,11 +648,6 @@ button[disabled] {
 
 @media (max-width: 911px) {
 
-  body {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
   .user-profile .banner-profile {
     height: 15rem;
   }
@@ -678,4 +673,12 @@ button[disabled] {
     font-size: 10px;
     padding: 8px 16px;
   }
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
 }

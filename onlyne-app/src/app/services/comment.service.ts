@@ -19,8 +19,8 @@ export class CommentService {
     return this.http.get(`${this.urlServer}/api/series/${serieId}/comment`);
   }
 
-  addCommentToMovie(userId:string, movieId: string, comment: string) {
-    return this.http.post(`${this.urlServer}/api/movies/${movieId}/comment`, { comment: comment, userId: userId });
+  addCommentToMovie(userId:string, movieId: string, comment: string, rating: number) {
+    return this.http.post(`${this.urlServer}/api/movies/${movieId}/comment`, { comment: comment, userId: userId, rating: rating });
   }
 
   addCommentToSerie(userId:string, serieId: string, comment: string, rating: number) {
