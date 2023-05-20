@@ -645,3 +645,61 @@ button[disabled] {
 .my-list .item ul li:last-child .main-border-button {
   margin-left: auto;
 }
+
+@media (max-width: 768px) {
+  .profile.container,
+  .user-profile .profile-content {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .user-profile .avatar {
+    width: 150px;
+    height: 150px;
+    bottom: -40px;
+    left: 2rem;
+  }
+
+  .user-profile .data-profile {
+    width: calc(100% - 150px - 6rem);
+  }
+
+  .my-list .item ul li {
+    width: 33.33%;
+  }
+
+  .main-button a,
+  input[type="submit"],
+  .main-border-button a {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile .banner-profile {
+    height: 15rem;
+  }
+
+  .user-profile .avatar {
+    width: 120px;
+    height: 120px;
+    bottom: -30px;
+    left: 1rem;
+  }
+
+  .user-profile .data-profile {
+    width: calc(100% - 120px - 4rem);
+  }
+
+  .my-list .item ul li {
+    width: 50%;
+  }
+
+  .main-button a,
+  input[type="submit"],
+  .main-border-button a {
+    font-size: 10px;
+    padding: 8px 16px;
+  }
+}

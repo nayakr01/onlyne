@@ -11,17 +11,20 @@
   <i *ngIf="client" (click)="addListToFavourites()" class="bx bxs-heart play-movie"></i>
 </div>
 <section class="movie container" id="movie">
-  <div class="heading" id="headingExplorer">
+  <div class="heading" id="movie">
     <h2 class="heading-title">Contenido de la lista</h2>
   </div>
   <div class="movies-content">
     <div class="movie-box" *ngFor="let detail of listDetails">
       <div *ngIf="detail.typeOf == 'movie'">
         <img
-          [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+          [src]="detail.poster_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.poster_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
           alt="photo" class="movie-box-img">
         <div class="box-text">
-          <h2 class="movie-title">{{ detail.title }}</h2>
+          <span class="movie-title">{{ detail.title }}</span>
+          <span class="trash-icon">
+            <i class="bx bxs-trash "></i>
+          </span>
           <span [routerLink]="['/details-movie', detail.id]" class="watch-btn play-btn">
             <i class="bx bx-right-arrow"></i>
           </span>
@@ -29,10 +32,11 @@
       </div>
       <div *ngIf="detail.typeOf == 'serie'">
         <img
-        [src]="detail.backdrop_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.backdrop_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
+        [src]="detail.poster_path ? 'https://image.tmdb.org/t/p/w220_and_h330_face' + detail.poster_path : 'https://www.softzone.es/app/uploads/2018/04/guest.png' "
         alt="" class="movie-box-img">
+        <i class="bx bxs-trash trash-icon"></i>
         <div class="box-text">
-          <h2 class="movie-title">{{ detail.name }}</h2>
+          <span class="movie-title">{{ detail.name }}</span>
           <span [routerLink]="['/details-serie', detail.id]" class="watch-btn play-btn">
             <i class="bx bx-right-arrow"></i>
           </span>

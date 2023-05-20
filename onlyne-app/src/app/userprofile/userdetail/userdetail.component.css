@@ -127,3 +127,39 @@ h2#title span {
     transform: scale(1);
   }
 }
+
+@media (max-width: 768px) {
+  .modal-wrap {
+    margin: 10px;
+    padding: 10px;
+    border-width: 2px;
+    border-radius: 10px;
+  }
+
+  h2#title {
+    font-size: 20px;
+  }
+
+  .modal-left {
+    margin-bottom: 10px;
+  }
+
+  .modal-left img {
+    border-radius: 10%;
+  }
+
+  .modal-right label {
+    font-size: 16px;
+  }
+
+  .modal-right input {
+    font-size: 14px;
+  }
+
+  .modal-close,
+  .change-password-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 3px;
+  }
+}
