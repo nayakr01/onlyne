@@ -14,6 +14,7 @@ import { List } from '../interfaces/list.interfaces';
 import { CommentService } from '../services/comment.service';
 import { Comment } from '../interfaces/comment.interface';
 import { apiUrl } from '../../assets/js/config';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-details',
@@ -40,6 +41,10 @@ export class DetailsComponent {
   visibility: string = 'Privada';
   comment!: string;
   commentList!: Comment[];
+  selectedStars: number = 1;
+  stars = [1,2,3,4,5];
+  ratingStars:any;
+  roundedRating:any;
 
   constructor(private moviesService: MoviesService, 
     private activatedRoute: ActivatedRoute,
@@ -244,8 +249,8 @@ export class DetailsComponent {
     const { id } = this.activatedRoute.snapshot.params;
     this.commentService.getMovieComment(id).subscribe({
       next: (data: any) => {
-        this.commentList = data;
-        console.log(this.commentList);
+        this.commentList = data.reverse();
+        this.totalRatingComments();
       }
     });
   }
@@ -265,6 +270,7 @@ export class DetailsComponent {
             confirmButton: '#039be5'
           },
         })
+        this.getMovieComments();
       },
       error: (error: any) => {
         const errors:any = [];
@@ -285,6 +291,54 @@ export class DetailsComponent {
         Swal.fire({
           title: error.error.message,
           html: errorsString,
+          icon: 'error',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+      }
+    });
+  }
+
+  formatDate(comment: Comment) {
+    moment.locale('es');
+    const timeAgo = moment(comment.createdAt).fromNow();
+    return timeAgo;
+  }
+
+  totalRatingComments() {
+    const ratings = this.commentList.map(comment => comment.rating);
+    const totalRatings = ratings.length;
+    const averageRating = totalRatings > 0 ? ratings.reduce((a, b) => a + b) / totalRatings : 0;
+    this.roundedRating = Math.round(averageRating);
+    if (!Number.isNaN(this.roundedRating)) {
+      this.roundedRating = 0;
+    }
+    this.ratingStars = Array(5).fill(0).map((_, index) => index < this.roundedRating);
+  }
+
+  deleteComment(commentId: string) {
+    this.commentService.deleteComment(commentId).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Comentario eliminado',
+          html: data.message,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
+        this.getMovieComments();
+      },
+      error: (error: any) => {
+        Swal.fire({
+          title: 'Error al eliminar el comentario',
           icon: 'error',
           buttonsStyling: false,
           background: '#1e1e2a',

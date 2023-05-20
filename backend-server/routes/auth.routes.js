@@ -795,6 +795,7 @@ router.post('/movies/:id/comment', async (req, res) => {
     const movieId = req.params.id;
     const comment = req.body.comment;
     const userId = req.body.userId;
+    const rating = req.body.rating;
 
     // Create FormData and append necessary data
     const data = new FormData();
@@ -823,7 +824,8 @@ router.post('/movies/:id/comment', async (req, res) => {
       const newComment = new commentSchema({
         movieSerieId: {id: movieId, type: "movie"},
         userId: userId,
-        comment: comment
+        comment: comment,
+        rating: rating
       });
 
       await newComment.save();
@@ -842,6 +844,7 @@ router.post('/series/:id/comment', async (req, res) => {
     const serieId = req.params.id;
     const comment = req.body.comment;
     const userId = req.body.userId;
+    const rating = req.body.rating;
 
     // Create FormData and append necessary data
     const data = new FormData();
@@ -870,7 +873,8 @@ router.post('/series/:id/comment', async (req, res) => {
       const newComment = new commentSchema({
         movieSerieId: { id: serieId, type: 'serie' },
         userId: userId,
-        comment: comment
+        comment: comment,
+        rating: rating
       });
 
       await newComment.save();

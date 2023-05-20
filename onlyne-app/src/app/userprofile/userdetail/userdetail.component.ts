@@ -101,7 +101,17 @@ export class UserdetailComponent {
           }
         });
     } else {
-      Swal.fire('Error al cambiar contraseña', 'Las contraseñas no coinciden', 'error');
+      Swal.fire({
+        title: 'Error al cambiar contraseña',
+        text: 'Las contraseñas no coinciden',
+        icon: 'error',
+        background: '#1e1e2a',
+        color: 'white',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: '#039be5'
+        },
+      })
     }
   }
 

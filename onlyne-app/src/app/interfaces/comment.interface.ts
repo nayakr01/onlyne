@@ -5,4 +5,6 @@ export interface Comment {
   movieSerieId: [];
   userId: Client;
   comment: string;
+  rating: number;
+  createdAt: Date;
 }

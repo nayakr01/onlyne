@@ -1,5 +1,6 @@
 export interface Client {
   id: string;
+  _id?: string;
   name: string;
   email: string;
   profilePhoto?: string;
