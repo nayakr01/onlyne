@@ -7,6 +7,7 @@ import { Moda2Service } from './modal/moda2.service';
 import Swal from 'sweetalert2';
 import { ListsService } from '../services/lists.service';
 import { List } from '../interfaces/list.interfaces';
+import { apiUrl } from '../../assets/js/config';
 
 @Component({
   selector: 'app-userprofile',
@@ -14,6 +15,8 @@ import { List } from '../interfaces/list.interfaces';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
+  
+  apiUrl = apiUrl;
 
   token!: string;
   client!: Client;

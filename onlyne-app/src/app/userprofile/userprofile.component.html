@@ -7,7 +7,7 @@
             <div class="profile-content">
                 <div class="shadow"></div>
                 <div class="avatar">
-                    <img src="http://localhost:3000/api/{{this.client.profilePhoto}}" alt="profile-img">
+                    <img src="http://{{apiUrl}}:3000/api/{{this.client.profilePhoto}}" alt="profile-img">
                     <a (click)="moda2Service.open('modal-1')" class="change-photo">
                         <span>Cambiar foto</span>
                         <i class='bx bxs-camera'></i>
@@ -41,7 +41,7 @@
         <div class="my-list">
             <div class="item" *ngFor="let list of userLists">
                 <ul>
-                    <li><img src="http://localhost:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
+                    <li><img src="http://{{apiUrl}}:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
                     <li>
                         <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
@@ -80,7 +80,7 @@
         <div class="my-list">
             <div class="item" *ngFor="let list of userFavoriteLists">
                 <ul>
-                    <li><img src="http://localhost:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
+                    <li><img src="http://{{apiUrl}}:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
                     <li>
                         <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
@@ -108,7 +108,7 @@
 <app-modal id="modal-1">
     <h3>Elige tu avatar</h3>
     <div class="user-avatar">
-        <img src="http://localhost:3000/api/{{this.currentPhoto}}" alt="profile-photo">
+        <img src="http://{{apiUrl}}:3000/api/{{this.currentPhoto}}" alt="profile-photo">
     </div>
     <input type="file" (change)="photoSelected($event)" accept="image/png, image/jpg, image/jpeg" id="avatarInput">
     <label id="labelPhoto" for="avatarInput">Subir foto desde un dispositivo local</label>
@@ -119,19 +119,19 @@
     <div class="photo-container">
         <div class="row">
             <img (click)="selectDefaultPhoto('public/uploads/avatar1.jpg')"
-                src="http://localhost:3000/api/public/uploads/avatar1.jpg" alt="avatar1">
+                src="http://{{apiUrl}}:3000/api/public/uploads/avatar1.jpg" alt="avatar1">
             <img (click)="selectDefaultPhoto('public/uploads/avatar2.jpg')"
-                src="http://localhost:3000/api/public/uploads/avatar2.jpg" alt="avatar2">
+                src="http://{{apiUrl}}:3000/api/public/uploads/avatar2.jpg" alt="avatar2">
             <img (click)="selectDefaultPhoto('public/uploads/avatar3.jpg')"
-                src="http://localhost:3000/api/public/uploads/avatar3.jpg" alt="avatar3">
+                src="http://{{apiUrl}}:3000/api/public/uploads/avatar3.jpg" alt="avatar3">
         </div>
         <div class="row">
             <img (click)="selectDefaultPhoto('public/uploads/avatar4.jpg')"
-                src="http://localhost:3000/api/public/uploads/avatar4.jpg" alt="avatar4">
+                src="http://{{apiUrl}}:3000/api/public/uploads/avatar4.jpg" alt="avatar4">
             <img (click)="selectDefaultPhoto('public/uploads/avatar5.jpg')"
-                src="http://localhost:3000/api/public/uploads/avatar5.jpg" alt="avatar5">
+                src="http://{{apiUrl}}:3000/api/public/uploads/avatar5.jpg" alt="avatar5">
             <img (click)="selectDefaultPhoto('public/uploads/avatar6.jpg')"
-                src="http://localhost:3000/api/public/uploads/avatar6.jpg" alt="avatar6">
+                src="http://{{apiUrl}}:3000/api/public/uploads/avatar6.jpg" alt="avatar6">
         </div>
     </div>
     <button id="btn-modal" (click)="uploadDefaultPhoto()" [disabled]="!this.selectedDefaultPhoto">Confirmar</button>
@@ -169,7 +169,7 @@
         <h3 id="title-list">Editar Información</h3>
         <div class="content">
             <div class="list-avatar">
-                <img id="list-img" src="http://localhost:3000/api/{{this.selectedList?.listPhoto}}" alt="profile-photo">
+                <img id="list-img" src="http://{{apiUrl}}:3000/api/{{this.selectedList?.listPhoto}}" alt="profile-photo">
                 <label for="listPhotos">
                     <a class="change-photo">
                         <i class='bx bx-pencil'></i>

@@ -341,12 +341,12 @@ router.post('/uploadphoto', authorize, upload.single('profilePhoto'), async (req
   }
 });
 
-//View Photo
+/* //View Photo
 router.route('/public/uploads/:filename').get((req, res, next) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, '../public/uploads', filename);
   res.sendFile(filePath);
-});
+}); */
 
 //Photo default
 router.route('/defaultphoto').post(authorize, upload.single('profilePhoto'), async (req, res, next) => {

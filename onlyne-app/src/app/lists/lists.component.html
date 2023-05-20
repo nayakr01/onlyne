@@ -5,7 +5,7 @@
     </div>
     <div class="movies-content">
         <div class="movie-box" *ngFor="let list of lists">
-            <img src="http://localhost:3000/api/{{list.listPhoto}}" alt="ListPhoto" class="movie-box-img">
+            <img src="http://{{apiUrl}}:3000/api/{{list.listPhoto}}" alt="ListPhoto" class="movie-box-img">
             <div class="box-text">
                 <h2 class="movie-title">{{ list.title }}</h2>
                 <span class="movie-gender">{{ list.author.name }}</span>

@@ -6,6 +6,7 @@ import { SeriesService } from '../services/series.service';
 import { Client } from '../interfaces/client.interface';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
+import { apiUrl } from '../../assets/js/config';
 
 @Component({
   selector: 'app-detail-list',
@@ -13,6 +14,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./detail-list.component.css']
 })
 export class DetailListComponent {
+  
+  apiUrl = apiUrl;
 
   listId!: string;
   list!: any;
