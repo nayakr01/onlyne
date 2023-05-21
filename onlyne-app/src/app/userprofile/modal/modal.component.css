@@ -1,4 +1,3 @@
-/* MODAL STYLES */
 .jw-modal {
   display: none;
 }
@@ -103,7 +102,23 @@ input[type="file"] {
   object-fit: cover;
 }
 
-#modal-editList  .jw-modal-body {
+#modal-editList .jw-modal-body {
   width: 700px;
   background: #191b1f;
+}
+
+@media (max-width: 911px) {
+  
+  #modal-editList  .jw-modal-body {
+    width: 80%;
+    height: 80%;
+    background: #191b1f;
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 100px;
+  }
+
 }

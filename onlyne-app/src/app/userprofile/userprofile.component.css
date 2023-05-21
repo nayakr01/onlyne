@@ -708,4 +708,14 @@ button[disabled] {
     margin-bottom: 50px;
   }
 
+  #list-img {
+    width: 225px;
+    height: 225px;
+  }
+
+  .list-avatar {
+    justify-content: center;
+    align-items: center;
+  }
+
 }
