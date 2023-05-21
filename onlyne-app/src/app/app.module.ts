@@ -24,6 +24,7 @@ import { ModalComponent } from './userprofile/modal/modal.component';
 import { SearchComponent } from './search/search.component';
 import { DetailListComponent } from './detail-list/detail-list.component';
 import { ListsComponent } from './lists/lists.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ListsComponent } from './lists/lists.component';
     ModalComponent,
     SearchComponent,
     DetailListComponent,
-    ListsComponent
+    ListsComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

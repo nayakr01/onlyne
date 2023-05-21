@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { DetailListComponent } from './detail-list/detail-list.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ListsComponent } from './lists/lists.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'search/:text', component: SearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'profile', component: UserprofileComponent, canActivate: [AuthGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },

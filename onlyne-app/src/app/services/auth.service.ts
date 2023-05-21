@@ -42,7 +42,6 @@ export class AuthService {
           this.token = response.token;
           localStorage.removeItem('token');
           localStorage.setItem('token', this.token);
-          console.log(response);
           
           this.clientUpdated.emit(response.client);
         })
@@ -52,6 +51,10 @@ export class AuthService {
   updatePasswordClient(id: any, data:any): Observable<Client> {
     return this.http.put<Client>(this.urlServer + '/api/updatepassworduser/' + id, { currentPassword: data.currentPassword,
       newPassword: data.newPassword});
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.urlServer}/api/forgotpassword`, { email: email });
   }
 
   register(name: string, email: string, password: string): Observable<any> {
@@ -122,9 +125,7 @@ export class AuthService {
   }
 
   refreshClientToken(): Observable<any> {
-    console.log("refreshtoken");
     const refreshToken = this.getCookie('refreshToken');
-    console.log(refreshToken);
     return this.http.post(this.urlServer + "/api/refresh", { email: this.client.email, refreshToken: refreshToken });
   }
 
@@ -169,8 +170,6 @@ export class AuthService {
         profilePhoto: decodedToken.profilePhoto
       };
     }
-    console.log("--getclienttoken--");
-    console.log(this.client);
   }
 
   public getClient(): Client {

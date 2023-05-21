@@ -96,10 +96,7 @@ export class UserprofileComponent implements OnInit {
 
   getFollowersOfList(listId: string) {
     this.listsService.getFollowersOfList(listId).subscribe({
-      next: (data:any) => {
-        console.log("----------");
-        console.log(data);
-        
+      next: (data) => {
       }
     });
   }
@@ -319,9 +316,6 @@ export class UserprofileComponent implements OnInit {
   }
 
   uploadDefaultPhoto() {
-    console.log("--uploaddefaulthoto--");
-    console.log(this.selectedDefaultPhoto);
-    
     if (this.selectedDefaultPhoto != null) {
       this.authService.uploadDefaultPhoto(this.client.id, this.selectedDefaultPhoto).subscribe(event => {
         this.client = event.user;

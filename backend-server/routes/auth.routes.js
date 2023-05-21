@@ -901,4 +901,63 @@ router.delete('/comment/:commentId', async (req, res) => {
   }
 });
 
+
+const { correo, password } = require('../.env.js');
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: correo,
+    pass: password
+  }
+});
+
+function generateRandomPassword() {
+  const chars = '0A1B2C3D4E5F6G7H8I9JKLMNOPQRSTUVWXYZ';
+  let password = '';
+  for (let i = 0; i < chars.length; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    password += chars[randomIndex];
+  }
+  return password;
+}
+
+router.post('/forgotpassword', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await userSchema.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const newPassword = generateRandomPassword();
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    const mailOptions = {
+      from: correo,
+      to: email,
+      subject: 'Onlyne restablecimiento de contraseña',
+      text: `Tu nueva contraseña es: ${newPassword}, cámbiala lo antes posible.`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log('Error al enviar el correo electrónico: ', error);
+        res.status(500).json({ message: 'Error al enviar el correo electrónico' });
+      } else {
+        console.log('Correo electrónico enviado: ', info.response);
+        res.status(200).json({ message: 'Correo electrónico enviado' });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error, message: 'Error al buscar el usuario en la base de datos' });
+  }
+});
+
 module.exports = router;

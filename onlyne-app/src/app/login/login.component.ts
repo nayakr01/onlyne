@@ -15,6 +15,7 @@ export class LoginComponent {
   email = "";
   password = "";
   client!: Client;
+  name = "";
 
   constructor(private authService: AuthService,
     private router: Router) { }
@@ -43,9 +44,10 @@ export class LoginComponent {
           }
           // guardar token en local storage
           localStorage.setItem('token', data.token);
+          this.client = this.authService.getClient();
           Swal.fire({
             title: 'Sesión iniciada',
-            text: `Bienvenid@ ${this.email}`,
+            text: `Bienvenid@ ${this.client.name}`,
             icon: 'success',
             buttonsStyling: false,
             background: '#1e1e2a',
