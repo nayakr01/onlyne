@@ -10,9 +10,9 @@ Onlyne es una aplicación web que permite a los usuarios disfrutar de una amplia
 
 1. Abre una terminal y navega hasta la carpeta `backend-server`.
 2. Ejecuta el siguiente comando para instalar las dependencias necesarias:
-npm install
+npm install.
 3. Inicia el servidor ejecutando el siguiente comando:
-npm run server
+npm run server.
 El servidor estará disponible en `http://localhost:3000`.
 
 ### Onlyne App
@@ -21,7 +21,7 @@ El servidor estará disponible en `http://localhost:3000`.
 2. Ejecuta el siguiente comando para instalar las dependencias necesarias:
 npm install
 3. Inicia la aplicación ejecutando el siguiente comando:
-ng serve
+ng serve.
 La aplicación estará disponible en `http://localhost:4200`.
 
 ## Colaboradores
