@@ -28,6 +28,7 @@ input {
   max-width: 600px;
   width: 90%;
   height: auto;
+  max-height: 80%;
   margin: 30px;
   padding: 20px;
   border: 3px solid white;
@@ -37,7 +38,26 @@ input {
   box-shadow: 0 0 15px rgb(0, 195, 255);
   transform: scale(0.7);
   animation: fadeIn 0.5s ease-in-out forwards;
+  overflow-y: auto;
 }
+
+/* Estilos para webkit (Chrome, Safari) */
+.modal-wrap::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.modal-wrap::-webkit-scrollbar-thumb {
+  background-color: hsla(0,0%,100%,.1);
+  border-radius: 5px;
+}
+
+/* Estilos para moz (Firefox) */
+.modal-wrap {
+  scrollbar-width: thin;
+  scrollbar-color: hsla(0,0%,100%,.1) transparent;
+}
+
 
 .modal-content {
   display: flex;
@@ -58,14 +78,13 @@ h2#title span {
 
 .modal-left {
   display: flex;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 20px;
+  width: 227px;
+  height: 225px;
 }
 
 .modal-left img {
-  max-width: 100%;
-  height: auto;
+  object-fit: cover;
   border-radius: 20%;
 }
 
@@ -128,7 +147,7 @@ h2#title span {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 911px) {
   .modal-wrap {
     margin: 10px;
     padding: 10px;
@@ -162,4 +181,5 @@ h2#title span {
     padding: 8px 16px;
     border-radius: 3px;
   }
+
 }
