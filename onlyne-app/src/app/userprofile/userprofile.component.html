@@ -45,8 +45,10 @@
                     <li>
                         <h4>Nombre</h4><span>{{ list.title }}</span>
                     </li>
-                    <li *ngIf="list.followers; else emptyListFavourite2">
-                        <h4>Seguidores</h4><span>{{ list.followers }}</span>
+                    <li *ngIf="list.visibility !== 'Privada'">
+                        <div *ngIf="list.followers; else emptyListFavourite2">
+                            <h4>Seguidores</h4><span>{{ list.followers }}</span>
+                        </div>
                     </li>
                         <ng-template #emptyListFavourite2>
                             <li>
@@ -79,7 +81,7 @@
         <hr>
         <div class="my-list">
             <div class="item" *ngFor="let list of userFavoriteLists">
-                <ul>
+                <ul *ngIf="list.visibility !== 'Privada'">
                     <li><img src="http://{{apiUrl}}:3000/api/{{list.listPhoto}}" alt="" class="templatemo-item"></li>
                     <li>
                         <h4>Nombre</h4><span>{{ list.title }}</span>

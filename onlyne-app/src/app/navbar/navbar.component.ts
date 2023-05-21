@@ -35,7 +35,7 @@ export class NavbarComponent {
     localStorage.removeItem('token');
     this.router.navigate(['/home']);
     Swal.fire({
-      title: 'Sesion cerrada',
+      title: 'Sesión cerrada',
       text: `Nos vemos ${this.client.name}`,
       icon: 'success',
       buttonsStyling: false,
