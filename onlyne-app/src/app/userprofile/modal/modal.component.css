@@ -109,7 +109,7 @@ input[type="file"] {
 
 @media (max-width: 911px) {
   
-  #modal-editList  .jw-modal-body {
+  /* #modal-editList  .jw-modal-body {
     width: 80%;
     height: 80%;
     background: #191b1f;
@@ -119,6 +119,136 @@ input[type="file"] {
     display: flex;
     flex-wrap: wrap;
     margin-top: 100px;
+  } */
+
+  .jw-modal {
+    display: none;
+  }
+  
+  .jw-modal {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    overflow-x: hidden;
+    background-color: #00000070;
+  }
+  
+  .jw-modal-body {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: #191b1f;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    width: 95%;
+  }
+  
+  body.jw-modal-open {
+    overflow: hidden;
+  }
+  
+  #close {
+    position: absolute;
+    font-size: 30px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  
+  #labelPhoto {
+    background-color: var(--cotainer-color);
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    cursor: pointer;
+  }
+  
+  #labelPhoto:hover {
+    background-color: var(--main-color);
+    transition: 0.7s;
+  }
+  
+  .photo-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .row img {
+    width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid transparent;
+    transition: border-color 0.3s;
+  }
+  
+  .row img:hover {
+    border-color: #039be5;
+    cursor: pointer;
+  }
+  
+  .user-avatar {
+    display: flex;
+    margin: 10px 10px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #191b1f;
+    border: 4px solid rgb(70, 70, 70);
+  }
+  
+  .user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  #modal-editList .jw-modal-body {
+    width: 95%;
+    height: 80%;
+    background: #191b1f;
+  }
+
+}
+
+@media (max-height: 720px) {
+
+  .jw-modal-body {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: #191b1f;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    width: 85%;
+    height: 100%;
   }
 
 }

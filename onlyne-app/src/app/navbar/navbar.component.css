@@ -107,7 +107,6 @@
 
   .dropdown {
     position: relative;
-    bottom: -20px;
   }
 
   #arrow {
@@ -116,4 +115,11 @@
     bottom: 30px;
   }
 
+}
+
+@media (max-width: 482px) {
+  .dropdown {
+    position: relative;
+    bottom: -20px;
+  }
 }
