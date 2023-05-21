@@ -314,9 +314,6 @@ export class DetailsComponent {
     const totalRatings = ratings.length;
     const averageRating = totalRatings > 0 ? ratings.reduce((a, b) => a + b) / totalRatings : 0;
     this.roundedRating = Math.round(averageRating);
-    if (!Number.isNaN(this.roundedRating)) {
-      this.roundedRating = 0;
-    }
     this.ratingStars = Array(5).fill(0).map((_, index) => index < this.roundedRating);
   }
 

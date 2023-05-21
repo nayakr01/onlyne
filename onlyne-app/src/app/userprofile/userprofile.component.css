@@ -92,6 +92,12 @@
     box-shadow: 0 0 12px 2px rgba(0, 0, 0, .2);
 }
 
+.user-profile .avatar img {
+  width: 100%;
+  height: -webkit-fill-available;
+  object-fit: cover;
+}
+
 .user-profile .change-photo {
     position: absolute;
     width: 100%;
@@ -646,6 +652,10 @@ button[disabled] {
   margin-left: auto;
 }
 
+.my-list .item ul li img {
+  object-fit: cover;
+}
+
 @media (max-width: 911px) {
 
   .user-profile .banner-profile {
@@ -679,6 +689,23 @@ button[disabled] {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+  }
+
+  .onlyne-content .onlyne-title {
+    font-size: 80px;
+    display: flex;
+  }
+
+  .my-list .item ul li {
+    width: 25%;
+  }
+
+  .my-list {
+    margin-top: 20px;
+  }
+
+  .user-profile {
+    margin-bottom: 50px;
   }
 
 }

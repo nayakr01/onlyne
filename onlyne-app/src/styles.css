@@ -220,7 +220,7 @@ button:hover {
 }
 
 #headingExplorer {
-    margin-top: 7.8rem;
+    margin-top: 4.8rem;
 }
 
 .heading-title {
@@ -565,15 +565,58 @@ button:hover {
     }
 }
 
-@media (max-width:991px) {
-    .movie-box {
-        height: 340px;
+@media (max-width: 1245px) {
+    .navbar {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        transform: translateY(0);
+        flex-direction: row;
+        justify-content: space-evenly;
+        row-gap: 1px;
+        padding: 10px;
+        border-top: 1px solid hsl(200 100% 99% / 5%);
+        background: linear-gradient(8deg, hsl(240 17% 14% / 100%) 5%, hsl(240 17% 14% / 90%) 100%);
     }
 
-    .movies-content {
-        grid-template-columns: repeat(auto-fix, minmax(214px, 1fr));
+    .nav-link .bx {
+        font-size: 1.5rem;
+    }
+
+    .copyright {
+        margin-bottom: 4rem;
     }
 }
+
+@media (max-width: 911px) {
+
+    #headingExplorer {
+      margin-top: 6.5rem;
+    }
+
+}
+
+    .movies-content {
+        margin-bottom: 50px;
+    }
+
+    .swiper-horizontal:last-child {
+        margin-bottom: 50px;
+    }
+
+    .comments-container {
+        margin-bottom: 70px;
+    }
+    
+    .comment-text {
+        margin-bottom: 0.5rem;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        padding-right: 20px;
+    }
 
 @media (max-width:888px) {
     .nav {
