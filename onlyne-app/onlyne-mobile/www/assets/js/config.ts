@@ -1,1 +1,0 @@
-export const apiUrl = '192.168.1.77';

@@ -5,8 +5,7 @@
     <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
         Apache Cordova Team
     </author>
-    <content src="onlyne-app/index.html" />
-    
+    <content src="http://localhost/onlyne-app/index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="http://*/*" />
     <access origin="*" />
