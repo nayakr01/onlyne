@@ -305,7 +305,17 @@ export class UserprofileComponent implements OnInit {
       .subscribe(event => {
         this.client = event.user;
         this.currentPhoto = this.client.profilePhoto;
-        Swal.fire('La foto se ha subido completamente!', event.msg, 'success');
+        Swal.fire({
+          title: 'La foto se ha subido completamente! ',
+          text: event.msg,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
       });
     }
   }
@@ -319,7 +329,17 @@ export class UserprofileComponent implements OnInit {
     if (this.selectedDefaultPhoto != null) {
       this.authService.uploadDefaultPhoto(this.client.id, this.selectedDefaultPhoto).subscribe(event => {
         this.client = event.user;
-        Swal.fire('La foto se ha actualizado correctamente!', event.msg, 'success');
+        Swal.fire({
+          title: 'La foto se ha actualizado completamente! ',
+          text: event.msg,
+          icon: 'success',
+          buttonsStyling: false,
+          background: '#1e1e2a',
+          color: 'white',
+          customClass: {
+            confirmButton: '#039be5'
+          },
+        })
         this.selectedDefaultPhoto = '';
       });
     }
